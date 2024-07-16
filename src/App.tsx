@@ -9,10 +9,8 @@ function App() {
   
   return (
     <>
-    <AppHeader/>
-    <BurgerIngredients/>
-
-   
+      <AppHeader/>
+      <BurgerIngredients/>
     </>
   );
 }

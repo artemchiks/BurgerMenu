@@ -3,6 +3,7 @@ import TabPanel from "./TabPanel";
 import styles from "./buegerIngridients.module.css";
 import Data from "../utils/Data";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
+import { burger } from "../data";
 const BurgerIngredients = () => {
   return (
     <section className={styles["content__burger"]}>
@@ -14,7 +15,7 @@ const BurgerIngredients = () => {
         </div>
       </div>
       <div>
-        <BurgerConstructor />
+        <BurgerConstructor list={burger.slice(2,5)} />
       </div>
     </section>
   );

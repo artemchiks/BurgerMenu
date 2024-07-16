@@ -1,13 +1,12 @@
-.content__burger{
-    width: 1200px;
-    display: flex;
-    justify-content: center;
-    margin: 0 auto;
-    gap: 40px;
-    padding: 16px 16px 16px 16px;
+.content__burger {
+  width: 1200px;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  gap: 40px;
+  padding: 16px 16px 16px 16px;
 }
-.burger__ingriditnts{
- overflow-x: "scroll";
- white-space: "nowrap";
- 
+.burger__ingriditnts {
+  overflow-x: "scroll";
+  white-space: "nowrap";
 }

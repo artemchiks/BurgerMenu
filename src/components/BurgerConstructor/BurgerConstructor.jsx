@@ -4,9 +4,8 @@ import {
   CurrencyIcon,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import React from "react";
 
-const BurgerConstructor = () => {
+const BurgerConstructor = ({ list }) => {
   return (
     <>
       <div
@@ -23,7 +22,7 @@ const BurgerConstructor = () => {
           text="Краторная булка N-200i (верх)"
           price={200}
         />
-        <ConstructorElement text="Краторная булка N-200i " price={50} />
+        {list?.map(item => <ConstructorElement thumbnail={item.image_mobile} price={item.price} text={item.name} />)}
         <ConstructorElement
           type="bottom"
           isLocked={true}
