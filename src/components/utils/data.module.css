@@ -1,0 +1,7 @@
+.ingridie {
+    overflow-y: scroll;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: 600px;
+    height: 765px;
+  }
