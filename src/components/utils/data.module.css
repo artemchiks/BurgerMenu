@@ -8,6 +8,7 @@
 .itemsList {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    
 }
 .text__categori{
   padding-top: 40px;

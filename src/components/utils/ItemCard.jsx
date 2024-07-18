@@ -2,10 +2,11 @@ import {
   Counter,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useState } from "react";
+import DialogIngridients from "../DialogModal/DialogIngridients";
 
-export const ItemCard = ({ item }) => {
+export const ItemCard = ({ item, handleSelectItem }) => {
   const count = 1;
-
   return (
     <div
       key={item._id}
@@ -14,6 +15,7 @@ export const ItemCard = ({ item }) => {
         flexDirection: "column",
         alignItems: "center",
         position: "relative",
+        cursor: "pointer",
       }}
     >
       <img src={item.image} alt={item.name} />

@@ -2,7 +2,7 @@ import classNames from "classnames";
 import { ItemCard } from "./ItemCard";
 import styles from "./data.module.css";
 
-export const Category = ({ title, items }) => {
+export const Category = ({ title, items, handleSelectItem }) => {
   return (
     <div>
       <p
@@ -15,7 +15,14 @@ export const Category = ({ title, items }) => {
       </p>
       <div className={styles.itemsList}>
         {items?.map((item) => (
-          <ItemCard item={item} />
+          <div
+            key={item._id}
+            onClick={() => {
+              handleSelectItem(item);
+            }}
+          >
+            <ItemCard item={item} />
+          </div>
         ))}
       </div>
     </div>

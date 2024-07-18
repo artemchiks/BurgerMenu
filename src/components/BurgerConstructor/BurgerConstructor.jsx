@@ -5,8 +5,12 @@ import {
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burgerconstructor.module.css";
+import DialogModal from "../DialogModal/DialogModal";
+import { useState } from "react";
+import DialogReadinessOrders from "../DialogModal/DialogReadinessOrders";
 
 const BurgerConstructor = ({ list }) => {
+  const [modalActive, setModalActive] = useState(false);
   return (
     <div
       style={{
@@ -58,10 +62,16 @@ const BurgerConstructor = ({ list }) => {
           <p className="text text_type_digits-medium">685</p>
           <CurrencyIcon type="primary" />
         </div>
-        <Button htmlType="button" type="primary" size="large">
+        <Button
+          htmlType="button"
+          type="primary"
+          size="large"
+          onClick={() => setModalActive(true)}
+        >
           Оформить заказ
         </Button>
       </div>
+      <DialogReadinessOrders active={modalActive} setActive={setModalActive} />
     </div>
   );
 };
