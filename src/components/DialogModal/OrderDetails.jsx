@@ -1,21 +1,11 @@
-import React, { useState } from "react";
-import DialogModal from "./DialogModal";
 import styles from "./dialogmodal.module.css";
-import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import classNames from "classnames";
 import image from "../../images/done.svg";
-const DialogReadinessOrders = ({ active, setActive }) => {
+import Modal from "./Modal";
+const OrderDetails = ({ active, setActive }) => {
   return (
     <div>
-      <DialogModal active={active}>
-        <div
-          className={classNames(
-            styles["modal__btn-exit"],
-            "ml-5 mr-5 mb-5 mt-5"
-          )}
-        >
-          <CloseIcon type="primary" onClick={() => setActive(false)} />
-        </div>
+      <Modal active={active} setActive={setActive}>
         <div className={styles["modal__styles"]}>
           <div className={styles["modal__indificator"]}>
             <p
@@ -57,9 +47,9 @@ const DialogReadinessOrders = ({ active, setActive }) => {
             Дождитесь готовности на орбитальной станции
           </p>
         </div>
-      </DialogModal>
+      </Modal>
     </div>
   );
 };
 
-export default DialogReadinessOrders;
+export default OrderDetails;

@@ -18,7 +18,9 @@ export const Category = ({ title, items, handleSelectItem }) => {
           <div
             key={item._id}
             onClick={() => {
-              handleSelectItem(item);
+              if (handleSelectItem) {
+                handleSelectItem(item);
+              }
             }}
           >
             <ItemCard item={item} />

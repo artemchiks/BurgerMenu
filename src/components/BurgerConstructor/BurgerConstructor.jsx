@@ -5,10 +5,9 @@ import {
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burgerconstructor.module.css";
-import DialogModal from "../DialogModal/DialogModal";
 import { useState } from "react";
-import DialogReadinessOrders from "../DialogModal/DialogReadinessOrders";
-
+import OrderDetails from "../DialogModal/OrderDetails";
+import PropTypes from "prop-types";
 const BurgerConstructor = ({ list }) => {
   const [modalActive, setModalActive] = useState(false);
   return (
@@ -71,9 +70,17 @@ const BurgerConstructor = ({ list }) => {
           Оформить заказ
         </Button>
       </div>
-      <DialogReadinessOrders active={modalActive} setActive={setModalActive} />
+      <OrderDetails active={modalActive} setActive={setModalActive} />
     </div>
   );
 };
-
+BurgerConstructor.propTypes = {
+  list: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
+      image_mobile: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+};
 export default BurgerConstructor;

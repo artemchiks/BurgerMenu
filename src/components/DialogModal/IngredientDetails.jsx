@@ -1,28 +1,11 @@
 import React from "react";
-import DialogModal from "./DialogModal";
-import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import Modal from "./Modal";
 import styles from "./dialogmodal.module.css";
 import classNames from "classnames";
-const DialogIngridients = ({ active, setActive, item }) => {
+const IngredientDetails = ({ active, setActive, item }) => {
   return (
     <div>
-      <DialogModal active={active}>
-        <div
-          className={classNames(
-            styles["detail__ingridients"],
-            "pl-3 pr-3 pb-3 pt-3"
-          )}
-        >
-          <p
-            className={classNames(
-              styles["detail__ingridients-text"],
-              "text text_type_main-medium"
-            )}
-          >
-            Детали ингридиента
-          </p>
-          <CloseIcon type="primary" onClick={() => setActive(false)} />
-        </div>
+      <Modal active={active} setActive={setActive} title={"Детали ингридиента"}>
         <div className={styles["detail__ingridients-callories"]}>
           <img
             className={styles["detail__ingridients-callories-img"]}
@@ -64,9 +47,9 @@ const DialogIngridients = ({ active, setActive, item }) => {
             </ul>
           </div>
         </div>
-      </DialogModal>
+      </Modal>
     </div>
   );
 };
 
-export default DialogIngridients;
+export default IngredientDetails;

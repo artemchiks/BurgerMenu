@@ -1,22 +1,19 @@
 import React, { useState } from "react";
 import styles from "./data.module.css";
-import {
-  Counter,
-  CurrencyIcon,
-} from "@ya.praktikum/react-developer-burger-ui-components";
-import { burger } from "./../data.js";
 import { Category } from "./Category";
-import DialogIngridients from "../DialogModal/DialogIngridients";
+import IngredientDetails from "../DialogModal/IngredientDetails";
 
-const Data = ({ image }) => {
+const Data = ({ data }) => {
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [active, setActive] = useState(false);
   function itemList(items) {
-    return burger.filter((item) => item.type === items);
+    return data.filter((item) => item.type === items);
   }
+
   const bunList = itemList("bun");
   const sauceList = itemList("sauce");
   const mainList = itemList("main");
-  const [selectedItem, setSelectedItem] = useState(null);
-  const [active, setActive] = useState(false);
+
   const handleSelectItem = (item) => {
     setSelectedItem(item);
     setActive(true);
@@ -32,7 +29,7 @@ const Data = ({ image }) => {
           handleSelectItem={handleSelectItem}
         />
 
-        <DialogIngridients
+        <IngredientDetails
           active={active}
           setActive={setActive}
           handleSelectItem={handleSelectItem}
