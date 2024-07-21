@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styles from "./IngredietnsList.module.css";
 import { Category } from "./Category";
-import IngredientDetails from "../../DialogModal/IngredientDetails";
 import { IngredientType } from "../../../utils/types";
 import PropTypes from "prop-types";
+import IngridientsDialogBox from "../../DialogModal/IngridientsDialogBox";
 const IngredietnsList = ({ list }) => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [active, setActive] = useState(false);
@@ -29,7 +29,7 @@ const IngredietnsList = ({ list }) => {
         handleSelectItem={handleSelectItem}
       />
 
-      <IngredientDetails
+      <IngridientsDialogBox
         active={active}
         setActive={setActive}
         handleSelectItem={handleSelectItem}

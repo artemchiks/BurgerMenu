@@ -6,17 +6,17 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burgerconstructor.module.css";
 import { useState } from "react";
-import OrderDetails from "../DialogModal/OrderDetails";
 import PropTypes from "prop-types";
 import { IngredientType } from "../../utils/types";
+import OrderDetalisBox from "../DialogModal/OrderDetalisBox";
 const BurgerConstructor = ({ list }) => {
   const [modalActive, setModalActive] = useState(false);
   return (
     <div className={styles["burger__constructor"]}>
       <div>
-        {list.slice(0, 1)?.map((item, index) => (
+        {list.slice(0, 1)?.map((item) => (
           <ConstructorElement
-            key={`top-${index}`}
+            key={item._id}
             type="top"
             extraClass={styles["color__div-item"]}
             isLocked={true}
@@ -26,11 +26,8 @@ const BurgerConstructor = ({ list }) => {
           />
         ))}
         <div className={styles["constructor__content"]}>
-          {list.slice(1, 7)?.map((item, index) => (
-            <div
-              key={`item-${index}`}
-              className={styles["constructor__menu-burger"]}
-            >
+          {list.slice(1, 7)?.map((item) => (
+            <div key={item._id} className={styles["constructor__menu-burger"]}>
               <div className={styles["constructor__drag-menu"]}>
                 <DragIcon type="primary" />
               </div>
@@ -43,9 +40,9 @@ const BurgerConstructor = ({ list }) => {
             </div>
           ))}
         </div>
-        {list.slice(0, 1)?.map((item, index) => (
+        {list.slice(0, 1)?.map((item) => (
           <ConstructorElement
-            key={`bottom-${index}`}
+            key={item._id}
             extraClass={styles["color__div-item"]}
             type="bottom"
             isLocked={true}
@@ -69,7 +66,7 @@ const BurgerConstructor = ({ list }) => {
           Оформить заказ
         </Button>
       </div>
-      <OrderDetails active={modalActive} setActive={setModalActive} />
+      <OrderDetalisBox active={modalActive} setActive={setModalActive} />
     </div>
   );
 };

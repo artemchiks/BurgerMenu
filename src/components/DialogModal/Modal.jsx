@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./dialogmodal.module.css";
 import classNames from "classnames";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
