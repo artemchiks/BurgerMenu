@@ -1,7 +1,8 @@
 import classNames from "classnames";
 import { ItemCard } from "./ItemCard";
-import styles from "./data.module.css";
-
+import styles from "./IngredietnsList.module.css";
+import { IngredientType } from "../../../utils/types";
+import PropTypes from "prop-types";
 export const Category = ({ title, items, handleSelectItem }) => {
   return (
     <div>
@@ -29,4 +30,7 @@ export const Category = ({ title, items, handleSelectItem }) => {
       </div>
     </div>
   );
+};
+Category.propTypes = {
+  IngredientType,
 };

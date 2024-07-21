@@ -1,0 +1,27 @@
+.ingridie {
+  overflow-y: scroll;
+  width: 592px;
+  height: 765px;
+  scrollbar-width: thin;
+}
+
+.itemsList {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+.text__categori {
+  padding-top: 40px;
+  margin-bottom: 24px;
+}
+.item__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+.item__card-text {
+  display: "flex";
+  justify-content: center;
+  gap: 5px;
+}

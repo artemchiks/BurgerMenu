@@ -1,15 +1,10 @@
-.content__burger {
-  width: 1200px;
+.tabs__content {
   display: flex;
-  justify-content: center;
-  margin: 0 auto;
-  gap: 40px;
- 
 }
+
 .burger__ingriditnts {
   overflow-x: "scroll";
   white-space: "nowrap";
   scrollbar-width: thin;
-  scrollbar-color: #8585AD rgb(47, 47, 55);
- 
+  scrollbar-color: #8585ad rgb(47, 47, 55);
 }

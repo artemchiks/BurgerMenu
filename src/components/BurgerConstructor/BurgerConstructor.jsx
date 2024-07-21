@@ -8,20 +8,15 @@ import styles from "./burgerconstructor.module.css";
 import { useState } from "react";
 import OrderDetails from "../DialogModal/OrderDetails";
 import PropTypes from "prop-types";
+import { IngredientType } from "../../utils/types";
 const BurgerConstructor = ({ list }) => {
   const [modalActive, setModalActive] = useState(false);
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "10px",
-        paddingTop: 40,
-      }}
-    >
+    <div className={styles["burger__constructor"]}>
       <div>
-        {list.slice(0, 1)?.map((item) => (
+        {list.slice(0, 1)?.map((item, index) => (
           <ConstructorElement
+            key={`top-${index}`}
             type="top"
             extraClass={styles["color__div-item"]}
             isLocked={true}
@@ -31,8 +26,11 @@ const BurgerConstructor = ({ list }) => {
           />
         ))}
         <div className={styles["constructor__content"]}>
-          {list.slice(1, 7)?.map((item) => (
-            <div className={styles["constructor__menu-burger"]}>
+          {list.slice(1, 7)?.map((item, index) => (
+            <div
+              key={`item-${index}`}
+              className={styles["constructor__menu-burger"]}
+            >
               <div className={styles["constructor__drag-menu"]}>
                 <DragIcon type="primary" />
               </div>
@@ -45,8 +43,9 @@ const BurgerConstructor = ({ list }) => {
             </div>
           ))}
         </div>
-        {list.slice(0, 1)?.map((item) => (
+        {list.slice(0, 1)?.map((item, index) => (
           <ConstructorElement
+            key={`bottom-${index}`}
             extraClass={styles["color__div-item"]}
             type="bottom"
             isLocked={true}
@@ -75,12 +74,6 @@ const BurgerConstructor = ({ list }) => {
   );
 };
 BurgerConstructor.propTypes = {
-  list: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-      image_mobile: PropTypes.string.isRequired,
-    })
-  ).isRequired,
+  list: PropTypes.arrayOf(IngredientType).isRequired,
 };
 export default BurgerConstructor;

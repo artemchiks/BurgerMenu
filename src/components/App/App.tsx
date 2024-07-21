@@ -1,8 +1,8 @@
-
-import { useEffect, useState } from 'react';
-import './App.css';
-import AppHeader from './components/appHeader/AppHeader';
-import BurgerIngredients from './components/BurgerIngredients/BurgerIngredients';
+import { useEffect, useState } from "react";
+import "../App/App.module.css";
+import AppHeader from "../AppHeader/AppHeader";
+import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
+import ConstructorPage from "../pages/ConstructorPage/Index";
 
 function App() {
   const url = "https://norma.nomoreparties.space/api/ingredients";
@@ -13,22 +13,22 @@ function App() {
       try {
         const response = await fetch(url);
         if (!response.ok) {
-          throw new Error('Could not fetch');
+          throw new Error("Could not fetch");
         }
         const data = await response.json();
         setData(data?.data || []);
       } catch (error) {
-        console.log(error); 
+        console.log(error);
       }
     }
 
-    fetchApi()
-  }, [])
-  
+    fetchApi();
+  }, []);
+
   return (
     <>
-      <AppHeader/>
-      <BurgerIngredients data={data}/>
+      <AppHeader />
+      <ConstructorPage list={data} />
     </>
   );
 }

@@ -1,37 +1,41 @@
-.constructor__content{
-    overflow-y: scroll;
-height: 600px;
-margin: 10px 0 10px 0;
-scrollbar-width: thin;
-scrollbar-color: #8585AD rgb(47, 47, 55);
-
+.burger__constructor {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 40px;
+}
+.constructor__content {
+  overflow-y: scroll;
+  height: 600px;
+  margin: 10px 0 10px 0;
+  scrollbar-width: thin;
+  scrollbar-color: #8585ad rgb(47, 47, 55);
 }
 .constructor__content::-webkit-scrollbar-button {
-    display: none ;
-  }
-.constructor__menu-burger{
-    position: relative;
-    display: flex;
-    align-items: center;
-    margin: 20px 0 20px 0;
-    
+  display: none;
 }
-.color__div-item{
-    background: rgb(28, 28, 33);
+.constructor__menu-burger {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin: 20px 0 20px 0;
+}
+.color__div-item {
+  background: rgb(28, 28, 33);
 }
 
-.constructor__btn{
-display: flex;
-justify-content: right;
-    margin-top: 40px;
-    gap: 20px;
+.constructor__btn {
+  display: flex;
+  justify-content: right;
+  margin-top: 40px;
+  gap: 20px;
 }
-.constructor__btn-price{
-    display: flex;
-    align-items: center;
-    gap: 5px;
+.constructor__btn-price {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
-.constructor__drag-menu{
-    position: absolute;
-    cursor: pointer;
+.constructor__drag-menu {
+  position: absolute;
+  cursor: pointer;
 }

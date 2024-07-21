@@ -1,27 +1,20 @@
-import React from "react";
+import { IngredientType } from "../../utils/types";
 import TabPanel from "./TabPanel";
 import styles from "./buegerIngridients.module.css";
-import Data from "../utils/Data";
-import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
-import { burger } from "../data";
-import classNames from "classnames";
-const BurgerIngredients = ({ data }) => {
+import IngredietnsList from "./components/IngredietnsList";
+import PropTypes from "prop-types";
+const BurgerIngredients = ({ list }) => {
   return (
-    <section
-      className={classNames(styles["content__burger"], "pl-5 pr-5 pb-5 pt-5")}
-    >
-      <div>
-        <p className="text text_type_main-large">Соберите бургер</p>
-        <TabPanel />
-        <div className={styles["burger__ingriditnts"]}>
-          <Data data={data} />
-        </div>
+    <div>
+      <p className="text text_type_main-large">Соберите бургер</p>
+      <TabPanel />
+      <div className={styles["burger__ingriditnts"]}>
+        <IngredietnsList list={list} />
       </div>
-      <div>
-        <BurgerConstructor list={burger} />
-      </div>
-    </section>
+    </div>
   );
 };
-
+BurgerIngredients.propTypes = {
+  list: PropTypes.arrayOf(IngredientType).isRequired,
+};
 export default BurgerIngredients;

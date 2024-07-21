@@ -4,7 +4,6 @@ import {
   Logo,
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import React from "react";
 import styles from "./appHeader.module.css";
 import classNames from "classnames";
 const AppHeader = () => {
