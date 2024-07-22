@@ -1,7 +1,7 @@
 import styles from "./dialogmodal.module.css";
 import classNames from "classnames";
 import image from "../../images/done.svg";
-import { IngredientType } from "../../utils/types";
+
 const OrderDetails = () => {
   return (
     <div>
@@ -49,7 +49,5 @@ const OrderDetails = () => {
     </div>
   );
 };
-OrderDetails.propTypes = {
-  IngredientType,
-};
+
 export default OrderDetails;

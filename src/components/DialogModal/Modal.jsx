@@ -2,9 +2,14 @@ import styles from "./dialogmodal.module.css";
 import classNames from "classnames";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import ModalOverlay from "./ModalOverlay";
+import { createPortal } from "react-dom";
+const modalRoot = document.querySelector("#modal-root");
 const Modal = ({ active, title, setActive, children }) => {
-  return (
-    <ModalOverlay active={active} setActive={setActive}>
+  if (!active) {
+    return null;
+  }
+  return createPortal(
+    <div className={`${styles.modal} ${active ? styles.active : ""}`}>
       <div
         className={styles["modal__content"]}
         onClick={(e) => {
@@ -31,7 +36,9 @@ const Modal = ({ active, title, setActive, children }) => {
         </div>
         {children}
       </div>
-    </ModalOverlay>
+      <ModalOverlay active={active} setActive={setActive} />
+    </div>,
+    modalRoot
   );
 };
 

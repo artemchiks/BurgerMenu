@@ -5,11 +5,18 @@
   padding-top: 40px;
 }
 .constructor__content {
-  overflow-y: scroll;
-  height: 600px;
-  margin: 10px 0 10px 0;
+  overflow-y: auto;
+  max-height: 584px;
+  margin: 20px 0 20px 0;
   scrollbar-width: thin;
   scrollbar-color: #8585ad rgb(47, 47, 55);
+
+  & > *:not(:first-child) {
+    margin: 20px 0 20px 0;
+  }
+  & > *:last-child {
+    margin-bottom: 0;
+  }
 }
 .constructor__content::-webkit-scrollbar-button {
   display: none;
@@ -18,7 +25,7 @@
   position: relative;
   display: flex;
   align-items: center;
-  margin: 20px 0 20px 0;
+  /* margin: 20px 0 20px 0; */
 }
 .color__div-item {
   background: rgb(28, 28, 33);

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styles from "./dialogmodal.module.css";
-const ModalOverlay = ({ active, children, setActive }) => {
+const ModalOverlay = ({ active, setActive }) => {
   useEffect(() => {
     const handelKeyDown = (e) => {
       if (e.key === "Escape") {
@@ -14,14 +14,12 @@ const ModalOverlay = ({ active, children, setActive }) => {
   }, [setActive]);
   return (
     <div
-      className={`${styles.modal} ${active ? styles.active : ""}`}
+      className={`${styles.modal__overlay} ${active ? styles.active : ""}`}
       onClick={(e) => {
         e.stopPropagation();
         setActive(false);
       }}
-    >
-      {children}
-    </div>
+    ></div>
   );
 };
 

@@ -21,8 +21,16 @@ const IngredietnsList = ({ list }) => {
   };
   return (
     <div className={styles["ingridie"]}>
-      <Category title="Булки" items={bunList} />
-      <Category title="Соусы" items={sauceList} />
+      <Category
+        title="Булки"
+        items={bunList}
+        handleSelectItem={handleSelectItem}
+      />
+      <Category
+        title="Соусы"
+        items={sauceList}
+        handleSelectItem={handleSelectItem}
+      />
       <Category
         title="Начинки"
         items={mainList}

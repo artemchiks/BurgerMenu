@@ -26,7 +26,7 @@ const BurgerConstructor = ({ list }) => {
           />
         ))}
         <div className={styles["constructor__content"]}>
-          {list.slice(1, 7)?.map((item) => (
+          {list.slice(1, 9)?.map((item) => (
             <div key={item._id} className={styles["constructor__menu-burger"]}>
               <div className={styles["constructor__drag-menu"]}>
                 <DragIcon type="primary" />
