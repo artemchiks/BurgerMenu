@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import "../App/App.module.css";
 import AppHeader from "../AppHeader/AppHeader";
-import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import ConstructorPage from "../pages/ConstructorPage/Index";
 
 function App() {
