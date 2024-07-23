@@ -4,12 +4,9 @@ import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import ModalOverlay from "./ModalOverlay";
 import { createPortal } from "react-dom";
 const modalRoot = document.querySelector("#modal-root");
-const Modal = ({ active, title, setActive, children }) => {
-  if (!active) {
-    return null;
-  }
+const Modal = ({ title, onClose, children }) => {
   return createPortal(
-    <div className={`${styles.modal} ${active ? styles.active : ""}`}>
+    <div className={`${styles.modal} ${styles.active}`}>
       <div
         className={styles["modal__content"]}
         onClick={(e) => {
@@ -31,12 +28,12 @@ const Modal = ({ active, title, setActive, children }) => {
             {title}
           </p>
           <div className={styles["btn__close"]}>
-            <CloseIcon type="primary" onClick={() => setActive(false)} />
+            <CloseIcon type="primary" onClick={onClose} />
           </div>
         </div>
         {children}
       </div>
-      <ModalOverlay active={active} setActive={setActive} />
+      <ModalOverlay onClose={onClose} />
     </div>,
     modalRoot
   );

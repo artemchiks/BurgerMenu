@@ -8,7 +8,8 @@ import styles from "./burgerconstructor.module.css";
 import { useState } from "react";
 import PropTypes from "prop-types";
 import { IngredientType } from "../../utils/types";
-import OrderDetalisBox from "../DialogModal/OrderDetalisBox";
+import Modal from "../DialogModal/Modal";
+import OrderDetails from "../DialogModal/OrderDetails";
 const BurgerConstructor = ({ list }) => {
   const [modalActive, setModalActive] = useState(false);
   return (
@@ -66,7 +67,11 @@ const BurgerConstructor = ({ list }) => {
           Оформить заказ
         </Button>
       </div>
-      <OrderDetalisBox active={modalActive} setActive={setModalActive} />
+      {modalActive && (
+        <Modal onClose={() => setModalActive(false)}>
+          <OrderDetails />
+        </Modal>
+      )}
     </div>
   );
 };

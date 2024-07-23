@@ -1,23 +1,24 @@
 import React, { useEffect } from "react";
 import styles from "./dialogmodal.module.css";
-const ModalOverlay = ({ active, setActive }) => {
+const ModalOverlay = ({ onClose }) => {
   useEffect(() => {
     const handelKeyDown = (e) => {
       if (e.key === "Escape") {
-        setActive(false);
+        onClose();
       }
     };
     document.addEventListener("keydown", handelKeyDown);
     return () => {
       document.removeEventListener("keydown", handelKeyDown);
     };
-  }, [setActive]);
+  }, []);
+
   return (
     <div
-      className={`${styles.modal__overlay} ${active ? styles.active : ""}`}
+      className={`${styles.modal__overlay} ${styles.active}`}
       onClick={(e) => {
         e.stopPropagation();
-        setActive(false);
+        onClose();
       }}
     ></div>
   );
