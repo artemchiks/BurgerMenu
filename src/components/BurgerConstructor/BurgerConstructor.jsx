@@ -9,24 +9,35 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import { IngredientType } from "../../utils/types";
 import OrderDetalisBox from "../DialogModal/OrderDetalisBox";
+import { useDispatch, useSelector } from "react-redux";
+import { BURGER_CONSTRUCTOR_SLICE } from "../../service/burgerConstructor";
 const BurgerConstructor = ({ list }) => {
   const [modalActive, setModalActive] = useState(false);
+
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state[BURGER_CONSTRUCTOR_SLICE]);
+  const bunPrice = data.bun ? data.bun.price * 2 : 0;
+  const price =
+    data.ingridients.reduce((acc, item) => {
+      return acc + item.price;
+    }, 0) + bunPrice;
+
   return (
     <div className={styles["burger__constructor"]}>
       <div>
-        {list.slice(0, 1)?.map((item) => (
+        {data.bun && (
           <ConstructorElement
-            key={item._id}
+            key={data.bun._id}
             type="top"
             extraClass={styles["color__div-item"]}
             isLocked={true}
-            text={`${item.name} (верх)`}
-            price={200}
-            thumbnail={item.image_mobile}
+            text={`${data.bun.name} (верх)`}
+            price={data.bun.price}
+            thumbnail={data.bun.image_mobile}
           />
-        ))}
+        )}
         <div className={styles["constructor__content"]}>
-          {list.slice(1, 9)?.map((item) => (
+          {data.ingridients.map((item) => (
             <div key={item._id} className={styles["constructor__menu-burger"]}>
               <div className={styles["constructor__drag-menu"]}>
                 <DragIcon type="primary" />
@@ -40,21 +51,21 @@ const BurgerConstructor = ({ list }) => {
             </div>
           ))}
         </div>
-        {list.slice(0, 1)?.map((item) => (
+        {data.bun && (
           <ConstructorElement
-            key={item._id}
-            extraClass={styles["color__div-item"]}
+            key={data.bun._id}
             type="bottom"
+            extraClass={styles["color__div-item"]}
             isLocked={true}
-            text={`${item.name} (низ)`}
-            price={200}
-            thumbnail={item.image_mobile}
+            text={`${data.bun.name} (низ)`}
+            price={data.bun.price}
+            thumbnail={data.bun.image_mobile}
           />
-        ))}
+        )}
       </div>
       <div className={styles["constructor__btn"]}>
         <div className={styles["constructor__btn-price"]}>
-          <p className="text text_type_digits-medium">685</p>
+          <p className="text text_type_digits-medium">{price}</p>
           <CurrencyIcon type="primary" />
         </div>
         <Button

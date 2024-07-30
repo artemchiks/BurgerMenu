@@ -8,7 +8,7 @@ const ConstructorPage = ({ list }) => {
     <section
       className={classNames(styles["content__burger"], "pl-5 pr-5 pb-5 pt-5")}
     >
-      <BurgerIngredients list={list} />
+      <BurgerIngredients />
       <BurgerConstructor list={list} />
     </section>
   );

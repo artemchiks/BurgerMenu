@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import "../App/App.module.css";
 import AppHeader from "../AppHeader/AppHeader";
 import ConstructorPage from "../pages/ConstructorPage/Index";
+import { useDispatch, useSelector } from "react-redux";
+import { setIngridients } from "../../service/ingridientListSlice";
 
 function App() {
   const url = "https://norma.nomoreparties.space/api/ingredients";
-  const [data, setData] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     async function fetchApi() {
@@ -15,7 +17,7 @@ function App() {
           throw new Error("Could not fetch");
         }
         const data = await response.json();
-        setData(data?.data || []);
+        dispatch(setIngridients(data?.data || []));
       } catch (error) {
         console.log(error);
       }
@@ -27,7 +29,7 @@ function App() {
   return (
     <>
       <AppHeader />
-      <ConstructorPage list={data} />
+      <ConstructorPage list={[]} />
     </>
   );
 }

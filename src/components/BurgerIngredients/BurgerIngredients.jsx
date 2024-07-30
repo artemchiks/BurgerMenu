@@ -1,9 +1,11 @@
+import { useSelector } from "react-redux";
 import { IngredientType } from "../../utils/types";
 import TabPanel from "./TabPanel";
 import styles from "./buegerIngridients.module.css";
 import IngredietnsList from "./components/IngredietnsList";
-import PropTypes from "prop-types";
-const BurgerIngredients = ({ list }) => {
+
+const BurgerIngredients = () => {
+  const list = useSelector((state) => state.ingridientList);
   return (
     <div>
       <p className="text text_type_main-large">Соберите бургер</p>
@@ -14,7 +16,5 @@ const BurgerIngredients = ({ list }) => {
     </div>
   );
 };
-BurgerIngredients.propTypes = {
-  list: PropTypes.arrayOf(IngredientType).isRequired,
-};
+
 export default BurgerIngredients;
