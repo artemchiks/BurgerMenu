@@ -3,7 +3,11 @@ import { ItemCard } from "./ItemCard";
 import styles from "./IngredietnsList.module.css";
 import { IngredientType } from "../../../utils/types";
 import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
 export const Category = ({ title, items, handleSelectItem }) => {
+  // const dispatch = useDispatch();
+  // const item = useSelector((state) => state[INGRIDIENT_DETALIS_SLICE]);
+  // console.log(item);
   return (
     <div>
       <p

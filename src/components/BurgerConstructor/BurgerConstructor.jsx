@@ -11,6 +11,7 @@ import { IngredientType } from "../../utils/types";
 import OrderDetalisBox from "../DialogModal/OrderDetalisBox";
 import { useDispatch, useSelector } from "react-redux";
 import { BURGER_CONSTRUCTOR_SLICE } from "../../service/burgerConstructor";
+import { useDrop } from "react-dnd";
 const BurgerConstructor = ({ list }) => {
   const [modalActive, setModalActive] = useState(false);
 
@@ -21,6 +22,13 @@ const BurgerConstructor = ({ list }) => {
     data.ingridients.reduce((acc, item) => {
       return acc + item.price;
     }, 0) + bunPrice;
+  // const [{ isDrag }, dropRef] = useDrop({
+  //   accept: "burger",
+  //   item: list,
+  //   collect: (monitor) => ({
+  //     isDrag: monitor.isDragging(),
+  //   }),
+  // });
 
   return (
     <div className={styles["burger__constructor"]}>
