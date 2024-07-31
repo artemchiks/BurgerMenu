@@ -1,6 +1,13 @@
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./dialogmodal.module.css";
 import classNames from "classnames";
-const IngredientDetails = ({ item }) => {
+import { INGRIDIENT_DETALIS_SLICE } from "../../service/ingridientDetalis";
+const IngredientDetails = () => {
+  const dispatch = useDispatch();
+  const item = useSelector((state) => state[INGRIDIENT_DETALIS_SLICE]);
+  if (!item) {
+    return null;
+  }
   return (
     <div>
       <div className={styles["detail__ingridients-callories"]}>
