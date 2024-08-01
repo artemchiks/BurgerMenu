@@ -17,6 +17,7 @@ import {
   INGRIDIENT_LIST_SLICE,
   setIngridients,
 } from "../../../service/ingridientListSlice";
+import DraggableItem from "../DraggableItem";
 export const Category = ({ title, items, handleSelectItem }) => {
   const dispatch = useDispatch();
   const list = useSelector((state) => state[INGRIDIENT_LIST_SLICE]);
@@ -32,41 +33,24 @@ export const Category = ({ title, items, handleSelectItem }) => {
         {title}
       </p>
       <div className={styles.itemsList}>
-        {items?.map((item) => {
-          // Оборачиваем в отдельный компонент для корректного использования хуков
-          const DraggableItem = () => {
-            const [{ isDragging }, dragRef] = useDrag({
-              type: "burger",
-              item: { ...item },
-              collect: (monitor) => ({
-                isDragging: monitor.isDragging(),
-              }),
-            });
-
-            return (
-              <div
-                ref={dragRef}
-                key={item._id}
-                onClick={() => {
-                  if (handleSelectItem) {
-                    handleSelectItem(item);
-                    dispatch(setIngridients(item));
-                  }
-                }}
-                style={{ opacity: isDragging ? 0.5 : 1 }}
-              >
-                <ItemCard item={item} />
-              </div>
-            );
-          };
-
-          return <DraggableItem key={item._id} />;
-        })}
+        {items?.map((item) => (
+          <DraggableItem items={item} key={item._id}>
+            <div
+              key={item._id}
+              onClick={() => {
+                if (handleSelectItem) {
+                  handleSelectItem(item);
+                }
+              }}
+            >
+              <ItemCard item={item} />
+            </div>
+          </DraggableItem>
+        ))}
       </div>
     </div>
   );
 };
-
 Category.propTypes = {
   IngredientType,
 };

@@ -11,9 +11,24 @@ export const burgerConstructorSlice = createSlice({
     setBun(state, action) {
       return { ...state, bun: action.payload };
     },
+    moveIngridient(state, action) {
+      const { fromIndex, toIndex } = action.payload;
+      const newIngridients = [...state.ingridients];
+      const [movedIngredient] = newIngridients.splice(fromIndex, 1);
+      newIngridients.splice(toIndex, 0, movedIngredient);
+      return { ...state, ingridients: newIngridients };
+    },
+    removeIngridient(state, action) {
+      return {
+        ...state,
+        ingridients: state.ingridients.filter(
+          (item) => item._id !== action.payload
+        ),
+      };
+    },
   },
 });
 
 export const burgerConstructorReducer = burgerConstructorSlice.reducer;
-export const { addIngridient } = burgerConstructorSlice.actions;
-export const { setBun } = burgerConstructorSlice.actions;
+export const { addIngridient, moveIngridient, setBun, removeIngridient } =
+  burgerConstructorSlice.actions;

@@ -10,72 +10,81 @@ import PropTypes from "prop-types";
 import { IngredientType } from "../../utils/types";
 import OrderDetalisBox from "../DialogModal/OrderDetalisBox";
 import { useDispatch, useSelector } from "react-redux";
-import { BURGER_CONSTRUCTOR_SLICE } from "../../service/burgerConstructor";
+import styless from "./stub.module.css";
+import {
+  addIngridient,
+  BURGER_CONSTRUCTOR_SLICE,
+  clearIngridients,
+  removeIngridient,
+  setBun,
+} from "../../service/burgerConstructor";
 import { useDrop } from "react-dnd";
-const BurgerConstructor = ({ onDropHandler, onBunHandler }) => {
+import IngredientCard from "./IngredientCard";
+import Stub from "./Stub/Stub";
+const BurgerConstructor = () => {
   const [modalActive, setModalActive] = useState(false);
-
   const dispatch = useDispatch();
   const data = useSelector((state) => state[BURGER_CONSTRUCTOR_SLICE]);
   const price = useMemo(() => {
     const bunPrice = data.bun ? data.bun.price * 2 : 0;
     return (
-      data.ingridients.reduce((acc, item) => {
-        return acc + item.price;
-      }, 0) + bunPrice
+      data.ingridients.reduce((acc, item) => acc + item.price, 0) + bunPrice
     );
   }, [data]);
+
   const [{ isOver }, dropRef] = useDrop({
     accept: "burger",
-    drop(item, monitor) {
-      console.log("Dropped item:", item);
+    drop(item) {
       if (item.type === "bun") {
-        onBunHandler(item);
+        dispatch(setBun(item));
       } else {
-        onDropHandler(item);
+        dispatch(addIngridient(item));
       }
     },
-    collect: (monitor) => ({
-      isOver: monitor.isOver(),
-    }),
   });
+  const handleDeleteIngredient = (id) => {
+    dispatch(removeIngridient(id));
+  };
+  const deleteBtn = document.querySelectorAll("#constructor-element__action");
 
   return (
     <div className={styles["burger__constructor"]} ref={dropRef}>
       <div>
-        {data.bun && (
+        {!data.bun ? (
+          <div className={styless["card__container-top"]}>
+            <Stub text={"Выбирите булку"} />
+          </div>
+        ) : (
           <ConstructorElement
-            key={data.bun._id}
+            key={`${data.bun._id}-top`}
             type="top"
             extraClass={styles["color__div-item"]}
             isLocked={true}
-            text={`${data.bun.name} (верх)`} // Исправлено для корректной интерполяции
+            text={`${data.bun.name} (верх)`}
             price={data.bun.price}
             thumbnail={data.bun.image_mobile}
           />
         )}
         <div className={styles["constructor__content"]}>
-          {data.ingridients.map((item) => (
-            <div key={item._id} className={styles["constructor__menu-burger"]}>
-              <div className={styles["constructor__drag-menu"]}>
-                <DragIcon type="primary" />
-              </div>
-              <ConstructorElement
-                extraClass={styles["color__div-item"]}
-                thumbnail={item.image_mobile}
-                price={item.price}
-                text={item.name}
-              />
-            </div>
+          {data.ingridients.map((item, index) => (
+            <IngredientCard
+              key={`${item.id}-${index}`}
+              item={item}
+              index={index}
+            />
           ))}
         </div>
-        {data.bun && (
+        {!data.bun ? (
+          <div className={styless["card__container-buttom"]}>
+            <Stub text={"Выбирите булку"} />
+          </div>
+        ) : (
           <ConstructorElement
-            key={data.bun._id}
+            key={`${data.bun._id}-bottom`}
             type="bottom"
             extraClass={styles["color__div-item"]}
             isLocked={true}
-            text={`${data.bun.name} (низ)`} // Исправлено для корректной интерполяции
+            text={`${data.bun.name} (низ)`}
             price={data.bun.price}
             thumbnail={data.bun.image_mobile}
           />
@@ -99,7 +108,5 @@ const BurgerConstructor = ({ onDropHandler, onBunHandler }) => {
     </div>
   );
 };
-BurgerConstructor.propTypes = {
-  list: PropTypes.arrayOf(IngredientType).isRequired,
-};
+
 export default BurgerConstructor;
