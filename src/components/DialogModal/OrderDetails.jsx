@@ -1,6 +1,8 @@
 import styles from "./dialogmodal.module.css";
 import classNames from "classnames";
 import image from "../../images/done.svg";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 
 const OrderDetails = () => {
   return (

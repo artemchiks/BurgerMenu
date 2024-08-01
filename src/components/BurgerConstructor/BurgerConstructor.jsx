@@ -21,6 +21,7 @@ import {
 import { useDrop } from "react-dnd";
 import IngredientCard from "./IngredientCard";
 import Stub from "./Stub/Stub";
+import { setIngridients } from "../../service/ingridientListSlice";
 const BurgerConstructor = () => {
   const [modalActive, setModalActive] = useState(false);
   const dispatch = useDispatch();
@@ -45,7 +46,34 @@ const BurgerConstructor = () => {
   const handleDeleteIngredient = (id) => {
     dispatch(removeIngridient(id));
   };
-  const deleteBtn = document.querySelectorAll("#constructor-element__action");
+  const url = "https://norma.nomoreparties.space/api/orders";
+
+  async function createOrderApi() {
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        body: JSON.stringify({
+          ingredients: ["609646e4dc916e00276b286e", "609646e4dc916e00276b2870"],
+        }),
+      });
+      if (!response.ok) {
+        throw new Error("Could not fetch");
+      }
+      const data = await response.json();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  const handleClick = () => {
+    createOrderApi()
+      .then((data) => {
+        dispatch(data);
+        setModalActive(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div className={styles["burger__constructor"]} ref={dropRef}>
@@ -56,7 +84,6 @@ const BurgerConstructor = () => {
           </div>
         ) : (
           <ConstructorElement
-            key={`${data.bun._id}-top`}
             type="top"
             extraClass={styles["color__div-item"]}
             isLocked={true}
@@ -68,7 +95,7 @@ const BurgerConstructor = () => {
         <div className={styles["constructor__content"]}>
           {data.ingridients.map((item, index) => (
             <IngredientCard
-              key={`${item.id}-${index}`}
+              key={`${item._id}-${index}`}
               item={item}
               index={index}
             />
@@ -80,7 +107,6 @@ const BurgerConstructor = () => {
           </div>
         ) : (
           <ConstructorElement
-            key={`${data.bun._id}-bottom`}
             type="bottom"
             extraClass={styles["color__div-item"]}
             isLocked={true}
@@ -99,7 +125,10 @@ const BurgerConstructor = () => {
           htmlType="button"
           type="primary"
           size="large"
-          onClick={() => setModalActive(true)}
+          onClick={() => {
+            setModalActive(true);
+            createOrderApi();
+          }}
         >
           Оформить заказ
         </Button>

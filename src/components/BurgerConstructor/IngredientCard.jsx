@@ -7,7 +7,10 @@ import { useDrag, useDrop } from "react-dnd";
 import { useDispatch } from "react-redux";
 import styles from "./burgerconstructor.module.css";
 import { setIngridients } from "../../service/ingridientListSlice";
-import { moveIngridient } from "../../service/burgerConstructor";
+import {
+  moveIngridient,
+  removeIngridient,
+} from "../../service/burgerConstructor";
 const IngredientCard = ({ item, index }) => {
   const dispatch = useDispatch();
 
@@ -40,6 +43,7 @@ const IngredientCard = ({ item, index }) => {
         price={item.price}
         thumbnail={item.image_mobile}
         extraClass={styles["color__div-item"]}
+        handleClose={() => dispatch(removeIngridient(item._id))}
       />
     </div>
   );

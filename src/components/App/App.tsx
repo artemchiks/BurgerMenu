@@ -29,7 +29,7 @@ function App() {
   return (
     <>
       <AppHeader />
-      <ConstructorPage list={[]} />
+      <ConstructorPage />
     </>
   );
 }

@@ -19,11 +19,14 @@ export const burgerConstructorSlice = createSlice({
       return { ...state, ingridients: newIngridients };
     },
     removeIngridient(state, action) {
+      const arrCopy = [...state.ingridients];
+      const indexItem = arrCopy.findIndex((item) => {
+        return item._id === action.payload;
+      });
+      arrCopy.splice(indexItem, 1);
       return {
         ...state,
-        ingridients: state.ingridients.filter(
-          (item) => item._id !== action.payload
-        ),
+        ingridients: arrCopy,
       };
     },
   },
