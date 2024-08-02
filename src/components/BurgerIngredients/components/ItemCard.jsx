@@ -35,11 +35,11 @@ export const ItemCard = ({ item, handleSelectItem }) => {
       ) : (
         <Counter count={count} size="default" extraClass="m-1" />
       )}
-      <p className={styles["item__card-text"]}>
+      <div className={styles["item__card-text"]}>
         {" "}
         {item.price}
         <CurrencyIcon type="primary" />
-      </p>
+      </div>
       <p className="text text_type_main-small">{item.name}</p>
     </div>
   );

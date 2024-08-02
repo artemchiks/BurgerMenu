@@ -22,6 +22,8 @@ import { useDrop } from "react-dnd";
 import IngredientCard from "./IngredientCard";
 import Stub from "./Stub/Stub";
 import { setIngridients } from "../../service/ingridientListSlice";
+import { convertToObject } from "typescript";
+import { setArrayInrgidients } from "../../service/orderDetalis";
 const BurgerConstructor = () => {
   const [modalActive, setModalActive] = useState(false);
   const dispatch = useDispatch();
@@ -33,6 +35,10 @@ const BurgerConstructor = () => {
     );
   }, [data]);
 
+  const idIngridients = data.ingridients.map((item) => {
+    return item._id;
+  });
+
   const [{ isOver }, dropRef] = useDrop({
     accept: "burger",
     drop(item) {
@@ -43,31 +49,42 @@ const BurgerConstructor = () => {
       }
     },
   });
-  const handleDeleteIngredient = (id) => {
-    dispatch(removeIngridient(id));
-  };
+
   const url = "https://norma.nomoreparties.space/api/orders";
 
   async function createOrderApi() {
+    if (!data.bun?._id) {
+      return "";
+    }
+
     try {
       const response = await fetch(url, {
-        method: "POST",
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({
-          ingredients: ["609646e4dc916e00276b286e", "609646e4dc916e00276b2870"],
+          ingredients: [data.bun?._id, ...idIngridients, data.bun?._id],
         }),
       });
+
       if (!response.ok) {
         throw new Error("Could not fetch");
       }
-      const data = await response.json();
+      const app = await response.json();
+      return app;
     } catch (error) {
       console.log(error);
     }
   }
-  const handleClick = () => {
+
+  const handleClick = (e) => {
     createOrderApi()
       .then((data) => {
-        dispatch(data);
+        if (!data) {
+          return "";
+        }
+        dispatch(setArrayInrgidients(data.order.number));
         setModalActive(true);
       })
       .catch((err) => {
@@ -92,15 +109,21 @@ const BurgerConstructor = () => {
             thumbnail={data.bun.image_mobile}
           />
         )}
-        <div className={styles["constructor__content"]}>
-          {data.ingridients.map((item, index) => (
-            <IngredientCard
-              key={`${item._id}-${index}`}
-              item={item}
-              index={index}
-            />
-          ))}
-        </div>
+        {data.ingridients && data.ingridients.length > 0 ? (
+          <div className={styles["constructor__content"]}>
+            {data.ingridients.map((item, index) => (
+              <IngredientCard
+                key={`${item._id}-${index}`}
+                item={item}
+                index={index}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className={styless["card__container-center"]}>
+            <Stub text={"Выбирите начинку"} />
+          </div>
+        )}
         {!data.bun ? (
           <div className={styless["card__container-buttom"]}>
             <Stub text={"Выбирите булку"} />
@@ -126,8 +149,7 @@ const BurgerConstructor = () => {
           type="primary"
           size="large"
           onClick={() => {
-            setModalActive(true);
-            createOrderApi();
+            handleClick();
           }}
         >
           Оформить заказ
