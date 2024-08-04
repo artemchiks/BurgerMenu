@@ -2,27 +2,20 @@ import {
   Button,
   ConstructorElement,
   CurrencyIcon,
-  DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burgerconstructor.module.css";
 import { useMemo, useState } from "react";
-import PropTypes from "prop-types";
-import { IngredientType } from "../../utils/types";
 import OrderDetalisBox from "../DialogModal/OrderDetalisBox";
 import { useDispatch, useSelector } from "react-redux";
 import styless from "./stub.module.css";
 import {
   addIngridient,
   BURGER_CONSTRUCTOR_SLICE,
-  clearIngridients,
-  removeIngridient,
   setBun,
 } from "../../service/burgerConstructor";
 import { useDrop } from "react-dnd";
 import IngredientCard from "./IngredientCard";
 import Stub from "./Stub/Stub";
-import { setIngridients } from "../../service/ingridientListSlice";
-import { convertToObject } from "typescript";
 import { setArrayInrgidients } from "../../service/orderDetalis";
 const BurgerConstructor = () => {
   const [modalActive, setModalActive] = useState(false);
@@ -64,7 +57,7 @@ const BurgerConstructor = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          ingredients: [data.bun?._id, ...idIngridients, data.bun?._id],
+          ingredients: [data.bun._id, ...idIngridients, data.bun._id],
         }),
       });
 

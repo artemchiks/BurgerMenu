@@ -1,12 +1,8 @@
 import styles from "./dialogmodal.module.css";
 import classNames from "classnames";
 import image from "../../images/done.svg";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import {
-  ORDER_DETALIS_SLICE,
-  setArrayInrgidients,
-} from "../../service/orderDetalis";
+import { useSelector } from "react-redux";
+import { ORDER_DETALIS_SLICE } from "../../service/orderDetalis";
 
 const OrderDetails = () => {
   const order = useSelector((state) => state[ORDER_DETALIS_SLICE].order);

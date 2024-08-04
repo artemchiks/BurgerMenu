@@ -4,4 +4,6 @@ export const IngredientType = PropTypes.shape({
   name: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   image_mobile: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
 });

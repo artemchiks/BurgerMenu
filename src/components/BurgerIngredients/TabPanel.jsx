@@ -1,6 +1,6 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import React, { useState } from "react";
 import styles from "./buegerIngridients.module.css";
+import { IngredientType } from "../../utils/types";
 const TabPanel = ({ current, setCurrent }) => {
   return (
     <div className={styles["tabs__content"]}>
@@ -16,5 +16,7 @@ const TabPanel = ({ current, setCurrent }) => {
     </div>
   );
 };
-
+TabPanel.propTypes = {
+  IngredientType,
+};
 export default TabPanel;

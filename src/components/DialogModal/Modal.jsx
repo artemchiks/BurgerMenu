@@ -6,6 +6,7 @@ import { createPortal } from "react-dom";
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { clearIngridient } from "../../service/ingridientDetalis";
+import { IngredientType } from "../../utils/types";
 const modalRoot = document.querySelector("#modal-root");
 const Modal = ({ active, title, setActive, children }) => {
   const dispatch = useDispatch();
@@ -48,6 +49,9 @@ const Modal = ({ active, title, setActive, children }) => {
     </div>,
     modalRoot
   );
+};
+Modal.propTypes = {
+  IngredientType,
 };
 
 export default Modal;

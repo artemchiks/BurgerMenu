@@ -2,15 +2,12 @@ import {
   Counter,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import styles from "./IngredietnsList.module.css";
 import { IngredientType } from "../../../utils/types";
-import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { BURGER_CONSTRUCTOR_SLICE } from "../../../service/burgerConstructor";
 export const ItemCard = ({ item, handleSelectItem }) => {
-  const dispatch = useDispatch();
-
   const list = useSelector((state) => state[BURGER_CONSTRUCTOR_SLICE]);
 
   const count = useMemo(() => {
