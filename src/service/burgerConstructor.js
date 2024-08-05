@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, nanoid } from "@reduxjs/toolkit";
 
 export const BURGER_CONSTRUCTOR_SLICE = "burgerConstructor";
 export const burgerConstructorSlice = createSlice({
@@ -6,7 +6,13 @@ export const burgerConstructorSlice = createSlice({
   initialState: { bun: null, ingridients: [] },
   reducers: {
     addIngridient(state, action) {
-      return { ...state, ingridients: [...state.ingridients, action.payload] };
+      return {
+        ...state,
+        ingridients: [
+          ...state.ingridients,
+          { ...action.payload, key: nanoid() },
+        ],
+      };
     },
     setBun(state, action) {
       return { ...state, bun: action.payload };

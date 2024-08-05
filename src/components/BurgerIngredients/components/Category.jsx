@@ -5,14 +5,7 @@ import { IngredientType } from "../../../utils/types";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { useDrag } from "react-dnd";
-import {
-  addIngridient,
-  BURGER_CONSTRUCTOR_SLICE,
-} from "../../../service/burgerConstructor";
-import {
-  INGRIDIENT_DETALIS_SLICE,
-  setIngridient,
-} from "../../../service/ingridientDetalis";
+
 import {
   INGRIDIENT_LIST_SLICE,
   setIngridients,

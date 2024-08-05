@@ -2,6 +2,8 @@ import React from "react";
 import Modal from "./Modal";
 import OrderDetails from "./OrderDetails";
 import { IngredientType } from "../../utils/types";
+import { useDispatch } from "react-redux";
+import { clearIngridient } from "../../service/ingridientDetalis";
 
 const OrderDetalisBox = ({ active, setActive, item }) => {
   return (

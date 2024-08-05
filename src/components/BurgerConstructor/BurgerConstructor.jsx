@@ -17,10 +17,13 @@ import { useDrop } from "react-dnd";
 import IngredientCard from "./IngredientCard";
 import Stub from "./Stub/Stub";
 import { setArrayInrgidients } from "../../service/orderDetalis";
+import { BASE_URL, ORDERS_URL } from "../pathUrl";
+import { checkResponse } from "../checkResponse";
 const BurgerConstructor = () => {
   const [modalActive, setModalActive] = useState(false);
   const dispatch = useDispatch();
   const data = useSelector((state) => state[BURGER_CONSTRUCTOR_SLICE]);
+
   const price = useMemo(() => {
     const bunPrice = data.bun ? data.bun.price * 2 : 0;
     return (
@@ -43,15 +46,13 @@ const BurgerConstructor = () => {
     },
   });
 
-  const url = "https://norma.nomoreparties.space/api/orders";
-
   async function createOrderApi() {
     if (!data.bun?._id) {
       return "";
     }
 
     try {
-      const response = await fetch(url, {
+      const response = await fetch(ORDERS_URL, {
         method: "post",
         headers: {
           "Content-Type": "application/json",
@@ -61,9 +62,7 @@ const BurgerConstructor = () => {
         }),
       });
 
-      if (!response.ok) {
-        throw new Error("Could not fetch");
-      }
+      checkResponse(response);
       const app = await response.json();
       return app;
     } catch (error) {
@@ -105,11 +104,7 @@ const BurgerConstructor = () => {
         {data.ingridients && data.ingridients.length > 0 ? (
           <div className={styles["constructor__content"]}>
             {data.ingridients.map((item, index) => (
-              <IngredientCard
-                key={`${item._id}-${index}`}
-                item={item}
-                index={index}
-              />
+              <IngredientCard key={item.key} item={item} index={index} />
             ))}
           </div>
         ) : (

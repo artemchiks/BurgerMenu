@@ -8,12 +8,13 @@ import { useDispatch } from "react-redux";
 import { clearIngridient } from "../../service/ingridientDetalis";
 import { IngredientType } from "../../utils/types";
 const modalRoot = document.querySelector("#modal-root");
-const Modal = ({ active, title, setActive, children }) => {
-  const dispatch = useDispatch();
+const Modal = ({ active, title, setActive, children, onClose }) => {
   const handleClose = useCallback(() => {
-    dispatch(clearIngridient());
+    if (onClose) {
+      onClose();
+    }
     setActive(false);
-  }, [setActive]);
+  }, [setActive, onClose]);
   if (!active) {
     return null;
   }
