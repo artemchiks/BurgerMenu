@@ -3,18 +3,8 @@ import { ItemCard } from "./ItemCard";
 import styles from "./IngredietnsList.module.css";
 import { IngredientType } from "../../../utils/types";
 import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
-import { useDrag } from "react-dnd";
-
-import {
-  INGRIDIENT_LIST_SLICE,
-  setIngridients,
-} from "../../../service/ingridientListSlice";
 import DraggableItem from "../DraggableItem";
 export const Category = ({ title, items, handleSelectItem }) => {
-  const dispatch = useDispatch();
-  const list = useSelector((state) => state[INGRIDIENT_LIST_SLICE]);
-
   return (
     <div>
       <p

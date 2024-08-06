@@ -11,14 +11,14 @@ import styless from "./stub.module.css";
 import {
   addIngridient,
   BURGER_CONSTRUCTOR_SLICE,
+  resetConstructor,
   setBun,
 } from "../../service/burgerConstructor";
 import { useDrop } from "react-dnd";
 import IngredientCard from "./IngredientCard";
 import Stub from "./Stub/Stub";
 import { setArrayInrgidients } from "../../service/orderDetalis";
-import { BASE_URL, ORDERS_URL } from "../pathUrl";
-import { checkResponse } from "../checkResponse";
+import { createOrderApi } from "../../service/actions/burgerConsctructorActions";
 const BurgerConstructor = () => {
   const [modalActive, setModalActive] = useState(false);
   const dispatch = useDispatch();
@@ -31,10 +31,6 @@ const BurgerConstructor = () => {
     );
   }, [data]);
 
-  const idIngridients = data.ingridients.map((item) => {
-    return item._id;
-  });
-
   const [{ isOver }, dropRef] = useDrop({
     accept: "burger",
     drop(item) {
@@ -46,44 +42,21 @@ const BurgerConstructor = () => {
     },
   });
 
-  async function createOrderApi() {
-    if (!data.bun?._id) {
-      return "";
-    }
-
-    try {
-      const response = await fetch(ORDERS_URL, {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ingredients: [data.bun._id, ...idIngridients, data.bun._id],
-        }),
-      });
-
-      checkResponse(response);
-      const app = await response.json();
-      return app;
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   const handleClick = (e) => {
-    createOrderApi()
+    dispatch(createOrderApi())
+      .unwrap()
       .then((data) => {
         if (!data) {
-          return "";
+          return;
         }
         dispatch(setArrayInrgidients(data.order.number));
         setModalActive(true);
+        dispatch(resetConstructor());
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   };
-
   return (
     <div className={styles["burger__constructor"]} ref={dropRef}>
       <div>

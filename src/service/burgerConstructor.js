@@ -35,9 +35,18 @@ export const burgerConstructorSlice = createSlice({
         ingridients: arrCopy,
       };
     },
+    resetConstructor(state) {
+      state.bun = null;
+      state.ingridients = [];
+    },
   },
 });
 
 export const burgerConstructorReducer = burgerConstructorSlice.reducer;
-export const { addIngridient, moveIngridient, setBun, removeIngridient } =
-  burgerConstructorSlice.actions;
+export const {
+  addIngridient,
+  moveIngridient,
+  setBun,
+  removeIngridient,
+  resetConstructor,
+} = burgerConstructorSlice.actions;
