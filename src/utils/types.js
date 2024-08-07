@@ -14,3 +14,8 @@ export const ModalType = PropTypes.shape({
   children: PropTypes.any.isRequired,
   onClose: PropTypes.bool.isRequired,
 });
+export const CategoryTypes = PropTypes.shape({
+  title: PropTypes.string.isRequired,
+  items: PropTypes.object.isRequired,
+  handleSelectItem: PropTypes.func.isRequired,
+});

@@ -5,16 +5,13 @@ export const burgerConstructorSlice = createSlice({
   name: BURGER_CONSTRUCTOR_SLICE,
   initialState: { bun: null, ingridients: [] },
   reducers: {
-    addIngridient(state, action) {
-      state.ingridients.push(action.payload);
-    },
-    addTodo: {
+    addIngredient: {
       reducer(state, action) {
-        state.ingridients.push({ ...action.payload, id: nanoid() });
+        state.ingridients.push({ ...action.payload });
       },
       prepare(ingridients) {
         return {
-          payload: { ...ingridients, id: nanoid() },
+          payload: { ...ingridients, key: nanoid() },
         };
       },
     },
@@ -48,10 +45,9 @@ export const burgerConstructorSlice = createSlice({
 
 export const burgerConstructorReducer = burgerConstructorSlice.reducer;
 export const {
-  addIngridient,
   moveIngridient,
   setBun,
   removeIngridient,
   resetConstructor,
-  addTodo,
+  addIngredient,
 } = burgerConstructorSlice.actions;

@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import { ItemCard } from "./ItemCard";
 import styles from "./IngredietnsList.module.css";
-import { IngredientType } from "../../../utils/types";
+import { CategoryTypes, IngredientType } from "../../../utils/types";
 import PropTypes from "prop-types";
 import DraggableItem from "../DraggableItem";
 export const Category = ({ title, items, handleSelectItem }) => {
@@ -35,5 +35,5 @@ export const Category = ({ title, items, handleSelectItem }) => {
   );
 };
 Category.propTypes = {
-  IngredientType,
+  CategoryTypes,
 };

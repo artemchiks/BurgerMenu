@@ -6,7 +6,7 @@ import React from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { useDispatch } from "react-redux";
 import styles from "./burgerconstructor.module.css";
-import { setIngridients } from "../../service/ingridientListSlice";
+
 import {
   moveIngridient,
   removeIngridient,

@@ -4,7 +4,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useMemo } from "react";
 import styles from "./IngredietnsList.module.css";
-import { IngredientType } from "../../../utils/types";
+import { CategoryTypes, IngredientType } from "../../../utils/types";
 import { useSelector } from "react-redux";
 import { BURGER_CONSTRUCTOR_SLICE } from "../../../service/burgerConstructor";
 export const ItemCard = ({ item, handleSelectItem }) => {
@@ -43,5 +43,5 @@ export const ItemCard = ({ item, handleSelectItem }) => {
 };
 
 ItemCard.propTypes = {
-  IngredientType,
+  CategoryTypes,
 };
