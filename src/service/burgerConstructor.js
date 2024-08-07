@@ -6,13 +6,17 @@ export const burgerConstructorSlice = createSlice({
   initialState: { bun: null, ingridients: [] },
   reducers: {
     addIngridient(state, action) {
-      return {
-        ...state,
-        ingridients: [
-          ...state.ingridients,
-          { ...action.payload, key: nanoid() },
-        ],
-      };
+      state.ingridients.push(action.payload);
+    },
+    addTodo: {
+      reducer(state, action) {
+        state.ingridients.push({ ...action.payload, id: nanoid() });
+      },
+      prepare(ingridients) {
+        return {
+          payload: { ...ingridients, id: nanoid() },
+        };
+      },
     },
     setBun(state, action) {
       return { ...state, bun: action.payload };
@@ -49,4 +53,5 @@ export const {
   setBun,
   removeIngridient,
   resetConstructor,
+  addTodo,
 } = burgerConstructorSlice.actions;

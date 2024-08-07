@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styless from "./stub.module.css";
 import {
   addIngridient,
+  addTodo,
   BURGER_CONSTRUCTOR_SLICE,
   resetConstructor,
   setBun,
@@ -37,14 +38,13 @@ const BurgerConstructor = () => {
       if (item.type === "bun") {
         dispatch(setBun(item));
       } else {
-        dispatch(addIngridient(item));
+        dispatch(addTodo(item));
       }
     },
   });
 
   const handleClick = (e) => {
     dispatch(createOrderApi())
-      .unwrap()
       .then((data) => {
         if (!data) {
           return;
@@ -77,7 +77,7 @@ const BurgerConstructor = () => {
         {data.ingridients && data.ingridients.length > 0 ? (
           <div className={styles["constructor__content"]}>
             {data.ingridients.map((item, index) => (
-              <IngredientCard key={item.key} item={item} index={index} />
+              <IngredientCard key={item.id} item={item} index={index} />
             ))}
           </div>
         ) : (

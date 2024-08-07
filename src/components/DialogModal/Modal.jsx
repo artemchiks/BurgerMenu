@@ -6,7 +6,7 @@ import { createPortal } from "react-dom";
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { clearIngridient } from "../../service/ingridientDetalis";
-import { IngredientType } from "../../utils/types";
+import { IngredientType, ModalType } from "../../utils/types";
 const modalRoot = document.querySelector("#modal-root");
 const Modal = ({ active, title, setActive, children, onClose }) => {
   const handleClose = useCallback(() => {
@@ -28,13 +28,13 @@ const Modal = ({ active, title, setActive, children, onClose }) => {
       >
         <div
           className={classNames(
-            styles["detail__ingridients"],
+            styles["modal__content-ingridients"],
             "pl-3 pr-3 pb-3 pt-3"
           )}
         >
           <p
             className={classNames(
-              styles["detail__ingridients-text"],
+              styles["modal__content__ingridients-text"],
               "text text_type_main-medium"
             )}
           >
@@ -52,7 +52,7 @@ const Modal = ({ active, title, setActive, children, onClose }) => {
   );
 };
 Modal.propTypes = {
-  IngredientType,
+  ModalType,
 };
 
 export default Modal;

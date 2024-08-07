@@ -5,8 +5,8 @@ import { setIngridients } from "../../service/ingridientListSlice";
 export const fetchIngridients = () => async (dispatch) => {
   try {
     const response = await fetch(INGRIDIENTS_URL);
-    checkResponse(response);
-    const data = await response.json();
+
+    const data = await checkResponse(response);
     dispatch(setIngridients(data?.data || []));
   } catch (error) {
     console.log(error);
