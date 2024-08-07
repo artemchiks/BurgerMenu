@@ -2,66 +2,107 @@ import {
   Button,
   ConstructorElement,
   CurrencyIcon,
-  DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burgerconstructor.module.css";
-import { useState } from "react";
-import PropTypes from "prop-types";
-import { IngredientType } from "../../utils/types";
+import { useMemo, useState } from "react";
 import OrderDetalisBox from "../DialogModal/OrderDetalisBox";
-const BurgerConstructor = ({ list }) => {
+import { useDispatch, useSelector } from "react-redux";
+import styless from "./stub.module.css";
+import {
+  addIngredient,
+  addTodo,
+  BURGER_CONSTRUCTOR_SLICE,
+  resetConstructor,
+  setBun,
+} from "../../service/burgerConstructor";
+import { useDrop } from "react-dnd";
+import IngredientCard from "./IngredientCard";
+import Stub from "./Stub/Stub";
+import { setArrayInrgidients } from "../../service/orderDetalis";
+import { createOrderApi } from "../../service/actions/burgerConsctructorActions";
+const BurgerConstructor = () => {
   const [modalActive, setModalActive] = useState(false);
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state[BURGER_CONSTRUCTOR_SLICE]);
+
+  const price = useMemo(() => {
+    const bunPrice = data.bun ? data.bun.price * 2 : 0;
+    return (
+      data.ingridients.reduce((acc, item) => acc + item.price, 0) + bunPrice
+    );
+  }, [data]);
+
+  const [{ isOver }, dropRef] = useDrop({
+    accept: "burger",
+    drop(item) {
+      if (item.type === "bun") {
+        dispatch(setBun(item));
+      } else {
+        dispatch(addIngredient(item));
+      }
+    },
+  });
+
+  const handleClick = async () => {
+    if (await dispatch(createOrderApi())) {
+      setModalActive(true);
+    }
+  };
   return (
-    <div className={styles["burger__constructor"]}>
+    <div className={styles["burger__constructor"]} ref={dropRef}>
       <div>
-        {list.slice(0, 1)?.map((item) => (
+        {!data.bun ? (
+          <div className={styless["card__container-top"]}>
+            <Stub text={"Выбирите булку"} />
+          </div>
+        ) : (
           <ConstructorElement
-            key={item._id}
             type="top"
             extraClass={styles["color__div-item"]}
             isLocked={true}
-            text={`${item.name} (верх)`}
-            price={200}
-            thumbnail={item.image_mobile}
+            text={`${data.bun.name} (верх)`}
+            price={data.bun.price}
+            thumbnail={data.bun.image_mobile}
           />
-        ))}
-        <div className={styles["constructor__content"]}>
-          {list.slice(1, 9)?.map((item) => (
-            <div key={item._id} className={styles["constructor__menu-burger"]}>
-              <div className={styles["constructor__drag-menu"]}>
-                <DragIcon type="primary" />
-              </div>
-              <ConstructorElement
-                extraClass={styles["color__div-item"]}
-                thumbnail={item.image_mobile}
-                price={item.price}
-                text={item.name}
-              />
-            </div>
-          ))}
-        </div>
-        {list.slice(0, 1)?.map((item) => (
+        )}
+        {data.ingridients && data.ingridients.length > 0 ? (
+          <div className={styles["constructor__content"]}>
+            {data.ingridients.map((item, index) => (
+              <IngredientCard key={item.key} item={item} index={index} />
+            ))}
+          </div>
+        ) : (
+          <div className={styless["card__container-center"]}>
+            <Stub text={"Выбирите начинку"} />
+          </div>
+        )}
+        {!data.bun ? (
+          <div className={styless["card__container-buttom"]}>
+            <Stub text={"Выбирите булку"} />
+          </div>
+        ) : (
           <ConstructorElement
-            key={item._id}
-            extraClass={styles["color__div-item"]}
             type="bottom"
+            extraClass={styles["color__div-item"]}
             isLocked={true}
-            text={`${item.name} (низ)`}
-            price={200}
-            thumbnail={item.image_mobile}
+            text={`${data.bun.name} (низ)`}
+            price={data.bun.price}
+            thumbnail={data.bun.image_mobile}
           />
-        ))}
+        )}
       </div>
       <div className={styles["constructor__btn"]}>
         <div className={styles["constructor__btn-price"]}>
-          <p className="text text_type_digits-medium">685</p>
+          <p className="text text_type_digits-medium">{price}</p>
           <CurrencyIcon type="primary" />
         </div>
         <Button
           htmlType="button"
           type="primary"
           size="large"
-          onClick={() => setModalActive(true)}
+          onClick={() => {
+            handleClick();
+          }}
         >
           Оформить заказ
         </Button>
@@ -70,7 +111,5 @@ const BurgerConstructor = ({ list }) => {
     </div>
   );
 };
-BurgerConstructor.propTypes = {
-  list: PropTypes.arrayOf(IngredientType).isRequired,
-};
+
 export default BurgerConstructor;

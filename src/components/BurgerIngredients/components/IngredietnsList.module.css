@@ -21,7 +21,10 @@
   cursor: pointer;
 }
 .item__card-text {
-  display: "flex";
+  display: flex;
   justify-content: center;
+  align-items: center;
+
+  margin-bottom: 12px;
   gap: 5px;
 }

@@ -1,0 +1,42 @@
+.card__container-top{
+    width: 536px;
+height: 80px;
+left: 32px;
+top: 0;
+border-radius: 88px 88px 40px 40px;
+display: flex;
+justify-content: center;
+align-items: center;
+text-align: center;
+background: rgb(28, 28, 33);
+margin-bottom: 20px;
+}
+
+.card__container-center{
+    width: 536px;
+height: 80px;
+left: 32px;
+top: 0;
+display: flex;
+justify-content: center;
+margin-top: 20px;
+margin-bottom: 20px;
+align-items: center;
+text-align: center;
+    border-radius: 40px;
+    background: rgb(28, 28, 33);
+}
+.card__container-buttom{
+    margin-top: 20px;
+    width: 536px;
+height: 80px;
+left: 32px;
+display: flex;
+justify-content: center;
+align-items: center;
+text-align: center;
+top: 0;
+border-radius: 40px 40px 88px 88px;
+
+background: rgb(28, 28, 33);
+}
