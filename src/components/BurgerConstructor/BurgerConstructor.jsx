@@ -43,19 +43,10 @@ const BurgerConstructor = () => {
     },
   });
 
-  const handleClick = () => {
-    dispatch(createOrderApi())
-      .then((data) => {
-        if (!data) {
-          return;
-        }
-        dispatch(setArrayInrgidients(data.order.number));
-        setModalActive(true);
-        dispatch(resetConstructor());
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+  const handleClick = async () => {
+    if (await dispatch(createOrderApi())) {
+      setModalActive(true);
+    }
   };
   return (
     <div className={styles["burger__constructor"]} ref={dropRef}>

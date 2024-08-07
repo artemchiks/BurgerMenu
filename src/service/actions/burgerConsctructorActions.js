@@ -2,15 +2,18 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ORDERS_URL } from "../../components/pathUrl";
 import { checkResponse } from "../../components/checkResponse";
 import { useSelector } from "react-redux";
-import { BURGER_CONSTRUCTOR_SLICE } from "../burgerConstructor";
+import {
+  BURGER_CONSTRUCTOR_SLICE,
+  resetConstructor,
+} from "../burgerConstructor";
+import { setArrayInrgidients } from "../orderDetalis";
 
 export const createOrderApi = () => async (dispatch, getState) => {
   const state = getState();
   const data = state[BURGER_CONSTRUCTOR_SLICE];
 
   if (!data.bun?._id) {
-    console.error("Булка не выбрана");
-    return;
+    return null;
   }
 
   try {
@@ -27,7 +30,11 @@ export const createOrderApi = () => async (dispatch, getState) => {
     });
 
     const app = await checkResponse(response);
-    return app;
+    if (app) {
+      dispatch(setArrayInrgidients(app.order.number));
+      dispatch(resetConstructor());
+      return app;
+    }
   } catch (error) {
     console.error(error);
     return;
