@@ -1,8 +1,9 @@
 import classNames from "classnames";
 import { ItemCard } from "./ItemCard";
 import styles from "./IngredietnsList.module.css";
-import { IngredientType } from "../../../utils/types";
+import { CategoryTypes, IngredientType } from "../../../utils/types";
 import PropTypes from "prop-types";
+import DraggableItem from "../DraggableItem";
 export const Category = ({ title, items, handleSelectItem }) => {
   return (
     <div>
@@ -16,21 +17,23 @@ export const Category = ({ title, items, handleSelectItem }) => {
       </p>
       <div className={styles.itemsList}>
         {items?.map((item) => (
-          <div
-            key={item._id}
-            onClick={() => {
-              if (handleSelectItem) {
-                handleSelectItem(item);
-              }
-            }}
-          >
-            <ItemCard item={item} />
-          </div>
+          <DraggableItem items={item} key={item._id}>
+            <div
+              key={item._id}
+              onClick={() => {
+                if (handleSelectItem) {
+                  handleSelectItem(item);
+                }
+              }}
+            >
+              <ItemCard item={item} />
+            </div>
+          </DraggableItem>
         ))}
       </div>
     </div>
   );
 };
 Category.propTypes = {
-  IngredientType,
+  CategoryTypes,
 };

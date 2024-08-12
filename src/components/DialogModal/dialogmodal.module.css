@@ -54,12 +54,12 @@
 .btn__close {
   cursor: pointer;
 }
-.detail__ingridients {
+.modal__content-ingridients {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.detail__ingridients-text {
+.modal__content__ingridients-text {
   flex: 1;
   text-align: left;
 }

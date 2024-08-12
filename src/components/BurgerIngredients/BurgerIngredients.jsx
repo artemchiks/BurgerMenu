@@ -1,20 +1,22 @@
+import { useSelector } from "react-redux";
 import { IngredientType } from "../../utils/types";
 import TabPanel from "./TabPanel";
 import styles from "./buegerIngridients.module.css";
 import IngredietnsList from "./components/IngredietnsList";
-import PropTypes from "prop-types";
-const BurgerIngredients = ({ list }) => {
+import { DndProvider } from "react-dnd";
+import { useState } from "react";
+
+const BurgerIngredients = () => {
+  const [current, setCurrent] = useState("one");
   return (
     <div>
       <p className="text text_type_main-large">Соберите бургер</p>
-      <TabPanel />
+      <TabPanel current={current} setCurrent={setCurrent} />
       <div className={styles["burger__ingriditnts"]}>
-        <IngredietnsList list={list} />
+        <IngredietnsList setCurrent={setCurrent} />
       </div>
     </div>
   );
 };
-BurgerIngredients.propTypes = {
-  list: PropTypes.arrayOf(IngredientType).isRequired,
-};
+
 export default BurgerIngredients;
