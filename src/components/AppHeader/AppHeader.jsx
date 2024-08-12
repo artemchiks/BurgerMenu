@@ -6,6 +6,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./appHeader.module.css";
 import classNames from "classnames";
+import { Link } from "react-router-dom";
 const AppHeader = () => {
   return (
     <header className={styles["conteiner__header"]}>
@@ -41,9 +42,11 @@ const AppHeader = () => {
           </div>
           <div className={styles["app-header__btn-container"]}>
             <ProfileIcon type="secondary" />
-            <p className="text text_type_main-default text_color_inactive">
-              Личный кабинет
-            </p>
+            <Link to="/profile">
+              <p className="text text_type_main-default text_color_inactive">
+                Личный кабинет
+              </p>
+            </Link>
           </div>
         </ul>
       </nav>
