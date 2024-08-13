@@ -9,9 +9,12 @@ import styles from "./singleСlass.module.css";
 import classNames from "classnames";
 import { useNavigate } from "react-router-dom";
 import ConstrucoirAvtorixationForm from "./ConstrucoirAvtorixationForm/ConstrucoirAvtorixationForm";
-const Login = () => {
+import { useDispatch } from "react-redux";
+const Login = ({ handleClick }) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const [email, setEmail] = useState("");
+  const [pass, setPass] = useState("");
   const handleRegistrationClick = () => {
     navigate("/login/register");
   };
@@ -19,7 +22,20 @@ const Login = () => {
   const handleForgotPasswordClick = () => {
     navigate("/login/forgot-password");
   };
-
+  const loginRequest = async (form) => {
+    return await fetch("https://norma.nomoreparties.space/api/auth/login", {
+      method: "POST",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      redirect: "follow",
+      referrerPolicy: "no-referrer",
+      body: JSON.stringify(form),
+    });
+  };
   return (
     <>
       <ConstrucoirAvtorixationForm text={"Вход"}>
@@ -31,14 +47,29 @@ const Login = () => {
           )}
         >
           <div className="ml-5 mr-5 mb-5 mt-5">
-            <EmailInput name={"email"} isIcon={false} />
+            <EmailInput
+              name={"email"}
+              isIcon={false}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </div>
           <div className="ml-5 mr-5 mb-5 mt-5">
-            <PasswordInput name={"password"} extraClass="mb-2" />
+            <PasswordInput
+              name={"password"}
+              extraClass="mb-2"
+              value={pass}
+              onChange={(e) => setPass(e.target.value)}
+            />
           </div>
         </div>
         <div className={styles["entrance-block__content-btn"]}>
-          <Button htmlType="button" type="primary" size="large">
+          <Button
+            htmlType="button"
+            type="primary"
+            size="large"
+            onClick={handleClick}
+          >
             Войти
           </Button>
         </div>

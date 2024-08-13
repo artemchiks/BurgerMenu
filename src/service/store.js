@@ -12,6 +12,7 @@ import {
   ingridientDetalisReducer,
 } from "./ingridientDetalis";
 import { ORDER_DETALIS_SLICE, orderDetalisReducer } from "./orderDetalis";
+import { USER_SLICE, userReducer } from "./userSlice";
 
 export const store = configureStore({
   reducer: {
@@ -19,5 +20,6 @@ export const store = configureStore({
     [BURGER_CONSTRUCTOR_SLICE]: burgerConstructorReducer,
     [INGRIDIENT_DETALIS_SLICE]: ingridientDetalisReducer,
     [ORDER_DETALIS_SLICE]: orderDetalisReducer,
+    [USER_SLICE]: userReducer,
   },
 });
