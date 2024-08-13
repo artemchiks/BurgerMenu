@@ -18,23 +18,40 @@ const Login = ({ handleClick }) => {
   const handleRegistrationClick = () => {
     navigate("/register");
   };
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
 
+  const handlePasswordChange = (e) => {
+    setPass(e.target.value);
+  };
   const handleForgotPasswordClick = () => {
     navigate("/forgot-password");
   };
-  const loginRequest = async (form) => {
-    return await fetch("https://norma.nomoreparties.space/api/auth/login", {
-      method: "POST",
-      mode: "cors",
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      redirect: "follow",
-      referrerPolicy: "no-referrer",
-      body: JSON.stringify(form),
-    });
+  const handleLogin = async () => {
+    const response = await fetch(
+      "https://norma.nomoreparties.space/api/auth/login",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password: pass }),
+      }
+    );
+
+    const data = await response.json();
+    console.log(data);
+
+    if (data.success) {
+      const { accessToken, refreshToken } = data;
+      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("refreshToken", refreshToken);
+
+      navigate("/");
+    } else {
+      console.error("Ошибка авторизации:", data.message);
+    }
   };
   return (
     <>
@@ -49,9 +66,8 @@ const Login = ({ handleClick }) => {
           <div className="ml-5 mr-5 mb-5 mt-5">
             <EmailInput
               name={"email"}
-              isIcon={false}
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={handleEmailChange}
             />
           </div>
           <div className="ml-5 mr-5 mb-5 mt-5">
@@ -59,16 +75,16 @@ const Login = ({ handleClick }) => {
               name={"password"}
               extraClass="mb-2"
               value={pass}
-              onChange={(e) => setPass(e.target.value)}
+              onChange={handlePasswordChange}
             />
           </div>
         </div>
         <div className={styles["entrance-block__content-btn"]}>
           <Button
-            htmlType="button"
+            htmlType="submit"
             type="primary"
             size="large"
-            onClick={handleClick}
+            onClick={handleLogin}
           >
             Войти
           </Button>

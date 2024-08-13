@@ -47,34 +47,37 @@ const ResetPassword = () => {
   return (
     <div>
       <ConstrucoirAvtorixationForm text={"Сброс пароля"}>
-        <form onSubmit={handleSubmit}>
-          <PasswordInput
-            placeholder="Введите новый пароль"
-            name="password"
-            value={newPassword}
-            onChange={handleNewPasswordChange}
-            extraClass="mb-2"
-          />
-          <InputPlaceholder
-            text={"Введите код из письма"}
-            value={token}
-            onChange={handleTokenChange}
-          />
-          <div className={styles["entrance-block__content-btn"]}>
-            <Button htmlType="submit" type="primary" size="large">
-              Сохранить
-            </Button>
-          </div>
-          <p className="text text_type_main-default text_color_inactive">
-            Вспомнили пароль?{" "}
-            <button
-              className={styles["entrance-block__content-register-text"]}
-              onClick={() => navigate("/login")}
-            >
-              Войти
-            </button>
-          </p>
-        </form>
+        <PasswordInput
+          placeholder="Введите новый пароль"
+          name="password"
+          value={newPassword}
+          onChange={handleNewPasswordChange}
+          extraClass="mb-2"
+        />
+        <InputPlaceholder
+          text={"Введите код из письма"}
+          value={token}
+          onChange={handleTokenChange}
+        />
+        <div className={styles["entrance-block__content-btn"]}>
+          <Button
+            htmlType="submit"
+            type="primary"
+            size="large"
+            onClick={handleSubmit}
+          >
+            Сохранить
+          </Button>
+        </div>
+        <p className="text text_type_main-default text_color_inactive">
+          Вспомнили пароль?{" "}
+          <button
+            className={styles["entrance-block__content-register-text"]}
+            onClick={() => navigate("/login")}
+          >
+            Войти
+          </button>
+        </p>
       </ConstrucoirAvtorixationForm>
     </div>
   );

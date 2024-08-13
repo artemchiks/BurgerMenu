@@ -38,27 +38,30 @@ const ForgotPassword = () => {
   return (
     <div>
       <ConstrucoirAvtorixationForm text={"Восстановление пароля"}>
-        <form onSubmit={handleSubmit}>
-          <InputPlaceholder
-            text={"Укажите e-mail"}
-            value={email}
-            onChange={handleEmailChange}
-          />
-          <div className={styles["entrance-block__content-btn"]}>
-            <Button htmlType="submit" type="primary" size="large">
-              Восстановить
-            </Button>
-          </div>
-          <p className="text text_type_main-default text_color_inactive">
-            Вспомнили пароль?{" "}
-            <button
-              type="button"
-              className={styles["entrance-block__content-register-text"]}
-            >
-              Войти
-            </button>
-          </p>
-        </form>
+        <InputPlaceholder
+          text={"Укажите e-mail"}
+          value={email}
+          onChange={handleEmailChange}
+        />
+        <div className={styles["entrance-block__content-btn"]}>
+          <Button
+            htmlType="submit"
+            type="primary"
+            size="large"
+            onClick={handleSubmit}
+          >
+            Восстановить
+          </Button>
+        </div>
+        <p className="text text_type_main-default text_color_inactive">
+          Вспомнили пароль?{" "}
+          <button
+            type="button"
+            className={styles["entrance-block__content-register-text"]}
+          >
+            Войти
+          </button>
+        </p>
       </ConstrucoirAvtorixationForm>
     </div>
   );
