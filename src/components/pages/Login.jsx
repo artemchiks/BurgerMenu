@@ -16,11 +16,11 @@ const Login = ({ handleClick }) => {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const handleRegistrationClick = () => {
-    navigate("/login/register");
+    navigate("/register");
   };
 
   const handleForgotPasswordClick = () => {
-    navigate("/login/forgot-password");
+    navigate("/forgot-password");
   };
   const loginRequest = async (form) => {
     return await fetch("https://norma.nomoreparties.space/api/auth/login", {

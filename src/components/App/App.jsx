@@ -27,9 +27,9 @@ function App() {
       <Routes>
         <Route path="/" element={<ConstructorPage />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/login/register" element={<Register />} />
-        <Route path="/login/forgot-password" element={<ForgotPassword />} />
-        <Route path="/login/reset-password" element={<ResetPassword />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/profile/orders" element={<ProfileOrders />} />
         <Route path="/profile/orders/:number" />

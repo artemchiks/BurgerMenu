@@ -10,16 +10,15 @@ import {
 import { useNavigate } from "react-router-dom";
 const ResetPassword = () => {
   const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [pass, setPass] = useState("");
-  const navigate = useNavigate(); // Хук для навигации
+  const [token, setToken] = useState("");
+  const navigate = useNavigate();
 
   const handleNewPasswordChange = (e) => {
     setNewPassword(e.target.value);
   };
 
-  const handleConfirmPasswordChange = (e) => {
-    setConfirmPassword(e.target.value);
+  const handleTokenChange = (e) => {
+    setToken(e.target.value);
   };
 
   const handleSubmit = async (e) => {
@@ -32,46 +31,50 @@ const ResetPassword = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ password: newPassword }),
+        body: JSON.stringify({ password: newPassword, token }),
       }
     );
 
     const data = await response.json();
     console.log(data);
     if (data.success) {
-      navigate("/login"); // Перенаправляем на страницу логина после успешного сброса пароля
+      navigate("/login");
     } else {
       console.error("Ошибка сброса пароля:", data.message);
     }
   };
-  const login = () => {
-    navigate("/login");
-  };
+
   return (
     <div>
-      <ConstrucoirAvtorixationForm text={"Восстановление пароля"}>
-        <PasswordInput
-          placeholder="Введите новый пароль"
-          name={"password"}
-          extraClass="mb-2"
-          value={pass}
-          onChange={(e) => setPass(e.target.value)}
-        />
-        <InputPlaceholder text={"Введите код из письма"} />
-        <div className={styles["entrance-block__content-btn"]}>
-          <Button htmlType="button" type="primary" size="large">
-            Сохранить
-          </Button>
-        </div>
-        <p className="text text_type_main-default text_color_inactive">
-          Вспомнили пароль?{" "}
-          <button
-            className={styles["entrance-block__content-register-text"]}
-            onClick={login}
-          >
-            Войти
-          </button>
-        </p>
+      <ConstrucoirAvtorixationForm text={"Сброс пароля"}>
+        <form onSubmit={handleSubmit}>
+          <PasswordInput
+            placeholder="Введите новый пароль"
+            name="password"
+            value={newPassword}
+            onChange={handleNewPasswordChange}
+            extraClass="mb-2"
+          />
+          <InputPlaceholder
+            text={"Введите код из письма"}
+            value={token}
+            onChange={handleTokenChange}
+          />
+          <div className={styles["entrance-block__content-btn"]}>
+            <Button htmlType="submit" type="primary" size="large">
+              Сохранить
+            </Button>
+          </div>
+          <p className="text text_type_main-default text_color_inactive">
+            Вспомнили пароль?{" "}
+            <button
+              className={styles["entrance-block__content-register-text"]}
+              onClick={() => navigate("/login")}
+            >
+              Войти
+            </button>
+          </p>
+        </form>
       </ConstrucoirAvtorixationForm>
     </div>
   );

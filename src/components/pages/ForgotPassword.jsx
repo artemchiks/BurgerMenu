@@ -6,7 +6,7 @@ import styles from "./singleСlass.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
-  const navigate = useNavigate(); // Хук для навигации
+  const navigate = useNavigate();
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -29,7 +29,7 @@ const ForgotPassword = () => {
     const data = await response.json();
     console.log(data);
     if (data.success) {
-      navigate("/login/reset-password");
+      navigate("/reset-password");
     } else {
       console.error("Ошибка восстановления пароля:", data.message);
     }
