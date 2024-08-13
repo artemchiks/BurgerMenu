@@ -9,12 +9,8 @@ import {
 import styles from "./singleСlass.module.css";
 import classNames from "classnames";
 import { NavLink, useNavigate } from "react-router-dom";
-const Profile = () => {
+const ProfileOrders = () => {
   const navigate = useNavigate();
-
-  const handleProfileOrders = () => {
-    navigate("/profile/orders");
-  };
 
   return (
     <div>
@@ -29,7 +25,7 @@ const Profile = () => {
             <NavLink
               to={`/profile`}
               className={({ isActive }) =>
-                isActive ? styles.activeLink : styles.link
+                isActive ? styles.link : styles.activeLink
               }
             >
               <li className={styles["container__profile-menu-li"]}>Профиль</li>
@@ -47,32 +43,12 @@ const Profile = () => {
             <li className={styles["container__profile-menu-li"]}>Выход</li>
           </ul>
           <p className={styles["container__profile-menu-chapter"]}>
-            В этом разделе вы можете <br />
-            изменить свои персональные данные
+            В этом разделе вы можете изменить свои персональные данные
           </p>
-        </div>
-        <div>
-          <InputPlaceholder
-            text={"Имя"}
-            name={"Name"}
-            icon={<EditIcon type="primary" />}
-          />
-
-          <InputPlaceholder
-            text={"Логин"}
-            name={"Login"}
-            icon={<EditIcon type="primary" />}
-          />
-
-          <InputPlaceholder
-            text={"Пароль"}
-            name={"Password"}
-            icon={<EditIcon type="primary" />}
-          />
         </div>
       </div>
     </div>
   );
 };
 
-export default Profile;
+export default ProfileOrders;

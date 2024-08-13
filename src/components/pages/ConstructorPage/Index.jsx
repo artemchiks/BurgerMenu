@@ -11,7 +11,6 @@ const ConstructorPage = () => {
   return (
     <>
       {" "}
-      <AppHeader />
       <DndProvider backend={HTML5Backend}>
         <section
           className={classNames(
