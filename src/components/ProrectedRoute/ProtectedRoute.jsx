@@ -1,25 +1,23 @@
-// import React, { useEffect, useState } from "react";
-// import useAuth from "../hooks/UseAuth";
-// import { Navigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import useAuth from "../hooks/UseAuth";
+import { Navigate, useLocation } from "react-router-dom";
+import { getCookie } from "../../utils/cookie";
 
-// const ProtectedRoute = ({ element }) => {
-//   let { getUser, ...auth } = useAuth();
-//   const [isUserLoaded, setUserLoaded] = useState(false);
+const ProtectedRoute = ({ children, anonymous = false }) => {
+  const isLoggedIn = getCookie("accessToken");
+  const location = useLocation();
 
-//   const init = async () => {
-//     await getUser();
-//     setUserLoaded(true);
-//   };
+  const from = location.state?.from.pathname || "/";
 
-//   useEffect(() => {
-//     init();
-//   }, []);
+  if (anonymous && isLoggedIn) {
+    return <Navigate to={from} />;
+  }
 
-//   if (!isUserLoaded) {
-//     return null;
-//   }
+  if (!anonymous && !isLoggedIn) {
+    return <Navigate to="/login" replace state={{ from: location }} />;
+  }
 
-//   return auth.user ? element : <Navigate to="/login" replace />;
-// };
+  return children;
+};
 
-// export default ProtectedRoute;
+export default ProtectedRoute;
