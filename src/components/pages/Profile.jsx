@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ConstrucoirAvtorixationForm from "./ConstrucoirAvtorixationForm/ConstrucoirAvtorixationForm";
 import InputPlaceholder from "./ConstrucoirAvtorixationForm/InputPlaceholder";
 import {
@@ -9,13 +9,23 @@ import {
 import styles from "./singleСlass.module.css";
 import classNames from "classnames";
 import { NavLink, useNavigate } from "react-router-dom";
+import { logoutApi } from "../../service/actions/logOutUser";
+import { useDispatch } from "react-redux";
 const Profile = () => {
   const navigate = useNavigate();
-
+  const [name, setName] = useState("");
+  const [login, setLogin] = useState("");
+  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
   const handleProfileOrders = () => {
     navigate("/profile/orders");
   };
-
+  const handleLogout = async () => {
+    const success = await dispatch(logoutApi());
+    if (success) {
+      navigate("/login");
+    }
+  };
   return (
     <div>
       <div className={styles["container__profile"]}>
@@ -44,7 +54,12 @@ const Profile = () => {
                 История заказов
               </li>
             </NavLink>
-            <li className={styles["container__profile-menu-li"]}>Выход</li>
+            <li
+              className={styles["container__profile-menu-li"]}
+              onClick={handleLogout}
+            >
+              Выход
+            </li>
           </ul>
           <p className={styles["container__profile-menu-chapter"]}>
             В этом разделе вы можете <br />
@@ -55,19 +70,25 @@ const Profile = () => {
           <InputPlaceholder
             text={"Имя"}
             name={"Name"}
-            icon={<EditIcon type="primary" />}
+            icon={"EditIcon"}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
 
           <InputPlaceholder
             text={"Логин"}
             name={"Login"}
-            icon={<EditIcon type="primary" />}
+            icon={"EditIcon"}
+            value={login}
+            onChange={(e) => setLogin(e.target.value)}
           />
 
           <InputPlaceholder
             text={"Пароль"}
             name={"Password"}
-            icon={<EditIcon type="primary" />}
+            icon={"EditIcon"}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
       </div>

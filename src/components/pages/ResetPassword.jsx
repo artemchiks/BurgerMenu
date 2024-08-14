@@ -8,11 +8,13 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { resetPassApi } from "../../service/actions/resetPasswordActions";
 const ResetPassword = () => {
   const [newPassword, setNewPassword] = useState("");
   const [token, setToken] = useState("");
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const handleNewPasswordChange = (e) => {
     setNewPassword(e.target.value);
   };
@@ -21,26 +23,10 @@ const ResetPassword = () => {
     setToken(e.target.value);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const response = await fetch(
-      "https://norma.nomoreparties.space/api/password-reset/reset",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ password: newPassword, token }),
-      }
-    );
-
-    const data = await response.json();
-    console.log(data);
-    if (data.success) {
+  const handleSubmit = async () => {
+    const sucsess = await dispatch(resetPassApi(newPassword, token));
+    if (sucsess) {
       navigate("/login");
-    } else {
-      console.error("Ошибка сброса пароля:", data.message);
     }
   };
 

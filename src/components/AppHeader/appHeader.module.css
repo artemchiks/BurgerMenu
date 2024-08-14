@@ -35,8 +35,19 @@
     gap: 8px;
     cursor: pointer;
   }
-
+.app-header__btn-container-menu{
+  display: flex;
+  gap: 5px;
+}
   .app-header__btn-container__btn {
     display: flex;
     align-items: center;
   }
+  .activeLink{
+    color: white;
+    text-decoration: none;
+}
+.link{
+    color: rgb(133, 133, 173);
+    text-decoration: none;
+}

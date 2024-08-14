@@ -11,8 +11,8 @@ export const userSlice = createSlice({
         name: action.payload.name,
       };
     },
-    removeUser() {
-      return { email: null, name: null };
+    exitUser() {
+      return { tokenRef: null };
     },
   },
 });

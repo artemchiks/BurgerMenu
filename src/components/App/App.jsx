@@ -11,6 +11,7 @@ import ResetPassword from "../pages/ResetPassword";
 import Profile from "../pages/Profile";
 import ForgotPassword from "../pages/ForgotPassword";
 import ProfileOrders from "../pages/ProfileOrders";
+import Home from "../pages/Home";
 
 function App() {
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ function App() {
     <Router>
       <AppHeader />
       <Routes>
-        <Route path="/" element={<ConstructorPage />} />
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />

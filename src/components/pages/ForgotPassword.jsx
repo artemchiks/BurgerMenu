@@ -4,34 +4,24 @@ import InputPlaceholder from "./ConstrucoirAvtorixationForm/InputPlaceholder";
 import { useNavigate } from "react-router-dom";
 import styles from "./singleСlass.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useDispatch } from "react-redux";
+import { forgotPassApi } from "../../service/actions/forgotPassActions";
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
+  const handelLogin = () => {
+    navigate("/login");
+  };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const response = await fetch(
-      "https://norma.nomoreparties.space/api/password-reset",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }),
-      }
-    );
-
-    const data = await response.json();
-    console.log(data);
-    if (data.success) {
+  const handleSubmit = async () => {
+    const sucsess = await dispatch(forgotPassApi(email));
+    if (sucsess) {
       navigate("/reset-password");
-    } else {
-      console.error("Ошибка восстановления пароля:", data.message);
     }
   };
 
@@ -58,6 +48,7 @@ const ForgotPassword = () => {
           <button
             type="button"
             className={styles["entrance-block__content-register-text"]}
+            onClick={handelLogin}
           >
             Войти
           </button>

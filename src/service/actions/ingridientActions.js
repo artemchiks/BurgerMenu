@@ -1,5 +1,5 @@
 import { checkResponse } from "../../components/checkResponse";
-import { INGRIDIENTS_URL } from "../../components/pathUrl";
+import { INGRIDIENTS_URL } from "../../utils/api";
 import { setIngridients } from "../../service/ingridientListSlice";
 
 export const fetchIngridients = () => async (dispatch) => {

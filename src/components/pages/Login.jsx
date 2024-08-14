@@ -4,13 +4,13 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState } from "react";
-import AppHeader from "../AppHeader/AppHeader";
 import styles from "./singleСlass.module.css";
 import classNames from "classnames";
 import { useNavigate } from "react-router-dom";
 import ConstrucoirAvtorixationForm from "./ConstrucoirAvtorixationForm/ConstrucoirAvtorixationForm";
 import { useDispatch } from "react-redux";
-const Login = ({ handleClick }) => {
+import { loginApi } from "../../service/actions/loginActions";
+const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -29,28 +29,9 @@ const Login = ({ handleClick }) => {
     navigate("/forgot-password");
   };
   const handleLogin = async () => {
-    const response = await fetch(
-      "https://norma.nomoreparties.space/api/auth/login",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password: pass }),
-      }
-    );
-
-    const data = await response.json();
-    console.log(data);
-
-    if (data.success) {
-      const { accessToken, refreshToken } = data;
-      localStorage.setItem("accessToken", accessToken);
-      localStorage.setItem("refreshToken", refreshToken);
-
+    const success = await dispatch(loginApi(email, pass));
+    if (success) {
       navigate("/");
-    } else {
-      console.error("Ошибка авторизации:", data.message);
     }
   };
   return (

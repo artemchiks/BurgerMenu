@@ -11,13 +11,15 @@ import styles from "./singleСlass.module.css";
 import { useNavigate } from "react-router-dom";
 import InputPlaceholder from "./ConstrucoirAvtorixationForm/InputPlaceholder";
 import { useCookies } from "react-cookie";
+import { registerApi } from "../../service/actions/registerAcrions";
+import { useDispatch } from "react-redux";
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [cookies, setCookie] = useCookies(["token"]);
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
@@ -31,25 +33,11 @@ const Register = () => {
   };
 
   const handleSubmit = async () => {
-    const response = await fetch(
-      "https://norma.nomoreparties.space/api/auth/register",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: cookies.token,
-        },
-        body: JSON.stringify({ email, password, name }),
-      }
+    const success = await dispatch(
+      registerApi(email, password, name, cookies.token)
     );
-
-    const data = await response.json();
-    console.log(data);
-
-    if (data.success) {
+    if (success) {
       navigate("/login");
-    } else {
-      console.error("Ошибка регистрации:", data.message);
     }
   };
 
