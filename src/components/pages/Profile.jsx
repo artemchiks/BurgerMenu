@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ConstrucoirAvtorixationForm from "./ConstrucoirAvtorixationForm/ConstrucoirAvtorixationForm";
 import InputPlaceholder from "./ConstrucoirAvtorixationForm/InputPlaceholder";
 import {
+  Button,
   EditIcon,
   EmailInput,
   PasswordInput,
@@ -9,23 +10,29 @@ import {
 import styles from "./singleСlass.module.css";
 import classNames from "classnames";
 import { NavLink, useNavigate } from "react-router-dom";
-import { logoutApi } from "../../service/actions/logOutUser";
-import { useDispatch } from "react-redux";
+
+import { useDispatch, useSelector } from "react-redux";
+import { fetchLogout } from "../../service/actions/profileTunk";
+import { USER_SLICE } from "../../service/userSlice";
+
 const Profile = () => {
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
+  const isLogin = useSelector((store) => store[USER_SLICE].isLogin);
   const dispatch = useDispatch();
   const handleProfileOrders = () => {
     navigate("/profile/orders");
   };
-  const handleLogout = async () => {
-    const success = await dispatch(logoutApi());
-    if (success) {
+  const handleLogout = () => {
+    dispatch(fetchLogout());
+
+    if (isLogin) {
       navigate("/login");
     }
   };
+
   return (
     <div>
       <div className={styles["container__profile"]}>
@@ -90,6 +97,14 @@ const Profile = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          <div className={styles["container__profile-menu-chapter-btn"]}>
+            <Button htmlType="button" type="secondary" size="medium">
+              Отмена
+            </Button>
+            <Button htmlType="button" type="primary" size="medium">
+              Сохранить
+            </Button>
+          </div>
         </div>
       </div>
     </div>

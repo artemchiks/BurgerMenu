@@ -1,3 +1,6 @@
+export const ACCESS_TOKEN = "accessToken";
+export const REFRESH_TOKEN = "refreshToken";
+
 export function setCookie(name, value, props) {
   props = props || {};
   let exp = props.expires;

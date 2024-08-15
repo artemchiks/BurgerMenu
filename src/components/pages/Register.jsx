@@ -8,11 +8,13 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./singleСlass.module.css";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import InputPlaceholder from "./ConstrucoirAvtorixationForm/InputPlaceholder";
 import { useCookies } from "react-cookie";
 import { registerApi } from "../../service/actions/registerAcrions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { USER_SLICE } from "../../service/userSlice";
+import { fetchRegister } from "../../service/actions/profileTunk";
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,6 +22,11 @@ const Register = () => {
   const [cookies, setCookie] = useCookies(["token"]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const isLogin = useSelector((store) => store[USER_SLICE].isLogin);
+  const profilePending = useSelector(
+    (store) => store[USER_SLICE].profilePending
+  );
+  const errorMessage = useSelector((store) => store[USER_SLICE].errorMessage);
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
@@ -32,14 +39,19 @@ const Register = () => {
     setName(e.target.value);
   };
 
-  const handleSubmit = async () => {
-    const success = await dispatch(
-      registerApi(email, password, name, cookies.token)
+  const handleSubmit = () => {
+    dispatch(
+      fetchRegister({
+        email: email,
+        password: password,
+        name: name,
+      })
     );
-    if (success) {
-      navigate("/login");
-    }
   };
+
+  if (isLogin) {
+    navigate("/login");
+  }
 
   return (
     <div>

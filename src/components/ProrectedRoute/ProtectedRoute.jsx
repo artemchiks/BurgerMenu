@@ -8,7 +8,7 @@ const ProtectedRoute = ({ children, anonymous = false }) => {
   const location = useLocation();
 
   const from = location.state?.from.pathname || "/";
-
+  console.log(from);
   if (anonymous && isLoggedIn) {
     return <Navigate to={from} />;
   }

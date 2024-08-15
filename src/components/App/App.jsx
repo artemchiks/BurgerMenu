@@ -13,6 +13,8 @@ import ForgotPassword from "../pages/ForgotPassword";
 import ProfileOrders from "../pages/ProfileOrders";
 import Home from "../pages/Home";
 import ProtectedRoute from "../ProrectedRoute/ProtectedRoute";
+import IngredientDetails from "../DialogModal/IngredientDetails";
+import IngridientsDialogBox from "../DialogModal/IngridientsDialogBox";
 
 function App() {
   const dispatch = useDispatch();
@@ -27,28 +29,14 @@ function App() {
     <Router>
       <AppHeader />
       <Routes>
-        <Route path="/" element={<ProtectedRoute element={<Home />} />} />
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route
-          path="/register"
-          element={<ProtectedRoute element={<Register />} />}
-        />
-        <Route
-          path="/forgot-password"
-          element={<ProtectedRoute element={<ForgotPassword />} />}
-        />
-        <Route
-          path="/reset-password"
-          element={<ProtectedRoute element={<ResetPassword />} />}
-        />
-        <Route
-          path="/profile"
-          element={<ProtectedRoute element={<Profile />} />}
-        />
-        <Route
-          path="/profile/orders"
-          element={<ProtectedRoute element={<ProfileOrders />} />}
-        />
+        <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/profile" element={<Profile />}></Route>
+        <Route path="/ingredients/:id" element={<IngridientsDialogBox />} />
+        <Route path="/profile/orders" element={<ProfileOrders />} />
         <Route path="/profile/orders/:number" />
       </Routes>
     </Router>
