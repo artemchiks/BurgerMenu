@@ -24,6 +24,8 @@ flex-direction: column;
     }
     .container__profile-menu{
         list-style: none;
+
+
     }
     .container__profile-menu-chapter{
         width: 320px;
@@ -45,4 +47,13 @@ flex-direction: column;
     }
     .container__profile-menu-chapter-edit{
         display: flex;
+    }
+    .container__profile-menu-chapter-btn{
+        display: flex;
+        justify-content: right;
+        margin-top: 30px;
+       width: 495px;
+    }
+    .container__profile-menu-chapter-pass{
+   margin-left: 20px;
     }

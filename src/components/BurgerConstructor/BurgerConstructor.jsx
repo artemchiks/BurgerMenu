@@ -20,11 +20,16 @@ import IngredientCard from "./IngredientCard";
 import Stub from "./Stub/Stub";
 import { setArrayInrgidients } from "../../service/orderDetalis";
 import { createOrderApi } from "../../service/actions/burgerConsctructorActions";
+import { USER_SLICE } from "../../service/userSlice";
+import { useNavigate } from "react-router-dom";
+import ModalLoader from "../DialogModal/ModalLoader";
 const BurgerConstructor = () => {
   const [modalActive, setModalActive] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const data = useSelector((state) => state[BURGER_CONSTRUCTOR_SLICE]);
-
+  const user = useSelector((state) => state[USER_SLICE]);
+  const [loading, setLoading] = useState(false);
   const price = useMemo(() => {
     const bunPrice = data.bun ? data.bun.price * 2 : 0;
     return (
@@ -44,8 +49,21 @@ const BurgerConstructor = () => {
   });
 
   const handleClick = async () => {
-    if (await dispatch(createOrderApi())) {
-      setModalActive(true);
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+
+    setLoading(true);
+    const success = await dispatch(createOrderApi());
+
+    if (success) {
+      setTimeout(() => {
+        setModalActive(true);
+        setLoading(false);
+      }, 15000);
+    } else {
+      setLoading(false);
     }
   };
   return (
@@ -108,6 +126,7 @@ const BurgerConstructor = () => {
         </Button>
       </div>
       <OrderDetalisBox active={modalActive} setActive={setModalActive} />
+      <ModalLoader active={loading} setActive={setLoading} loading={loading} />
     </div>
   );
 };

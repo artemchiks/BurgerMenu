@@ -15,6 +15,7 @@ const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
+  const [error, setError] = useState(null);
   const handleRegistrationClick = () => {
     navigate("/register");
   };
@@ -29,9 +30,15 @@ const Login = () => {
     navigate("/forgot-password");
   };
   const handleLogin = async () => {
-    const success = await dispatch(loginApi(email, pass));
-    if (success) {
+    setError(null);
+    if (!email || !pass) {
+      return;
+    }
+    const [isSuccess, loginError] = await dispatch(loginApi(email, pass));
+    if (isSuccess) {
       navigate("/");
+    } else {
+      setError(loginError);
     }
   };
   return (
@@ -60,6 +67,7 @@ const Login = () => {
             />
           </div>
         </div>
+        <span>{error}</span>
         <div className={styles["entrance-block__content-btn"]}>
           <Button
             htmlType="submit"

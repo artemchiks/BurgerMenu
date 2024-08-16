@@ -1,7 +1,7 @@
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import React, { useRef, useState } from "react";
 
-const InputPlaceholder = ({ name, text, icon, value, onChange }) => {
+const InputPlaceholder = ({ name, text, icon, value, onChange, placeholder }) => {
   const inputRef = useRef(null);
   const onIconClick = () => {
     setTimeout(() => inputRef.current.focus(), 0);

@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { forgotPassApi } from "../../service/actions/forgotPassActions";
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -19,9 +20,18 @@ const ForgotPassword = () => {
   };
 
   const handleSubmit = async () => {
-    const sucsess = await dispatch(forgotPassApi(email));
-    if (sucsess) {
+    setError(null);
+    const { success, error } = await dispatch(forgotPassApi(email));
+    if (error) {
+      return "";
+    }
+    if (email === "") {
+      return setError("Введите корректный email!");
+    }
+    if (success) {
       navigate("/reset-password");
+    } else {
+      setError(error);
     }
   };
 
@@ -33,6 +43,7 @@ const ForgotPassword = () => {
           value={email}
           onChange={handleEmailChange}
         />
+        <span className="text text_type_main-small">{error}</span>
         <div className={styles["entrance-block__content-btn"]}>
           <Button
             htmlType="submit"

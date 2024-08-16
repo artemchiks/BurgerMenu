@@ -7,7 +7,10 @@ import {
 import styles from "./appHeader.module.css";
 import classNames from "classnames";
 import { Link, NavLink } from "react-router-dom";
+import { USER_SLICE } from "../../service/userSlice";
+import { useSelector } from "react-redux";
 const AppHeader = () => {
+  const user = useSelector((state) => state[USER_SLICE]);
   return (
     <header className={styles["conteiner__header"]}>
       <nav>
@@ -71,7 +74,13 @@ const AppHeader = () => {
                     <ProfileIcon type="secondary" />
                   )}
 
-                  <p className="text text_type_main-default">Личный кабинет</p>
+                  {user ? (
+                    <p className="text text_type_main-default">{user.name}</p>
+                  ) : (
+                    <p className="text text_type_main-default">
+                      Личный кабинет
+                    </p>
+                  )}
                 </div>
               )}
             </NavLink>

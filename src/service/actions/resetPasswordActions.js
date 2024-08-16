@@ -15,7 +15,6 @@ export const resetPassApi = (newPassword, token) => async (dispatch) => {
     const data = await checkResponse(response);
 
     if (data.success) {
-      dispatch({ type: "REGISTRATION_SUCCESS", payload: data });
       return true;
     } else {
       console.error("Ошибка сброса пароля:", data.message);

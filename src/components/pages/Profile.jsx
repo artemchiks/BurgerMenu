@@ -1,30 +1,60 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ConstrucoirAvtorixationForm from "./ConstrucoirAvtorixationForm/ConstrucoirAvtorixationForm";
 import InputPlaceholder from "./ConstrucoirAvtorixationForm/InputPlaceholder";
 import {
+  Button,
   EditIcon,
   EmailInput,
+  ShowIcon,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./singleСlass.module.css";
 import classNames from "classnames";
 import { NavLink, useNavigate } from "react-router-dom";
 import { logoutApi } from "../../service/actions/logOutUser";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { USER_SLICE } from "../../service/userSlice";
+import { fetchUpdateUserData } from "../../service/actions/userAuthActions";
+
 const Profile = () => {
   const navigate = useNavigate();
-  const [name, setName] = useState("");
-  const [login, setLogin] = useState("");
+  const user = useSelector((state) => state[USER_SLICE]);
+
+  const [name, setName] = useState(user?.name);
+  const [login, setLogin] = useState(user?.email);
+  const [isEditing, setIsEditing] = useState(false);
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const handleProfileOrders = () => {
     navigate("/profile/orders");
   };
+
+  useEffect(() => {
+    setName(user?.name || "");
+    setLogin(user?.email || "");
+  }, [user]);
   const handleLogout = async () => {
     const success = await dispatch(logoutApi());
     if (success) {
       navigate("/login");
     }
+  };
+
+  const handleUpdateUser = async () => {
+    dispatch(fetchUpdateUserData(login, name, password));
+  };
+  const handleChange = () => {
+    if (name || login || password) {
+      setIsEditing(true);
+    } else {
+      setIsEditing(false);
+    }
+  };
+  const handleCancel = () => {
+    setName(user?.name || "");
+    setLogin(user?.email || "");
+    setPassword("");
+    setIsEditing(false);
   };
   return (
     <div>
@@ -72,7 +102,10 @@ const Profile = () => {
             name={"Name"}
             icon={"EditIcon"}
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => {
+              setName(e.target.value);
+              handleChange();
+            }}
           />
 
           <InputPlaceholder
@@ -80,16 +113,43 @@ const Profile = () => {
             name={"Login"}
             icon={"EditIcon"}
             value={login}
-            onChange={(e) => setLogin(e.target.value)}
+            onChange={(e) => {
+              setLogin(e.target.value);
+              handleChange();
+            }}
           />
+          <div className={styles["container__profile-menu-chapter-pass"]}>
+            <PasswordInput
+              name={"password"}
+              extraClass="mb-2"
+              onChange={(e) => {
+                setPassword(e.target.value);
+                handleChange();
+              }}
+              value={password}
+            />
+          </div>
 
-          <InputPlaceholder
-            text={"Пароль"}
-            name={"Password"}
-            icon={"EditIcon"}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          {isEditing && (
+            <div className={styles["container__profile-menu-chapter-btn"]}>
+              <Button
+                htmlType="button"
+                type="secondary"
+                size="medium"
+                onClick={handleCancel}
+              >
+                Отмена
+              </Button>
+              <Button
+                htmlType="button"
+                type="primary"
+                size="medium"
+                onClick={handleUpdateUser}
+              >
+                Сохранить
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </div>

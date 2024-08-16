@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "../App/App.module.css";
 import AppHeader from "../AppHeader/AppHeader";
 import ConstructorPage from "../pages/ConstructorPage/Index";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { fetchIngridients } from "../../service/actions/ingridientActions";
 import Login from "../pages/Login";
@@ -13,13 +13,14 @@ import ForgotPassword from "../pages/ForgotPassword";
 import ProfileOrders from "../pages/ProfileOrders";
 import Home from "../pages/Home";
 import ProtectedRoute from "../ProrectedRoute/ProtectedRoute";
-
+import { fetchUserData } from "../../service/actions/userAuthActions";
+import IngridinetPage from "../pages/IngridinetPage";
 function App() {
   const dispatch = useDispatch();
 
-  const [isLoggudIn, setLogedIn] = useState(false);
-
   useEffect(() => {
+    dispatch(fetchUserData());
+
     dispatch(fetchIngridients());
   }, [dispatch]);
 
@@ -27,29 +28,57 @@ function App() {
     <Router>
       <AppHeader />
       <Routes>
-        <Route path="/" element={<ProtectedRoute element={<Home />} />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Home />} />
+        <Route
+          path="/login"
+          element={
+            <ProtectedRoute authorized={false}>
+              <Login />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/register"
-          element={<ProtectedRoute element={<Register />} />}
+          element={
+            <ProtectedRoute authorized={false}>
+              <Register />
+            </ProtectedRoute>
+          }
         />
         <Route
           path="/forgot-password"
-          element={<ProtectedRoute element={<ForgotPassword />} />}
+          element={
+            <ProtectedRoute authorized={false}>
+              <ForgotPassword />
+            </ProtectedRoute>
+          }
         />
         <Route
           path="/reset-password"
-          element={<ProtectedRoute element={<ResetPassword />} />}
+          element={
+            <ProtectedRoute authorized={false}>
+              <ResetPassword />
+            </ProtectedRoute>
+          }
         />
         <Route
           path="/profile"
-          element={<ProtectedRoute element={<Profile />} />}
+          element={
+            <ProtectedRoute authorized>
+              <Profile />
+            </ProtectedRoute>
+          }
         />
         <Route
           path="/profile/orders"
-          element={<ProtectedRoute element={<ProfileOrders />} />}
+          element={
+            <ProtectedRoute authorized>
+              <ProfileOrders />
+            </ProtectedRoute>
+          }
         />
         <Route path="/profile/orders/:number" />
+        <Route path="/ingredients/:id" element={<IngridinetPage />} />
       </Routes>
     </Router>
   );

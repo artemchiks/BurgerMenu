@@ -3,9 +3,6 @@ import { checkResponse } from "../../components/checkResponse";
 import {} from "../burgerConstructor";
 
 export const forgotPassApi = (email) => async (dispatch) => {
-  if (email === "") {
-    return;
-  }
   try {
     const response = await fetch(PASSWORD_REST_EMAIL, {
       method: "POST",
@@ -17,13 +14,13 @@ export const forgotPassApi = (email) => async (dispatch) => {
 
     const data = await checkResponse(response);
     if (data.success) {
-      dispatch({ type: "REGISTRATION_SUCCESS", payload: data });
-      return true;
+      return { success: true };
     } else {
-      console.error("Ошибка регистрации:", data.message);
+      console.error("Ошибка восстановления пароля:", data.message);
+      return { error: `Ошибка восстановления пароля: ${data.message}`};
     }
   } catch (error) {
     console.error(error);
-    return;
+    return { error: 'Неизвестная ошибка'};
   }
 };

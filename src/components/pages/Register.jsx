@@ -11,13 +11,14 @@ import styles from "./singleСlass.module.css";
 import { useNavigate } from "react-router-dom";
 import InputPlaceholder from "./ConstrucoirAvtorixationForm/InputPlaceholder";
 import { useCookies } from "react-cookie";
-import { registerApi } from "../../service/actions/registerAcrions";
+import { registerApi } from "../../service/actions/registerActions";
 import { useDispatch } from "react-redux";
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [cookies, setCookie] = useCookies(["token"]);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleEmailChange = (e) => {
@@ -33,11 +34,14 @@ const Register = () => {
   };
 
   const handleSubmit = async () => {
-    const success = await dispatch(
-      registerApi(email, password, name, cookies.token)
+    setError(null);
+    const [isSuccess, registerError] = await dispatch(
+      registerApi(email, password, name)
     );
-    if (success) {
+    if (isSuccess) {
       navigate("/login");
+    } else {
+      setError(registerError);
     }
   };
 
@@ -73,6 +77,7 @@ const Register = () => {
             />
           </div>
         </div>
+        <span>{error}</span>
         <div className={styles["entrance-block__content-btn"]}>
           <Button
             htmlType="submit"
