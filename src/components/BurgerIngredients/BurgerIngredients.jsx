@@ -1,9 +1,7 @@
-import { useSelector } from "react-redux";
-import { IngredientType } from "../../utils/types";
 import TabPanel from "./TabPanel";
 import styles from "./buegerIngridients.module.css";
 import IngredietnsList from "./components/IngredietnsList";
-import { DndProvider } from "react-dnd";
+
 import { useState } from "react";
 
 const BurgerIngredients = () => {

@@ -1,7 +1,10 @@
 import { useDrag } from "react-dnd";
 import { IngredientType } from "../../utils/types";
+import { Link, useLocation } from "react-router-dom";
 
 const DraggableItem = ({ items, children }) => {
+  const location = useLocation();
+
   const [{ isDragging }, dragRef] = useDrag({
     type: "burger",
     item: { ...items },
@@ -10,7 +13,15 @@ const DraggableItem = ({ items, children }) => {
     }),
   });
 
-  return <div ref={dragRef}>{children}</div>;
+  return (
+    <Link
+      to={`/ingredients/${items._id}`}
+      state={{ background: location }}
+      ref={dragRef}
+    >
+      {children}
+    </Link>
+  );
 };
 DraggableItem.propTypes = {
   IngredientType,

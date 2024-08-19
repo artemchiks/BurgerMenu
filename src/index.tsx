@@ -7,6 +7,7 @@ import { Provider } from "react-redux";
 import { store } from "./service/store";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { HashRouter } from "react-router-dom";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -15,7 +16,9 @@ root.render(
   <React.StrictMode>
     <DndProvider backend={HTML5Backend}>
       <Provider store={store}>
+      <HashRouter>
         <App />
+        </HashRouter>
       </Provider>
     </DndProvider>
   </React.StrictMode>
