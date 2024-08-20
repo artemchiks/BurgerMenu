@@ -8,18 +8,15 @@ import { useDispatch } from "react-redux";
 import { clearIngridient } from "../../service/ingridientDetalis";
 import { IngredientType, ModalType } from "../../utils/types";
 const modalRoot = document.querySelector("#modal-root");
-const Modal = ({ active, title, setActive, children, onClose }) => {
+const Modal = ({ title, children, onClose }) => {
   const handleClose = useCallback(() => {
     if (onClose) {
       onClose();
     }
-    setActive(false);
-  }, [setActive, onClose]);
-  if (!active) {
-    return null;
-  }
+  }, [onClose]);
+
   return createPortal(
-    <div className={`${styles.modal} ${active ? styles.active : ""}`}>
+    <div className={`${styles.modal} ${styles.active}`}>
       <div
         className={styles["modal__content"]}
         onClick={(e) => {
@@ -46,7 +43,7 @@ const Modal = ({ active, title, setActive, children, onClose }) => {
         </div>
         {children}
       </div>
-      <ModalOverlay active={active} onClose={handleClose} />
+      <ModalOverlay onClose={handleClose} />
     </div>,
     modalRoot
   );

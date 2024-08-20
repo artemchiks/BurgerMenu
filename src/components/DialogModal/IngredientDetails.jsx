@@ -3,15 +3,12 @@ import styles from "./dialogmodal.module.css";
 import classNames from "classnames";
 import { INGRIDIENT_DETALIS_SLICE } from "../../service/ingridientDetalis";
 import { useParams } from "react-router-dom";
-const IngredientDetails = ({ data }) => {
-  const item = useSelector((state) => state[INGRIDIENT_DETALIS_SLICE]);
-
+import { INGRIDIENT_LIST_SLICE } from "../../service/ingridientListSlice";
+const IngredientDetails = () => {
+  const item = useSelector((state) => state[INGRIDIENT_LIST_SLICE]);
   const { id } = useParams();
-  const info = { ...item, id: id };
-
-  if (!item) {
-    return null;
-  }
+  const info = item.find((ingredient) => ingredient._id === id);
+  console.log(info);
   return (
     <div>
       {info && (

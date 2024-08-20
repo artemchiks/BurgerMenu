@@ -7,6 +7,7 @@ export const fetchIngridients = () => async (dispatch) => {
     const response = await fetch(INGRIDIENTS_URL);
 
     const data = await checkResponse(response);
+    console.log(data);
     dispatch(setIngridients(data?.data || []));
   } catch (error) {
     console.log(error);

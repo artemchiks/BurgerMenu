@@ -29,13 +29,10 @@ import { USER_SLICE } from "../../service/userSlice";
 function App() {
   const dispatch = useDispatch();
   const location = useLocation();
-  const background = location.state && location.state.background;
-  console.log(background);
-  const user = useSelector((state) => state[USER_SLICE]);
+  const background = location.state && location.state?.background;
+
   const navigate = useNavigate();
 
-  const ingredient = useSelector((state) => state[INGRIDIENT_DETALIS_SLICE]);
-  console.log(ingredient);
   function close() {
     navigate(-1);
   }
@@ -75,16 +72,16 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route path="/ingredients/:id" element={<IngridinetPage />} />
+        <Route path="/ingredients/:id" element={<IngredientDetails />} />
       </Routes>
 
-      {ingredient && background && (
+      {background && (
         <Routes>
           <Route
             path="/ingredients/:id"
             element={
               <Modal onClose={close} title={"Детали ингредиента"}>
-                <IngredientDetails data={ingredient} />{" "}
+                <IngredientDetails />{" "}
               </Modal>
             }
           />

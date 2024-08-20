@@ -5,7 +5,7 @@ import { INGRIDIENT_LIST_SLICE } from "../../service/ingridientListSlice";
 
 import IngredientDetails from "../DialogModal/IngredientDetails";
 import { INGRIDIENT_DETALIS_SLICE } from "../../service/ingridientDetalis";
-const IngridinetPage = (setActive, active) => {
+const IngridinetPage = () => {
   const loaded = useSelector((state) => state[INGRIDIENT_DETALIS_SLICE]);
   console.log(loaded);
   return (

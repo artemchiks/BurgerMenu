@@ -65,7 +65,7 @@ const IngredietnsList = ({ setCurrent }) => {
           handleSelectItem={handleSelectItem}
         />
       </div>
-      <IngridientsDialogBox active={active} setActive={setActive} />
+      {/* <IngridientsDialogBox active={active} setActive={setActive} /> */}
     </div>
   );
 };
