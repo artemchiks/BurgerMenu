@@ -74,6 +74,22 @@ function App() {
             }
           />
           <Route
+            path="/forgot-password"
+            element={
+              <ProtectedRoute authorized={false}>
+                <ForgotPassword />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/reset-password"
+            element={
+              <ProtectedRoute authorized={false}>
+                <ResetPassword />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/profile"
             element={
               <ProtectedRoute authorized>
@@ -89,7 +105,8 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="/ingredients/:id" element={<IngredientDetails />} />
+          <Route path="/profile/orders/:number" />
+          <Route path="/ingredients/:id" element={<IngridinetPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       )}
