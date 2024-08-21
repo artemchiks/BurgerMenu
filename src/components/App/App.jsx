@@ -24,57 +24,73 @@ import IngridinetPage from "../pages/IngridinetPage";
 import IngredientDetails from "../DialogModal/IngredientDetails";
 import Modal from "../DialogModal/Modal";
 import { INGRIDIENT_DETALIS_SLICE } from "../../service/ingridientDetalis";
-import { USER_SLICE } from "../../service/userSlice";
+import { isAuth, USER_SLICE } from "../../service/userSlice";
+import { ProgressSpinner } from "primereact/progressspinner";
+import { INGRIDIENT_LIST_SLICE } from "../../service/ingridientListSlice";
 
 function App() {
   const dispatch = useDispatch();
   const location = useLocation();
   const background = location.state && location.state?.background;
 
+  const isAuths = useSelector((state) => state[USER_SLICE]);
+  console.log(isAuths);
   const navigate = useNavigate();
 
   function close() {
     navigate(-1);
   }
-
+  const ingridients = useSelector((state) => state[INGRIDIENT_LIST_SLICE]);
   useEffect(() => {
     dispatch(fetchUserData());
     dispatch(fetchIngridients());
   }, [dispatch]);
-
+  // if (isAuths) {
+  //   return <ProgressSpinner />;
+  // }
   return (
     <>
       <AppHeader />
-
-      <Routes location={background || location}>
-        <Route path="/" element={<Home />} />
-        <Route
-          path="/login"
-          element={
-            <ProtectedRoute authorized={false}>
-              <Login />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/register"
-          element={
-            <ProtectedRoute authorized={false}>
-              <Register />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/profile"
-          element={
-            <ProtectedRoute authorized>
-              <Profile />
-            </ProtectedRoute>
-          }
-        />
-        <Route path="/ingredients/:id" element={<IngredientDetails />} />
-      </Routes>
-
+      {!ingridients && isAuths ? (
+        <p>Загрузка</p>
+      ) : (
+        <Routes location={background || location}>
+          <Route path="/" element={<Home />} />
+          <Route
+            path="/login"
+            element={
+              <ProtectedRoute authorized={false}>
+                <Login />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <ProtectedRoute authorized={false}>
+                <Register />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute authorized>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile/orders"
+            element={
+              <ProtectedRoute authorized>
+                <ProfileOrders />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/ingredients/:id" element={<IngredientDetails />} />
+        </Routes>
+      )}
       {background && (
         <Routes>
           <Route

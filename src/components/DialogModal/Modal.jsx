@@ -16,7 +16,8 @@ const Modal = ({ title, children, onClose }) => {
   }, [onClose]);
 
   return createPortal(
-    <div className={`${styles.modal} ${styles.active}`}>
+    <div className={`${styles.modal}`}>
+      <ModalOverlay onClose={handleClose} />
       <div
         className={styles["modal__content"]}
         onClick={(e) => {
@@ -43,7 +44,6 @@ const Modal = ({ title, children, onClose }) => {
         </div>
         {children}
       </div>
-      <ModalOverlay onClose={handleClose} />
     </div>,
     modalRoot
   );

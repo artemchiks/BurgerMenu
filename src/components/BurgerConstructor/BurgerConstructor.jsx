@@ -23,11 +23,22 @@ import { createOrderApi } from "../../service/actions/burgerConsctructorActions"
 import { USER_SLICE } from "../../service/userSlice";
 import { useNavigate } from "react-router-dom";
 import ModalLoader from "../DialogModal/ModalLoader";
+import {
+  clearIngridient,
+  INGRIDIENT_DETALIS_SLICE,
+  setIngridient,
+} from "../../service/ingridientDetalis";
+import Modal from "../DialogModal/Modal";
+import OrderDetails from "../DialogModal/OrderDetails";
 const BurgerConstructor = () => {
   const [modalActive, setModalActive] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const data = useSelector((state) => state[BURGER_CONSTRUCTOR_SLICE]);
+
+  const selectedIngredient = useSelector(
+    (state) => state[INGRIDIENT_DETALIS_SLICE]
+  );
   const user = useSelector((state) => state[USER_SLICE]);
   const [loading, setLoading] = useState(false);
   const price = useMemo(() => {
@@ -47,7 +58,10 @@ const BurgerConstructor = () => {
       }
     },
   });
-
+  const handleModalClose = () => {
+    dispatch(clearIngridient());
+    setModalActive(false);
+  };
   const handleClick = async () => {
     if (!user) {
       navigate("/login");
@@ -59,8 +73,8 @@ const BurgerConstructor = () => {
 
     if (success) {
       setTimeout(() => {
-        setModalActive(true);
         setLoading(false);
+        setModalActive(true);
       }, 15000);
     } else {
       setLoading(false);
@@ -125,8 +139,17 @@ const BurgerConstructor = () => {
           Оформить заказ
         </Button>
       </div>
-      <OrderDetalisBox active={modalActive} setActive={setModalActive} />
-      <ModalLoader active={loading} setActive={setLoading} loading={loading} />
+
+      {loading && (
+        <Modal onClose={handleModalClose} title={"Загрузка заказа"}>
+          <ModalLoader loading={loading} />
+        </Modal>
+      )}
+      {modalActive && (
+        <Modal onClose={handleModalClose}>
+          <OrderDetails item={selectedIngredient} />
+        </Modal>
+      )}
     </div>
   );
 };

@@ -5,10 +5,10 @@ import { IngredientType } from "../../utils/types";
 import { useDispatch } from "react-redux";
 import { clearIngridient } from "../../service/ingridientDetalis";
 
-const OrderDetalisBox = ({ active, setActive, item }) => {
+const OrderDetalisBox = ({ item }) => {
   return (
     <div>
-      <Modal active={active} setActive={setActive}>
+      <Modal >
         <OrderDetails item={item} />
       </Modal>
     </div>

@@ -8,3 +8,7 @@
   scrollbar-width: thin;
   scrollbar-color: #8585ad rgb(47, 47, 55);
 }
+.container__drag-item{
+  color: rgb(242, 242, 243);
+  text-decoration: none;
+}

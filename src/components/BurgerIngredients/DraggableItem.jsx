@@ -1,7 +1,7 @@
 import { useDrag } from "react-dnd";
 import { IngredientType } from "../../utils/types";
 import { Link, useLocation } from "react-router-dom";
-
+import styles from "./buegerIngridients.module.css";
 const DraggableItem = ({ items, children }) => {
   const location = useLocation();
 
@@ -18,6 +18,7 @@ const DraggableItem = ({ items, children }) => {
       to={`/ingredients/${items._id}`}
       state={{ background: location }}
       ref={dragRef}
+      className={styles["container__drag-item"]}
     >
       {children}
     </Link>
