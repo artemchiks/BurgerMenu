@@ -27,6 +27,7 @@ import { INGRIDIENT_DETALIS_SLICE } from "../../service/ingridientDetalis";
 import { isAuth, USER_SLICE } from "../../service/userSlice";
 import { ProgressSpinner } from "primereact/progressspinner";
 import { INGRIDIENT_LIST_SLICE } from "../../service/ingridientListSlice";
+import NotFound from "../pages/NotFound";
 
 function App() {
   const dispatch = useDispatch();
@@ -89,6 +90,7 @@ function App() {
             }
           />
           <Route path="/ingredients/:id" element={<IngredientDetails />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       )}
       {background && (

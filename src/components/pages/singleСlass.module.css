@@ -57,3 +57,8 @@ flex-direction: column;
     .container__profile-menu-chapter-pass{
    margin-left: 20px;
     }
+    .not__found{
+        display: flex;
+        justify-content: center;
+        margin-top: 60px;
+    }
