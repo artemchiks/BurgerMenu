@@ -1,5 +1,5 @@
 import { classNames } from "primereact/utils";
-import IngredientDetails from "../DialogModal/IngredientDetails";
+import IngredientDetails from "../components/DialogModal/IngredientDetails";
 import styles from "./singleСlass.module.css";
 const IngridinetPage = () => {
   return (

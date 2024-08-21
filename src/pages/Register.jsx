@@ -1,59 +1,70 @@
+import React, { useRef, useState } from "react";
+import ConstrucoirAvtorixationForm from "./ConstrucoirAvtorixationForm/ConstrucoirAvtorixationForm";
+import classNames from "classnames";
 import {
   Button,
   EmailInput,
+  Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useState } from "react";
 import styles from "./singleСlass.module.css";
-import classNames from "classnames";
 import { useNavigate } from "react-router-dom";
-import ConstrucoirAvtorixationForm from "./ConstrucoirAvtorixationForm/ConstrucoirAvtorixationForm";
+import InputPlaceholder from "./ConstrucoirAvtorixationForm/InputPlaceholder";
+import { useCookies } from "react-cookie";
+import { registerApi } from "../service/actions/registerActions";
 import { useDispatch } from "react-redux";
-import { loginApi } from "../../service/actions/loginActions";
-const Login = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+const Register = () => {
   const [email, setEmail] = useState("");
-  const [pass, setPass] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [cookies, setCookie] = useCookies(["token"]);
   const [error, setError] = useState(null);
-  const handleRegistrationClick = () => {
-    navigate("/register");
-  };
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
 
   const handlePasswordChange = (e) => {
-    setPass(e.target.value);
+    setPassword(e.target.value);
   };
-  const handleForgotPasswordClick = () => {
-    navigate("/forgot-password");
+
+  const handleNameChange = (e) => {
+    setName(e.target.value);
   };
-  const handleLogin = async () => {
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     setError(null);
-    if (!email || !pass) {
-      return;
-    }
-    const [isSuccess, loginError] = await dispatch(loginApi(email, pass));
+    const [isSuccess, registerError] = await dispatch(
+      registerApi(email, password, name)
+    );
     if (isSuccess) {
-      navigate("/");
+      navigate("/login");
     } else {
-      setError(loginError);
+      setError(registerError);
     }
   };
+
   return (
-    <>
-      <ConstrucoirAvtorixationForm text={"Вход"}>
-        {" "}
+    <form onSubmit={handleSubmit}>
+      <ConstrucoirAvtorixationForm text={"Регистрация"}>
         <div
           className={classNames(
             styles["entrance-block__content-input"],
             "ml-5 mr-5 mb-5 mt-5"
           )}
         >
+          <InputPlaceholder
+            text={"Имя"}
+            name={"Имя"}
+            value={name}
+            onChange={handleNameChange}
+          />
           <div className="ml-5 mr-5 mb-5 mt-5">
             <EmailInput
               name={"email"}
+              isIcon={false}
               value={email}
               onChange={handleEmailChange}
             />
@@ -62,46 +73,31 @@ const Login = () => {
             <PasswordInput
               name={"password"}
               extraClass="mb-2"
-              value={pass}
               onChange={handlePasswordChange}
+              value={password}
             />
           </div>
         </div>
         <span>{error}</span>
         <div className={styles["entrance-block__content-btn"]}>
-          <Button
-            htmlType="submit"
-            type="primary"
-            size="large"
-            onClick={handleLogin}
-          >
-            Войти
+          <Button htmlType="submit" type="primary" size="large">
+            Зарегистрироваться
           </Button>
         </div>
         <p className="text text_type_main-default text_color_inactive">
-          Вы — новый пользователь?{" "}
+          Уже зарегистрированы?
           <button
             className={classNames(
               styles["entrance-block__content-register-text"],
               "text text_type_main-small"
             )}
-            onClick={handleRegistrationClick}
+            onClick={() => navigate("/login")}
           >
-            Зарегестрироваться
-          </button>
-        </p>
-        <p className="text text_type_main-default text_color_inactive">
-          Забыли пароль?{" "}
-          <button
-            className={styles["entrance-block__content-register-text"]}
-            onClick={handleForgotPasswordClick}
-          >
-            Восстановить пароль
+            Войти
           </button>
         </p>
       </ConstrucoirAvtorixationForm>
-    </>
+    </form>
   );
 };
-
-export default Login;
+export default Register;

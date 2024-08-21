@@ -9,7 +9,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { resetPassApi } from "../../service/actions/resetPasswordActions";
+import { resetPassApi } from "../service/actions/resetPasswordActions";
 const ResetPassword = () => {
   const [newPassword, setNewPassword] = useState("");
   const [token, setToken] = useState("");
@@ -23,7 +23,8 @@ const ResetPassword = () => {
     setToken(e.target.value);
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     const sucsess = await dispatch(resetPassApi(newPassword, token));
     if (sucsess) {
       navigate("/login");
@@ -31,7 +32,7 @@ const ResetPassword = () => {
   };
 
   return (
-    <div>
+    <form onSubmit={handleSubmit}>
       <ConstrucoirAvtorixationForm text={"Сброс пароля"}>
         <PasswordInput
           placeholder="Введите новый пароль"
@@ -46,12 +47,7 @@ const ResetPassword = () => {
           onChange={handleTokenChange}
         />
         <div className={styles["entrance-block__content-btn"]}>
-          <Button
-            htmlType="submit"
-            type="primary"
-            size="large"
-            onClick={handleSubmit}
-          >
+          <Button htmlType="submit" type="primary" size="large">
             Сохранить
           </Button>
         </div>
@@ -65,7 +61,7 @@ const ResetPassword = () => {
           </button>
         </p>
       </ConstrucoirAvtorixationForm>
-    </div>
+    </form>
   );
 };
 

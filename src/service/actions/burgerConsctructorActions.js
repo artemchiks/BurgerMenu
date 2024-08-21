@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ORDERS_URL } from "../../utils/api";
-import { checkResponse } from "../../components/checkResponse";
+import { checkResponse } from "../../utils/checkResponse";
 import { useSelector } from "react-redux";
 import {
   BURGER_CONSTRUCTOR_SLICE,
@@ -16,27 +16,22 @@ export const createOrderApi = () => async (dispatch, getState) => {
     return null;
   }
 
-  try {
-    const idIngredients = data.ingridients.map((item) => item._id);
+  const idIngredients = data.ingridients.map((item) => item._id);
 
-    const response = await fetch(ORDERS_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        ingredients: [data.bun._id, ...idIngredients, data.bun._id],
-      }),
-    });
+  const response = await fetch(ORDERS_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      ingredients: [data.bun._id, ...idIngredients, data.bun._id],
+    }),
+  });
 
-    const app = await checkResponse(response);
-    if (app) {
-      dispatch(setArrayInrgidients(app.order.number));
-      dispatch(resetConstructor());
-      return app;
-    }
-  } catch (error) {
-    console.error(error);
-    return;
+  const app = await checkResponse(response);
+  if (app) {
+    dispatch(setArrayInrgidients(app.order.number));
+    dispatch(resetConstructor());
+    return app;
   }
 };

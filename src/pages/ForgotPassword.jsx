@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "./singleСlass.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch } from "react-redux";
-import { forgotPassApi } from "../../service/actions/forgotPassActions";
+import { forgotPassApi } from "../service/actions/forgotPassActions";
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState(null);
@@ -18,25 +18,26 @@ const ForgotPassword = () => {
   const handelLogin = () => {
     navigate("/login");
   };
-
-  const handleSubmit = async () => {
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     setError(null);
     const { success, error } = await dispatch(forgotPassApi(email));
     if (error) {
       return "";
     }
-    if (email === "") {
+    if (email === "" || emailRegex) {
       return setError("Введите корректный email!");
     }
     if (success) {
       navigate("/reset-password");
     } else {
-      setError(error);
+      setError(error || "Неизвестная ошибка");
     }
   };
 
   return (
-    <div>
+    <form onSubmit={handelLogin}>
       <ConstrucoirAvtorixationForm text={"Восстановление пароля"}>
         <InputPlaceholder
           text={"Укажите e-mail"}
@@ -59,13 +60,12 @@ const ForgotPassword = () => {
           <button
             type="button"
             className={styles["entrance-block__content-register-text"]}
-            onClick={handelLogin}
           >
             Войти
           </button>
         </p>
       </ConstrucoirAvtorixationForm>
-    </div>
+    </form>
   );
 };
 

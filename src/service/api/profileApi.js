@@ -1,4 +1,4 @@
-import { checkResponse } from "../../components/checkResponse";
+import { checkResponse } from "../../utils/checkResponse";
 import {
   AUTH_API,
   LOGIN_API,

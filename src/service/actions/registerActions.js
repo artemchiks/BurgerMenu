@@ -1,33 +1,27 @@
 import { REGISTER_API } from "../../utils/api";
-import { checkResponse } from "../../components/checkResponse";
+import { checkResponse } from "../../utils/checkResponse";
 import {} from "../burgerConstructor";
 import { setUser } from "../userSlice";
 
-export const registerApi =
-  (email, password, name) => async (dispatch) => {
-    try {
-      const response = await fetch(REGISTER_API, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password, name }),
-      });
+export const registerApi = (email, password, name) => async (dispatch) => {
+  const response = await fetch(REGISTER_API, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email, password, name }),
+  });
 
-      const data = await checkResponse(response);
+  const data = await checkResponse(response);
 
-      if (data.success) {
-        const { name, accessToken, refreshToken } = data;
-        dispatch(setUser({ email, name }));
-        localStorage.setItem("accessToken", accessToken);
-        localStorage.setItem("refreshToken", refreshToken);
-        return [true, null];
-      } else {
-        console.error("Ошибка регистрации:", data.message);
-        return [false, `Ошибка регистрации: ${data.message}`];
-      }
-    } catch (error) {
-      console.error(error);
-      return [false, 'Неизвестная ошибка'];
-    }
-  };
+  if (data.success) {
+    const { name, accessToken, refreshToken } = data;
+    dispatch(setUser({ email, name }));
+    localStorage.setItem("accessToken", accessToken);
+    localStorage.setItem("refreshToken", refreshToken);
+    return [true, null];
+  } else {
+    console.error("Ошибка регистрации:", data.message);
+    return [false, `Ошибка регистрации: ${data.message}`];
+  }
+};

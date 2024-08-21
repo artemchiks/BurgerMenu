@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "../App/App.module.css";
 import AppHeader from "../AppHeader/AppHeader";
-import ConstructorPage from "../pages/ConstructorPage/Index";
+
 import { useDispatch, useSelector } from "react-redux";
 import {
   BrowserRouter as Router,
@@ -11,23 +11,24 @@ import {
   useNavigate,
 } from "react-router-dom";
 import { fetchIngridients } from "../../service/actions/ingridientActions";
-import Login from "../pages/Login";
-import Register from "../pages/Register";
-import ResetPassword from "../pages/ResetPassword";
-import Profile from "../pages/Profile";
-import ForgotPassword from "../pages/ForgotPassword";
-import ProfileOrders from "../pages/ProfileOrders";
-import Home from "../pages/Home";
+import Login from "../../pages/Login";
+import Register from "../../pages/Register";
+import ResetPassword from "../../pages/ResetPassword";
+
+import ForgotPassword from "../../pages/ForgotPassword";
+import ProfileOrders from "../../pages/ProfileOrders";
+import Home from "../../pages/Home";
 import ProtectedRoute from "../ProrectedRoute/ProtectedRoute";
 import { fetchUserData } from "../../service/actions/userAuthActions";
-import IngridinetPage from "../pages/IngridinetPage";
+import IngridinetPage from "../../pages/IngridinetPage";
 import IngredientDetails from "../DialogModal/IngredientDetails";
 import Modal from "../DialogModal/Modal";
 import { INGRIDIENT_DETALIS_SLICE } from "../../service/ingridientDetalis";
 import { isAuth, USER_SLICE } from "../../service/userSlice";
 import { ProgressSpinner } from "primereact/progressspinner";
 import { INGRIDIENT_LIST_SLICE } from "../../service/ingridientListSlice";
-import NotFound from "../pages/NotFound";
+import NotFound from "../../pages/NotFound";
+import Profile from "../../pages/Profile";
 
 function App() {
   const dispatch = useDispatch();

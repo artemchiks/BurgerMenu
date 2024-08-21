@@ -11,10 +11,10 @@ import {
 import styles from "./singleСlass.module.css";
 import classNames from "classnames";
 import { NavLink, useNavigate } from "react-router-dom";
-import { logoutApi } from "../../service/actions/logOutUser";
+import { logoutApi } from "../service/actions/logOutUser";
 import { useDispatch, useSelector } from "react-redux";
-import { USER_SLICE } from "../../service/userSlice";
-import { fetchUpdateUserData } from "../../service/actions/userAuthActions";
+import { USER_SLICE } from "../service/userSlice";
+import { fetchUpdateUserData } from "../service/actions/userAuthActions";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -40,7 +40,8 @@ const Profile = () => {
     }
   };
 
-  const handleUpdateUser = async () => {
+  const handleUpdateUser = async (e) => {
+    e.preventDefault();
     dispatch(fetchUpdateUserData(login, name, password));
   };
   const handleChange = () => {
@@ -96,7 +97,7 @@ const Profile = () => {
             изменить свои персональные данные
           </p>
         </div>
-        <div>
+        <form onSubmit={handleUpdateUser}>
           <InputPlaceholder
             text={"Имя"}
             name={"Name"}
@@ -140,17 +141,12 @@ const Profile = () => {
               >
                 Отмена
               </Button>
-              <Button
-                htmlType="button"
-                type="primary"
-                size="medium"
-                onClick={handleUpdateUser}
-              >
+              <Button htmlType="button" type="primary" size="medium">
                 Сохранить
               </Button>
             </div>
           )}
-        </div>
+        </form>
       </div>
     </div>
   );

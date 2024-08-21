@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import BurgerConstructor from "../../BurgerConstructor/BurgerConstructor";
-import BurgerIngredients from "../../BurgerIngredients/BurgerIngredients";
+
 import classNames from "classnames";
 import styles from "./constructorPage.module.css";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import AppHeader from "../../AppHeader/AppHeader";
+
+import BurgerIngredients from "../../components/BurgerIngredients/BurgerIngredients";
+import BurgerConstructor from "../../components/BurgerConstructor/BurgerConstructor";
 
 const ConstructorPage = () => {
   return (

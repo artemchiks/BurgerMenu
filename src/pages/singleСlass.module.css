@@ -13,6 +13,8 @@ flex-direction: column;
         font-size: 16px ;
     }
     .entrance-block__content-btn{
+        display: flex;
+        justify-content: center;
         margin-bottom: 80px;
     }
     .container__profile{
@@ -24,7 +26,6 @@ flex-direction: column;
     }
     .container__profile-menu{
         list-style: none;
-
 
     }
     .container__profile-menu-chapter{
@@ -40,6 +41,12 @@ flex-direction: column;
     .activeLink{
         color: white;
         text-decoration: none;
+    }
+    .entrance-block__content-input{
+        width: 600px;
+    }
+    .entrance-block__content-input-err{
+        width: 100px;
     }
     .link{
         color: rgb(133, 133, 173);
