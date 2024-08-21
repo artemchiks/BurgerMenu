@@ -62,3 +62,10 @@ flex-direction: column;
         justify-content: center;
         margin-top: 60px;
     }
+    .page__content__ingridients{
+        margin-top: 70px;
+    }
+.page__content__ingridients-text{
+    display: flex;
+    justify-content: center;
+}

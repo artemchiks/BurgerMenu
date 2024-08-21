@@ -1,16 +1,18 @@
-import React from "react";
-import { useSelector } from "react-redux";
-
-import { INGRIDIENT_LIST_SLICE } from "../../service/ingridientListSlice";
-
+import { classNames } from "primereact/utils";
 import IngredientDetails from "../DialogModal/IngredientDetails";
-import { INGRIDIENT_DETALIS_SLICE } from "../../service/ingridientDetalis";
+import styles from "./singleСlass.module.css";
 const IngridinetPage = () => {
-  const loaded = useSelector((state) => state[INGRIDIENT_DETALIS_SLICE]);
-  console.log(loaded);
   return (
-    <div className="centerHV">
-      {loaded && <IngredientDetails data={loaded} />}
+    <div className={styles["page__content__ingridients"]}>
+      <p
+        className={classNames(
+          styles["page__content__ingridients-text"],
+          "text text_type_main-medium"
+        )}
+      >
+        Детали ингридиента
+      </p>
+      <IngredientDetails />
     </div>
   );
 };

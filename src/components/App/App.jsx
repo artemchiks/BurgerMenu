@@ -35,20 +35,19 @@ function App() {
   const background = location.state && location.state?.background;
 
   const isAuths = useSelector((state) => state[USER_SLICE]);
-  console.log(isAuths);
+
   const navigate = useNavigate();
 
   function close() {
     navigate(-1);
   }
   const ingridients = useSelector((state) => state[INGRIDIENT_LIST_SLICE]);
+
   useEffect(() => {
     dispatch(fetchUserData());
     dispatch(fetchIngridients());
   }, [dispatch]);
-  // if (isAuths) {
-  //   return <ProgressSpinner />;
-  // }
+
   return (
     <>
       <AppHeader />

@@ -4,9 +4,11 @@ import { Navigate, useLocation } from "react-router-dom";
 
 import { useSelector } from "react-redux";
 import { USER_SLICE } from "../../service/userSlice";
+import { PAGE_SLICE } from "../../service/pageSlice";
 
 const ProtectedRoute = ({ children, authorized = true }) => {
   const user = useSelector((state) => state[USER_SLICE]);
+  const page = useSelector((state) => state[PAGE_SLICE]);
   const isLoggedIn = !!user;
 
   const location = useLocation();
