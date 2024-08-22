@@ -37,17 +37,16 @@ flex-direction: column;
     
     .container__profile-menu-li{
         padding-bottom: 10px;
+        cursor: pointer;
     }
     .activeLink{
         color: white;
         text-decoration: none;
     }
     .entrance-block__content-input{
-        width: 600px;
+        width: 520px;
     }
-    .entrance-block__content-input-err{
-        width: 100px;
-    }
+
     .link{
         color: rgb(133, 133, 173);
         text-decoration: none;

@@ -18,7 +18,7 @@ const ForgotPassword = () => {
   const handelLogin = () => {
     navigate("/login");
   };
-  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
@@ -26,7 +26,7 @@ const ForgotPassword = () => {
     if (error) {
       return "";
     }
-    if (email === "" || emailRegex) {
+    if (email === "") {
       return setError("Введите корректный email!");
     }
     if (success) {
@@ -60,6 +60,7 @@ const ForgotPassword = () => {
           <button
             type="button"
             className={styles["entrance-block__content-register-text"]}
+            onClick={handelLogin}
           >
             Войти
           </button>

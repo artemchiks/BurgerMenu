@@ -8,7 +8,7 @@ const ModalLoader = ({ loading, onClose }) => {
         <div className={styles["loader__dialog"]}>
           <div>
             <p>Заказ оформляется.....</p>
-            <ProgressSpinner />
+            <ProgressSpinner className={styles["loader__dialog-spiner"]} />
           </div>
         </div>
       ) : (

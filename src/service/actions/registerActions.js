@@ -4,24 +4,28 @@ import {} from "../burgerConstructor";
 import { setUser } from "../userSlice";
 
 export const registerApi = (email, password, name) => async (dispatch) => {
-  const response = await fetch(REGISTER_API, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ email, password, name }),
-  });
+  try {
+    const response = await fetch(REGISTER_API, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password, name }),
+    });
 
-  const data = await checkResponse(response);
+    const data = await checkResponse(response);
 
-  if (data.success) {
-    const { name, accessToken, refreshToken } = data;
-    dispatch(setUser({ email, name }));
-    localStorage.setItem("accessToken", accessToken);
-    localStorage.setItem("refreshToken", refreshToken);
-    return [true, null];
-  } else {
-    console.error("Ошибка регистрации:", data.message);
-    return [false, `Ошибка регистрации: ${data.message}`];
+    if (data.success) {
+      const { name, accessToken, refreshToken } = data;
+      dispatch(setUser({ email, name }));
+      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("refreshToken", refreshToken);
+      return [true, null];
+    } else {
+      console.error("Ошибка регистрации:", data.message);
+      return [false, `Ошибка регистрации: ${data.message}`];
+    }
+  } catch (e) {
+    console.log("Произошла ошибка", e);
   }
 };

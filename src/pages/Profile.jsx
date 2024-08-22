@@ -41,8 +41,10 @@ const Profile = () => {
   };
 
   const handleUpdateUser = async (e) => {
-    e.preventDefault();
-    dispatch(fetchUpdateUserData(login, name, password));
+    const success = await dispatch(fetchUpdateUserData(login, name, password));
+    if (success) {
+      setIsEditing(false);
+    }
   };
   const handleChange = () => {
     if (name || login || password) {
@@ -141,7 +143,7 @@ const Profile = () => {
               >
                 Отмена
               </Button>
-              <Button htmlType="button" type="primary" size="medium">
+              <Button htmlType="submit" type="primary" size="medium">
                 Сохранить
               </Button>
             </div>

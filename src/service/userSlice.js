@@ -14,11 +14,11 @@ export const userSlice = createSlice({
     logout() {
       return null;
     },
-    loading() {
+    lsAuthCheked() {
       return false;
     },
   },
 });
 
 export const userReducer = userSlice.reducer;
-export const { setUser, logout, isAuth } = userSlice.actions;
+export const { setUser, logout, isAuth, lsAuthCheked } = userSlice.actions;
