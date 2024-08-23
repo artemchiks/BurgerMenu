@@ -8,9 +8,7 @@ export const IngredientType = PropTypes.shape({
   index: PropTypes.number.isRequired,
 });
 export const ModalType = PropTypes.shape({
-  active: PropTypes.bool.isRequired,
   title: PropTypes.string.isRequired,
-  setActive: PropTypes.bool.isRequired,
   children: PropTypes.any.isRequired,
   onClose: PropTypes.bool.isRequired,
 });

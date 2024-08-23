@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { ORDERS_URL } from "../../components/pathUrl";
-import { checkResponse } from "../../components/checkResponse";
+import { ORDERS_URL } from "../../utils/api";
+import { checkResponse } from "../../utils/checkResponse";
 import { useSelector } from "react-redux";
 import {
   BURGER_CONSTRUCTOR_SLICE,
@@ -9,14 +9,14 @@ import {
 import { setArrayInrgidients } from "../orderDetalis";
 
 export const createOrderApi = () => async (dispatch, getState) => {
-  const state = getState();
-  const data = state[BURGER_CONSTRUCTOR_SLICE];
-
-  if (!data.bun?._id) {
-    return null;
-  }
-
   try {
+    const state = getState();
+    const data = state[BURGER_CONSTRUCTOR_SLICE];
+
+    if (!data.bun?._id) {
+      return null;
+    }
+
     const idIngredients = data.ingridients.map((item) => item._id);
 
     const response = await fetch(ORDERS_URL, {
@@ -35,8 +35,7 @@ export const createOrderApi = () => async (dispatch, getState) => {
       dispatch(resetConstructor());
       return app;
     }
-  } catch (error) {
-    console.error(error);
-    return;
+  } catch (e) {
+    console.log(e);
   }
 };
