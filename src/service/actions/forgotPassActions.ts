@@ -1,8 +1,14 @@
+import { FC } from "react";
 import { PASSWORD_REST_EMAIL } from "../../utils/api";
 import { checkResponse } from "../../utils/checkResponse";
 import {} from "../burgerConstructor";
 
-export const forgotPassApi = (email) => async (dispatch) => {
+export interface Response {
+  success?: boolean;
+  error?: string;
+}
+
+export const forgotPassApi = async(email: string):Promise<Response> => {
   try {
     const response = await fetch(PASSWORD_REST_EMAIL, {
       method: "POST",
@@ -22,6 +28,8 @@ export const forgotPassApi = (email) => async (dispatch) => {
       };
     }
   } catch (e) {
-    console.log(e);
+    return {
+      error: "Произошла ошибка при восстановлении пароля. Пожалуйста, попробуйте еще раз."
+    };
   }
 };

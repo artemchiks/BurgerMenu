@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./IngredietnsList.module.css";
 import { Category } from "./Category";
-import { IngredientType } from "../../../utils/types";
+
 import IngridientsDialogBox from "../../DialogModal/IngridientsDialogBox";
 import { useDispatch, useSelector } from "react-redux";
 import { setIngridient } from "../../../service/ingridientDetalis";
@@ -32,6 +32,7 @@ const IngredietnsList = ({ setCurrent }) => {
   }, []);
   const dispatch = useDispatch();
   const bunList = itemList("bun");
+
   const sauceList = itemList("sauce");
   const mainList = itemList("main");
   const bunRef = useRef(null);
@@ -67,9 +68,6 @@ const IngredietnsList = ({ setCurrent }) => {
       </div>
     </div>
   );
-};
-IngredietnsList.propTypes = {
-  IngredientType,
 };
 
 export default IngredietnsList;

@@ -1,6 +1,13 @@
 import classNames from "classnames";
 import styles from "../singleСlass.module.css";
-const ConstrucoirAvtorixationForm = ({ text, children }) => {
+import { FC, ReactNode } from "react";
+
+interface ConstrucoirAvtorixationForm{
+  text:string,
+  children:ReactNode,
+}
+
+const ConstrucoirAvtorixationForm= ({ text, children }:ConstrucoirAvtorixationForm) => {
   return (
     <div>
       <div className={styles["entrance-block__content"]}>

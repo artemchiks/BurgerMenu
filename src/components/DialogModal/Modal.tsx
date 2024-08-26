@@ -3,12 +3,18 @@ import classNames from "classnames";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import ModalOverlay from "./ModalOverlay";
 import { createPortal } from "react-dom";
-import { useCallback } from "react";
-import { useDispatch } from "react-redux";
-import { clearIngridient } from "../../service/ingridientDetalis";
-import { IngredientType, ModalType } from "../../utils/types";
+import { FC, ReactNode, useCallback } from "react";
+
+
 const modalRoot = document.querySelector("#modal-root");
-const Modal = ({ title, children, onClose }) => {
+
+interface ModalProps {
+  title?: string;
+  children: ReactNode;
+  onClose?: () => void;
+}
+
+const Modal: FC<ModalProps> =  ({ title, children, onClose }) => {
   const handleClose = useCallback(() => {
     if (onClose) {
       onClose();
@@ -45,11 +51,9 @@ const Modal = ({ title, children, onClose }) => {
         {children}
       </div>
     </div>,
-    modalRoot
+    modalRoot as HTMLElement
   );
 };
-Modal.propTypes = {
-  ModalType,
-};
+
 
 export default Modal;

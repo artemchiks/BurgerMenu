@@ -1,6 +1,6 @@
 import { checkResponse } from "../../utils/checkResponse";
 import { INGRIDIENTS_URL } from "../../utils/api";
-import { setIngridients } from "../../service/ingridientListSlice";
+import { setIngridients } from "../ingridientListSlice";
 
 export const fetchIngridients = () => async (dispatch) => {
   try {

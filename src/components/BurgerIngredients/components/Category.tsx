@@ -1,10 +1,18 @@
 import classNames from "classnames";
 import { ItemCard } from "./ItemCard";
 import styles from "./IngredietnsList.module.css";
-import { CategoryTypes, IngredientType } from "../../../utils/types";
+
 import PropTypes from "prop-types";
 import DraggableItem from "../DraggableItem";
-export const Category = ({ title, items, handleSelectItem }) => {
+import { FC } from "react";
+import { Card } from "../../../utils/type";
+
+interface Categorys {
+  title: string;
+  items: Card[]; 
+  handleSelectItem: (item: Card) => void; 
+}
+export const Category:FC<Categorys> = ({ title, items, handleSelectItem }) => {
   return (
     <div>
       <p
@@ -33,7 +41,4 @@ export const Category = ({ title, items, handleSelectItem }) => {
       </div>
     </div>
   );
-};
-Category.propTypes = {
-  CategoryTypes,
 };

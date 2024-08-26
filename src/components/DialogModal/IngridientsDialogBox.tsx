@@ -1,10 +1,10 @@
-import React from "react";
+import React, { FC } from "react";
 import Modal from "./Modal";
 import IngredientDetails from "./IngredientDetails";
 import { useDispatch } from "react-redux";
 import { clearIngridient } from "../../service/ingridientDetalis";
 
-const IngridientsDialogBox = ({ active, setActive }) => {
+const IngridientsDialogBox= () => {
   const dyspatch = useDispatch();
   const handleClose = () => {
     dyspatch(clearIngridient());
@@ -12,8 +12,6 @@ const IngridientsDialogBox = ({ active, setActive }) => {
   return (
     <>
       <Modal
-        active={active}
-        setActive={setActive}
         title={"Детали ингридиента"}
         onClose={handleClose}
       >

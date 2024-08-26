@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, FormEvent, useState } from "react";
 import ConstrucoirAvtorixationForm from "./ConstrucoirAvtorixationForm/ConstrucoirAvtorixationForm";
 import InputPlaceholder from "./ConstrucoirAvtorixationForm/InputPlaceholder";
 import { useNavigate } from "react-router-dom";
@@ -6,23 +6,24 @@ import styles from "./singleСlass.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch } from "react-redux";
 import { forgotPassApi } from "../service/actions/forgotPassActions";
+
 const ForgotPassword = () => {
-  const [email, setEmail] = useState("");
-  const [error, setError] = useState(null);
+  const [email, setEmail] = useState<string>("");
+  const [err, setError] = useState<null|string>(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleEmailChange = (e) => {
+  const handleEmailChange = (e:ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
   const handelLogin = () => {
     navigate("/login");
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e:FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
-    const { success, error } = await dispatch(forgotPassApi(email));
+    const { success, error } = await forgotPassApi(email);
     if (error) {
       return "";
     }
@@ -32,7 +33,7 @@ const ForgotPassword = () => {
     if (success) {
       navigate("/reset-password");
     } else {
-      setError(error || "Неизвестная ошибка");
+      setError( "Неизвестная ошибка");
     }
   };
 
@@ -44,13 +45,13 @@ const ForgotPassword = () => {
           value={email}
           onChange={handleEmailChange}
         />
-        <span className="text text_type_main-small">{error}</span>
+        <span className="text text_type_main-small">{err}</span>
         <div className={styles["entrance-block__content-btn"]}>
           <Button
             htmlType="submit"
             type="primary"
             size="large"
-            onClick={handleSubmit}
+            // onClick={handleSubmit}
           >
             Восстановить
           </Button>

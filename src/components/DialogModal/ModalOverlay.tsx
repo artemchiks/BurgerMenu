@@ -1,8 +1,13 @@
-import React, { useEffect } from "react";
+import React, { FC, useEffect } from "react";
 import styles from "./dialogmodal.module.css";
-const ModalOverlay = ({ onClose }) => {
+
+interface Overlay{
+  onClose:()=>void,
+ 
+}
+const ModalOverlay: FC<Overlay> = ({ onClose }) => {
   useEffect(() => {
-    const handelKeyDown = (e) => {
+    const handelKeyDown = (e:KeyboardEvent) => {
       if (e.key === "Escape") {
         onClose();
       }

@@ -2,7 +2,7 @@ import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import React from "react";
+import React, { FC } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { useDispatch } from "react-redux";
 import styles from "./burgerconstructor.module.css";
@@ -11,7 +11,15 @@ import {
   moveIngridient,
   removeIngridient,
 } from "../../service/burgerConstructor";
-const IngredientCard = ({ item, index }) => {
+import { Card } from "../../utils/type";
+
+
+interface Ingridient {
+  index:string;
+  item:Card;
+}
+
+const IngredientCard:FC<Ingridient> = ({ item, index }) => {
   const dispatch = useDispatch();
 
   const [, ref] = useDrag({
@@ -19,9 +27,9 @@ const IngredientCard = ({ item, index }) => {
     item: { index },
   });
 
-  const [{ isOver }, drop] = useDrop({
+  const [, drop] = useDrop({
     accept: "ingredient",
-    hover(hoveredItem) {
+    hover(hoveredItem:any) {
       if (hoveredItem.index !== index) {
         dispatch(
           moveIngridient({ fromIndex: hoveredItem.index, toIndex: index })
@@ -39,9 +47,9 @@ const IngredientCard = ({ item, index }) => {
         <DragIcon type="primary" />
       </div>
       <ConstructorElement
-        text={item.name}
+        text={item.name ?? ""}
         price={item.price}
-        thumbnail={item.image_mobile}
+        thumbnail={item.image_mobile ?? ""}
         extraClass={styles["color__div-item"]}
         handleClose={() => dispatch(removeIngridient(item._id))}
       />

@@ -5,20 +5,16 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burgerconstructor.module.css";
 import { useMemo, useState } from "react";
-import OrderDetalisBox from "../DialogModal/OrderDetalisBox";
 import { useDispatch, useSelector } from "react-redux";
 import styless from "./stub.module.css";
 import {
   addIngredient,
-  addTodo,
   BURGER_CONSTRUCTOR_SLICE,
-  resetConstructor,
   setBun,
 } from "../../service/burgerConstructor";
 import { useDrop } from "react-dnd";
 import IngredientCard from "./IngredientCard";
 import Stub from "./Stub/Stub";
-import { setArrayInrgidients } from "../../service/orderDetalis";
 import { createOrderApi } from "../../service/actions/burgerConsctructorActions";
 import { USER_SLICE } from "../../service/userSlice";
 import { useNavigate } from "react-router-dom";
@@ -26,7 +22,6 @@ import ModalLoader from "../DialogModal/ModalLoader";
 import {
   clearIngridient,
   INGRIDIENT_DETALIS_SLICE,
-  setIngridient,
 } from "../../service/ingridientDetalis";
 import Modal from "../DialogModal/Modal";
 import OrderDetails from "../DialogModal/OrderDetails";

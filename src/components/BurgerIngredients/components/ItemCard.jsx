@@ -4,10 +4,11 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useMemo } from "react";
 import styles from "./IngredietnsList.module.css";
-import { CategoryTypes, IngredientType } from "../../../utils/types";
+
 import { useSelector } from "react-redux";
 import { BURGER_CONSTRUCTOR_SLICE } from "../../../service/burgerConstructor";
-export const ItemCard = ({ item, handleSelectItem }) => {
+
+export const ItemCard = ({ item }) => {
   const list = useSelector((state) => state[BURGER_CONSTRUCTOR_SLICE]);
 
   const count = useMemo(() => {
@@ -40,8 +41,4 @@ export const ItemCard = ({ item, handleSelectItem }) => {
       <p className="text text_type_main-small">{item.name}</p>
     </div>
   );
-};
-
-ItemCard.propTypes = {
-  CategoryTypes,
 };

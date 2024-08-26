@@ -5,7 +5,7 @@ import IngredietnsList from "./components/IngredietnsList";
 import { useState } from "react";
 
 const BurgerIngredients = () => {
-  const [current, setCurrent] = useState("one");
+  const [current, setCurrent] = useState<string>("one");
   return (
     <div>
       <p className="text text_type_main-large">Соберите бургер</p>

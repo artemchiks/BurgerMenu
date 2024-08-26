@@ -1,8 +1,15 @@
 import { useDrag } from "react-dnd";
-import { IngredientType } from "../../utils/types";
+
 import { Link, useLocation } from "react-router-dom";
 import styles from "./buegerIngridients.module.css";
-const DraggableItem = ({ items, children }) => {
+import { FC, ReactNode } from "react";
+
+interface Draggable {
+  items: {_id: string };
+  children:ReactNode;
+}
+
+const DraggableItem:FC<Draggable> = ({ items, children }) => {
   const location = useLocation();
 
   const [{ isDragging }, dragRef] = useDrag({
@@ -24,7 +31,5 @@ const DraggableItem = ({ items, children }) => {
     </Link>
   );
 };
-DraggableItem.propTypes = {
-  IngredientType,
-};
+
 export default DraggableItem;
