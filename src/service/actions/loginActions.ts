@@ -1,8 +1,9 @@
 import { LOGIN_API } from "../../utils/api";
 import { checkResponse } from "../../utils/checkResponse";
+import { AppDispatch } from "../../types/type";
 import { setUser } from "../userSlice";
 
-export const loginApi = (email, pass) => async (dispatch) => {
+export const loginApi = (email:string, pass:string) => async (dispatch:AppDispatch) => {
   try {
     const response = await fetch(LOGIN_API, {
       method: "POST",

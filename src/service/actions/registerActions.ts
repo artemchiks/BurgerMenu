@@ -1,9 +1,10 @@
 import { REGISTER_API } from "../../utils/api";
 import { checkResponse } from "../../utils/checkResponse";
+import { AppDispatch } from "../../types/type";
 import {} from "../burgerConstructor";
 import { setUser } from "../userSlice";
 
-export const registerApi = (email, password, name) => async (dispatch) => {
+export const registerApi = (email:string, password:string, name:string) => async (dispatch:AppDispatch) => {
   try {
     const response = await fetch(REGISTER_API, {
       method: "POST",

@@ -9,13 +9,9 @@ import classNames from "classnames";
 import { NavLink } from "react-router-dom";
 import { USER_SLICE } from "../../service/userSlice";
 import { useSelector } from "react-redux";
+import { RootState } from "../../types/type";
 
-export type RootState = {
-  userSlice: {
-    name: string,
-    email: string
-  }
-}
+
 
 const AppHeader = () => {
   const user = useSelector((state:RootState) => state[USER_SLICE]);

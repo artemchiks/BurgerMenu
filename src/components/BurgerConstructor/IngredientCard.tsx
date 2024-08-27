@@ -11,12 +11,12 @@ import {
   moveIngridient,
   removeIngridient,
 } from "../../service/burgerConstructor";
-import { Card } from "../../utils/type";
+import { Ingredient } from "../../types/type";
 
 
 interface Ingridient {
-  index:string;
-  item:Card;
+  index:number;
+  item:Ingredient;
 }
 
 const IngredientCard:FC<Ingridient> = ({ item, index }) => {

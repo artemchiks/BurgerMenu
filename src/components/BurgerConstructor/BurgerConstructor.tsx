@@ -25,16 +25,14 @@ import {
 } from "../../service/ingridientDetalis";
 import Modal from "../DialogModal/Modal";
 import OrderDetails from "../DialogModal/OrderDetails";
+import { Ingredient, RootState } from "../../types/type";
 const BurgerConstructor = () => {
   const [modalActive, setModalActive] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const data = useSelector((state) => state[BURGER_CONSTRUCTOR_SLICE]);
+  const data = useSelector((state:RootState) => state[BURGER_CONSTRUCTOR_SLICE]);
 
-  const selectedIngredient = useSelector(
-    (state) => state[INGRIDIENT_DETALIS_SLICE]
-  );
-  const user = useSelector((state) => state[USER_SLICE]);
+  const user = useSelector((state:RootState) => state[USER_SLICE]);
   const [loading, setLoading] = useState(false);
   const price = useMemo(() => {
     const bunPrice = data.bun ? data.bun.price * 2 : 0;
@@ -43,7 +41,7 @@ const BurgerConstructor = () => {
     );
   }, [data]);
 
-  const [{ isOver }, dropRef] = useDrop({
+  const [, dropRef] = useDrop<Ingredient>({
     accept: "burger",
     drop(item) {
       if (item.type === "bun") {
@@ -64,7 +62,7 @@ const BurgerConstructor = () => {
     }
 
     setLoading(true);
-    const success = await dispatch(createOrderApi());
+    const success = await dispatch(createOrderApi() as any);
 
     if (success) {
       setTimeout(() => {
@@ -95,7 +93,7 @@ const BurgerConstructor = () => {
         {data.ingridients && data.ingridients.length > 0 ? (
           <div className={styles["constructor__content"]}>
             {data.ingridients.map((item, index) => (
-              <IngredientCard key={item.key} item={item} index={index} />
+              <IngredientCard key={item._id} item={item} index={index} />
             ))}
           </div>
         ) : (
@@ -142,7 +140,7 @@ const BurgerConstructor = () => {
       )}
       {modalActive && (
         <Modal onClose={handleModalClose}>
-          <OrderDetails item={selectedIngredient} />
+          <OrderDetails  />
         </Modal>
       )}
     </div>

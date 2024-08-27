@@ -1,8 +1,9 @@
 import { checkResponse } from "../../utils/checkResponse";
 import { TOKEN_API } from "../../utils/api";
 import { logout } from "../userSlice";
+import { AppDispatch } from "../../types/type";
 
-export const refreshTokenApi = () => async (dispatch) => {
+export const refreshTokenApi = () => async (dispatch:AppDispatch): Promise<boolean> => {
   try {
     const refreshToken = localStorage.getItem("refreshToken");
     if (!refreshTokenApi) {
@@ -26,7 +27,7 @@ export const refreshTokenApi = () => async (dispatch) => {
     } else {
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
-      dispatch(logout());
+      dispatch(logout(null));
 
       console.error("Ошибка обновления токена:", data.message);
       return false;
@@ -35,7 +36,7 @@ export const refreshTokenApi = () => async (dispatch) => {
     console.error("Произошла ошибка при обновлении токена:", error);
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
-    dispatch(logout());
+    dispatch(logout(null));
     return false;
   }
 };

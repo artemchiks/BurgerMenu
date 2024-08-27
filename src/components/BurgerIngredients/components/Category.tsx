@@ -5,12 +5,12 @@ import styles from "./IngredietnsList.module.css";
 import PropTypes from "prop-types";
 import DraggableItem from "../DraggableItem";
 import { FC } from "react";
-import { Card } from "../../../utils/type";
+import { Ingredient } from "../../../types/type";
 
 interface Categorys {
   title: string;
-  items: Card[]; 
-  handleSelectItem: (item: Card) => void; 
+  items: Ingredient[]; 
+  handleSelectItem: (item: Ingredient) => void; 
 }
 export const Category:FC<Categorys> = ({ title, items, handleSelectItem }) => {
   return (

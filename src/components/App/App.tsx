@@ -29,24 +29,25 @@ import { ProgressSpinner } from "primereact/progressspinner";
 import { INGRIDIENT_LIST_SLICE } from "../../service/ingridientListSlice";
 import NotFound from "../../pages/NotFound";
 import Profile from "../../pages/Profile";
+import { RootState } from "../../types/type";
 
 function App() {
   const dispatch = useDispatch();
   const location = useLocation();
   const background = location.state && location.state?.background;
 
-  const isAuths = useSelector((state) => state[USER_SLICE]);
+  const isAuths = useSelector((state:RootState) => state[USER_SLICE]);
 
   const navigate = useNavigate();
 
   function close() {
     navigate(-1);
   }
-  const ingridients = useSelector((state) => state[INGRIDIENT_LIST_SLICE]);
+  const ingridients = useSelector((state:RootState) => state[INGRIDIENT_LIST_SLICE]);
 
   useEffect(() => {
-    dispatch(fetchUserData());
-    dispatch(fetchIngridients());
+    dispatch(fetchUserData()as any);
+    dispatch(fetchIngridients() as any);
   }, [dispatch]);
 
   return (

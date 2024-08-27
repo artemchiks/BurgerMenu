@@ -1,7 +1,7 @@
 import Modal from "./Modal";
 import { ProgressSpinner } from "primereact/progressspinner";
 import styles from "./dialogmodal.module.css";
-const ModalLoader = ({ loading, onClose }:{loading:boolean;onClose:()=>void}) => {
+const ModalLoader = ({ loading, onClose }:{loading:boolean;onClose?:()=>void}) => {
   return (
     <div>
       {loading ? (

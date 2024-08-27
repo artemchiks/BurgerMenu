@@ -11,7 +11,7 @@ const ForgotPassword = () => {
   const [email, setEmail] = useState<string>("");
   const [err, setError] = useState<null|string>(null);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+
 
   const handleEmailChange = (e:ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -38,7 +38,7 @@ const ForgotPassword = () => {
   };
 
   return (
-    <form onSubmit={handelLogin}>
+    <form onSubmit={handleSubmit}>
       <ConstrucoirAvtorixationForm text={"Восстановление пароля"}>
         <InputPlaceholder
           text={"Укажите e-mail"}

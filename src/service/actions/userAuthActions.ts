@@ -2,8 +2,10 @@ import { checkResponse } from "../../utils/checkResponse";
 import { USER_API } from "../../utils/api";
 import { setUser } from "../userSlice";
 import { refreshTokenApi } from "./refreshTokenApi";
+import { AppDispatch } from "../../types/type";
+import { UserInfo } from "os";
 
-export const fetchUserData = () => async (dispatch) => {
+export const fetchUserData = () => async (dispatch:AppDispatch): Promise<void | boolean> => {
   try {
     const accessToken = localStorage.getItem("accessToken");
     if (!accessToken) {
@@ -15,11 +17,11 @@ export const fetchUserData = () => async (dispatch) => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: localStorage.getItem("accessToken"),
+          Authorization: accessToken,
         },
       });
 
-    let response = await request(accessToken);
+    let response = await request();
 
     if (response.status === 403) {
       const isRefreshSuccess = await dispatch(refreshTokenApi());
@@ -42,7 +44,7 @@ export const fetchUserData = () => async (dispatch) => {
   }
 };
 export const fetchUpdateUserData =
-  (email, name, password) => async (dispatch) => {
+  (email:string, name:string, password:string) => async (dispatch:AppDispatch): Promise<void | boolean> => {
     try {
       const accessToken = localStorage.getItem("accessToken");
       if (!accessToken) {
@@ -54,12 +56,12 @@ export const fetchUpdateUserData =
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
-            Authorization: localStorage.getItem("accessToken"),
+            Authorization: accessToken,
           },
           body: JSON.stringify({ email, password, name }),
         });
 
-      let response = await request(accessToken);
+      let response = await request();
 
       if (response.status === 403) {
         const isRefreshSuccess = await dispatch(refreshTokenApi());

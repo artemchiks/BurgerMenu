@@ -7,9 +7,13 @@ import styles from "./IngredietnsList.module.css";
 
 import { useSelector } from "react-redux";
 import { BURGER_CONSTRUCTOR_SLICE } from "../../../service/burgerConstructor";
+import { Ingredient, RootState } from "../../../types/type";
 
-export const ItemCard = ({ item }) => {
-  const list = useSelector((state) => state[BURGER_CONSTRUCTOR_SLICE]);
+interface ItemCardProps {
+  item: Ingredient; // item должен быть типом Ingredient
+}
+export const ItemCard = ({ item }:ItemCardProps) => {
+  const list = useSelector((state:RootState) => state[BURGER_CONSTRUCTOR_SLICE]);
 
   const count = useMemo(() => {
     if (!item) {
@@ -24,7 +28,7 @@ export const ItemCard = ({ item }) => {
       }
       return acc;
     }, 0);
-  });
+  },[]);
   return (
     <div key={item._id} className={styles["item__card"]}>
       <img src={item.image} alt={item.name} />

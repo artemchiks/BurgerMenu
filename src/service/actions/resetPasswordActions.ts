@@ -2,7 +2,7 @@ import { PASSWORD_REST_PASS } from "../../utils/api";
 import { checkResponse } from "../../utils/checkResponse";
 import {} from "../burgerConstructor";
 
-export const resetPassApi = (newPassword, token) => async (dispatch) => {
+export const resetPassApi = (newPassword : string, token:string) => async (): Promise<void | boolean>  => {
   try {
     const response = await fetch(PASSWORD_REST_PASS, {
       method: "POST",

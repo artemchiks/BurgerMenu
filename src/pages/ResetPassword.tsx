@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, FormEvent, useState } from "react";
 import ConstrucoirAvtorixationForm from "./ConstrucoirAvtorixationForm/ConstrucoirAvtorixationForm";
 import styles from "./singleСlass.module.css";
 import classNames from "classnames";
@@ -11,21 +11,21 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { resetPassApi } from "../service/actions/resetPasswordActions";
 const ResetPassword = () => {
-  const [newPassword, setNewPassword] = useState("");
-  const [token, setToken] = useState("");
+  const [newPassword, setNewPassword] = useState<string>("");
+  const [token, setToken] = useState<string>("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const handleNewPasswordChange = (e) => {
+  const handleNewPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     setNewPassword(e.target.value);
   };
 
-  const handleTokenChange = (e) => {
+  const handleTokenChange = (e: ChangeEvent<HTMLInputElement>) => {
     setToken(e.target.value);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const sucsess = await dispatch(resetPassApi(newPassword, token));
+    const sucsess = await dispatch(resetPassApi(newPassword, token)as any);
     if (sucsess) {
       navigate("/login");
     }

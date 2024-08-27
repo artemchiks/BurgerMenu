@@ -1,8 +1,9 @@
 import { checkResponse } from "../../utils/checkResponse";
 import { LOGOUT_API } from "../../utils/api";
 import { logout } from "../userSlice";
+import { AppDispatch } from "../../types/type";
 
-export const logoutApi = () => async (dispatch) => {
+export const logoutApi = () => async (dispatch:any): Promise<boolean | undefined |void>  => {
   try {
     const refreshToken = localStorage.getItem("refreshToken");
     if (!refreshToken) {
@@ -19,7 +20,7 @@ export const logoutApi = () => async (dispatch) => {
     const data = await checkResponse(response);
 
     if (data.success) {
-      dispatch(logout());
+      dispatch(logout(undefined));
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
       return true;

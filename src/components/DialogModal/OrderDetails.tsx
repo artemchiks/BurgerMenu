@@ -3,9 +3,10 @@ import classNames from "classnames";
 import image from "../../images/done.svg";
 import { useSelector } from "react-redux";
 import { ORDER_DETALIS_SLICE } from "../../service/orderDetalis";
+import { RootState } from "../../types/type";
 
 const OrderDetails = () => {
-  const order = useSelector((state) => state[ORDER_DETALIS_SLICE].order);
+  const order = useSelector((state:RootState) => state[ORDER_DETALIS_SLICE].order);
 
   return (
     <div>

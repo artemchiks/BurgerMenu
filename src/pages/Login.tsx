@@ -3,7 +3,7 @@ import {
   EmailInput,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import styles from "./singleСlass.module.css";
 import classNames from "classnames";
 import { useNavigate } from "react-router-dom";
@@ -16,7 +16,7 @@ const Login = () => {
   const navigate = useNavigate();
   const { values, handleChange, errors, isValid, resetForm } =
     useFormAndValidation();
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   const handleRegistrationClick = () => {
     navigate("/register");
@@ -26,7 +26,7 @@ const Login = () => {
     navigate("/forgot-password");
   };
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e:FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
 
@@ -41,7 +41,7 @@ const Login = () => {
       return;
     }
 
-    const [isSuccess, loginError] = await dispatch(loginApi(email, password));
+    const [isSuccess, loginError] = await dispatch(loginApi(email, password)as any);
     if (isSuccess) {
       resetForm();
       navigate("/");

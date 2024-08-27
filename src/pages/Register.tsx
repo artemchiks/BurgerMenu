@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { ChangeEvent, FormEvent, useRef, useState } from "react";
 import ConstrucoirAvtorixationForm from "./ConstrucoirAvtorixationForm/ConstrucoirAvtorixationForm";
 import classNames from "classnames";
 import {
@@ -14,30 +14,29 @@ import { useCookies } from "react-cookie";
 import { registerApi } from "../service/actions/registerActions";
 import { useDispatch } from "react-redux";
 const Register = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
-  const [cookies, setCookie] = useCookies(["token"]);
-  const [error, setError] = useState(null);
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [name, setName] = useState<string>("");
+  const [error, setError] = useState<string|null>(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
+  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => { 
+    setEmail(e.target.value); 
+};
 
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
+const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => { 
+    setPassword(e.target.value); 
+};
 
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-  };
+const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => { 
+    setName(e.target.value); 
+};
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
     const [isSuccess, registerError] = await dispatch(
-      registerApi(email, password, name)
+      registerApi(email, password, name) as any
     );
     if (isSuccess) {
       navigate("/login");

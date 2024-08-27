@@ -10,20 +10,21 @@ interface Input {
   value:string;
   onChange:(e: ChangeEvent<HTMLInputElement>) => void;
   placeholder?:string;
+
 }
 
-const InputPlaceholder:FC<Input> = ({
+const InputPlaceholder = ({
   name,
   text,
   icon,
   value,
   onChange,
   placeholder,
-}) => {
-  const inputRef = useRef<HTMLInputElement>(null); // Используем useRef для обращения к input
+}:Input) => {
+  const inputRef = useRef<HTMLInputElement>(null); 
 
   const onIconClick = () => {
-      setTimeout(() => inputRef.current?.focus(), 0); // Безопасный доступ с использованием оператора ?
+      setTimeout(() => inputRef.current?.focus(), 0); 
       alert("Icon Click Callback");
   };
 
@@ -41,8 +42,7 @@ const InputPlaceholder:FC<Input> = ({
         onIconClick={onIconClick}
         errorText={"Ошибка"}
         size={"default"}
-        onPointerEnterCapture={() => {}}
-        onPointerLeaveCapture={() => {}}
+
       />
     </div>
   );
