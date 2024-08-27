@@ -10,10 +10,12 @@ import { BURGER_CONSTRUCTOR_SLICE } from "../../../service/burgerConstructor";
 import { Ingredient, RootState } from "../../../types/type";
 
 interface ItemCardProps {
-  item: Ingredient; // item должен быть типом Ingredient
+  item: Ingredient;
 }
-export const ItemCard = ({ item }:ItemCardProps) => {
-  const list = useSelector((state:RootState) => state[BURGER_CONSTRUCTOR_SLICE]);
+export const ItemCard = ({ item }: ItemCardProps) => {
+  const list = useSelector(
+    (state: RootState) => state[BURGER_CONSTRUCTOR_SLICE]
+  );
 
   const count = useMemo(() => {
     if (!item) {
@@ -28,7 +30,7 @@ export const ItemCard = ({ item }:ItemCardProps) => {
       }
       return acc;
     }, 0);
-  },[]);
+  }, []);
   return (
     <div key={item._id} className={styles["item__card"]}>
       <img src={item.image} alt={item.name} />

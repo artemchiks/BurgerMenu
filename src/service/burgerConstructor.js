@@ -9,9 +9,9 @@ export const burgerConstructorSlice = createSlice({
       reducer(state, action) {
         state.ingridients.push({ ...action.payload });
       },
-      prepare(ingridients) {
+      prepare(ingridient) {
         return {
-          payload: { ...ingridients, key: nanoid() },
+          payload: { ...ingridient, key: nanoid() },
         };
       },
     },

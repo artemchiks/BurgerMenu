@@ -25,16 +25,16 @@ import {
 } from "../../service/ingridientDetalis";
 import Modal from "../DialogModal/Modal";
 import OrderDetails from "../DialogModal/OrderDetails";
+import { RootState } from "../../types/type";
 const BurgerConstructor = () => {
   const [modalActive, setModalActive] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const data = useSelector((state) => state[BURGER_CONSTRUCTOR_SLICE]);
-
-  const selectedIngredient = useSelector(
-    (state) => state[INGRIDIENT_DETALIS_SLICE]
+  const data = useSelector(
+    (state: RootState) => state[BURGER_CONSTRUCTOR_SLICE]
   );
-  const user = useSelector((state) => state[USER_SLICE]);
+
+  const user = useSelector((state: RootState) => state[USER_SLICE]);
   const [loading, setLoading] = useState(false);
   const price = useMemo(() => {
     const bunPrice = data.bun ? data.bun.price * 2 : 0;
@@ -43,9 +43,9 @@ const BurgerConstructor = () => {
     );
   }, [data]);
 
-  const [{ isOver }, dropRef] = useDrop({
+  const [, dropRef] = useDrop({
     accept: "burger",
-    drop(item) {
+    drop(item: { type: string }) {
       if (item.type === "bun") {
         dispatch(setBun(item));
       } else {
@@ -64,7 +64,7 @@ const BurgerConstructor = () => {
     }
 
     setLoading(true);
-    const success = await dispatch(createOrderApi());
+    const success = await dispatch(createOrderApi() as any);
 
     if (success) {
       setTimeout(() => {
@@ -142,7 +142,7 @@ const BurgerConstructor = () => {
       )}
       {modalActive && (
         <Modal onClose={handleModalClose}>
-          <OrderDetails item={selectedIngredient} />
+          <OrderDetails />
         </Modal>
       )}
     </div>

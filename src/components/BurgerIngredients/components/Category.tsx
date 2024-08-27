@@ -9,10 +9,10 @@ import { Ingredient } from "../../../types/type";
 
 interface Categorys {
   title: string;
-  items: Ingredient[]; 
-  handleSelectItem: (item: Ingredient) => void; 
+  items: Ingredient[];
+  handleSelectItem: (item: Ingredient) => void;
 }
-export const Category:FC<Categorys> = ({ title, items, handleSelectItem }) => {
+export const Category = ({ title, items, handleSelectItem }: Categorys) => {
   return (
     <div>
       <p

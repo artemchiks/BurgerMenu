@@ -2,15 +2,13 @@ import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { TICons } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import React, { ChangeEvent, FC, useRef, useState } from "react";
 
-
-interface Input {
-  name?:string;
-  text:string;
-  icon?:keyof TICons ;
-  value:string;
-  onChange:(e: ChangeEvent<HTMLInputElement>) => void;
-  placeholder?:string;
-
+interface Props {
+  name?: string;
+  text: string;
+  icon?: keyof TICons;
+  value: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  placeholder?: string;
 }
 
 const InputPlaceholder = ({
@@ -20,12 +18,12 @@ const InputPlaceholder = ({
   value,
   onChange,
   placeholder,
-}:Input) => {
-  const inputRef = useRef<HTMLInputElement>(null); 
+}: Props) => {
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const onIconClick = () => {
-      setTimeout(() => inputRef.current?.focus(), 0); 
-      alert("Icon Click Callback");
+    setTimeout(() => inputRef.current?.focus(), 0);
+    alert("Icon Click Callback");
   };
 
   return (
@@ -42,7 +40,8 @@ const InputPlaceholder = ({
         onIconClick={onIconClick}
         errorText={"Ошибка"}
         size={"default"}
-
+        onPointerEnterCapture={() => {}}
+        onPointerLeaveCapture={() => {}}
       />
     </div>
   );

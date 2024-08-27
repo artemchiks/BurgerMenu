@@ -5,11 +5,11 @@ import styles from "./buegerIngridients.module.css";
 import { FC, ReactNode } from "react";
 
 interface Draggable {
-  items: {_id: string };
-  children:ReactNode;
+  items: { _id: string };
+  children: ReactNode;
 }
 
-const DraggableItem:FC<Draggable> = ({ items, children }) => {
+const DraggableItem = ({ items, children }: Draggable) => {
   const location = useLocation();
 
   const [{ isDragging }, dragRef] = useDrag({

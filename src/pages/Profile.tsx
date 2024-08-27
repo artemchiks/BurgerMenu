@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import ConstrucoirAvtorixationForm from "./ConstrucoirAvtorixationForm/ConstrucoirAvtorixationForm";
 import InputPlaceholder from "./ConstrucoirAvtorixationForm/InputPlaceholder";
 import {
@@ -15,15 +15,16 @@ import { logoutApi } from "../service/actions/logOutUser";
 import { useDispatch, useSelector } from "react-redux";
 import { USER_SLICE } from "../service/userSlice";
 import { fetchUpdateUserData } from "../service/actions/userAuthActions";
+import { RootState } from "../types/type";
 
 const Profile = () => {
   const navigate = useNavigate();
-  const user = useSelector((state) => state[USER_SLICE]);
+  const user = useSelector((state: RootState) => state[USER_SLICE]);
 
-  const [name, setName] = useState(user?.name);
-  const [login, setLogin] = useState(user?.email);
-  const [isEditing, setIsEditing] = useState(false);
-  const [password, setPassword] = useState("");
+  const [name, setName] = useState<string>(user?.name || "");
+  const [login, setLogin] = useState<string>(user?.email || "");
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [password, setPassword] = useState<string>("");
   const dispatch = useDispatch();
   const handleProfileOrders = () => {
     navigate("/profile/orders");
@@ -34,16 +35,21 @@ const Profile = () => {
     setLogin(user?.email || "");
   }, [user]);
   const handleLogout = async () => {
-    const success = await dispatch(logoutApi());
+    const success = await dispatch(logoutApi() as any);
     if (success) {
       navigate("/login");
     }
   };
 
-  const handleUpdateUser = async (e) => {
-    const success = await dispatch(fetchUpdateUserData(login, name, password));
+  const handleUpdateUser = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const success = await dispatch(
+      fetchUpdateUserData(login, name, password) as any
+    );
+    console.log(success);
     if (success) {
-      setIsEditing(false);
+      window.location.reload();
+      setIsEditing(true);
     }
   };
   const handleChange = () => {

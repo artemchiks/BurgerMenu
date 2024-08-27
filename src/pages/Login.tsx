@@ -26,7 +26,7 @@ const Login = () => {
     navigate("/forgot-password");
   };
 
-  const handleLogin = async (e:FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
 
@@ -41,7 +41,9 @@ const Login = () => {
       return;
     }
 
-    const [isSuccess, loginError] = await dispatch(loginApi(email, password)as any);
+    const [isSuccess, loginError] = await dispatch(
+      loginApi(email, password) as any
+    );
     if (isSuccess) {
       resetForm();
       navigate("/");
