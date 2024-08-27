@@ -40,8 +40,6 @@ const InputPlaceholder = ({
         onIconClick={onIconClick}
         errorText={"Ошибка"}
         size={"default"}
-        onPointerEnterCapture={() => {}}
-        onPointerLeaveCapture={() => {}}
       />
     </div>
   );
