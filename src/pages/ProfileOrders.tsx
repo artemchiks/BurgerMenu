@@ -9,6 +9,7 @@ import {
 import styles from "./singleСlass.module.css";
 import classNames from "classnames";
 import { NavLink, useNavigate } from "react-router-dom";
+import OrderFeedCart from "../components/OrderFeedConstructor/OrderFeedCart";
 const ProfileOrders = () => {
   const navigate = useNavigate();
 
@@ -46,7 +47,12 @@ const ProfileOrders = () => {
             В этом разделе вы можете изменить свои персональные данные
           </p>
         </div>
+        <div>
+      <OrderFeedCart/>
+      
       </div>
+      </div>
+
     </div>
   );
 };

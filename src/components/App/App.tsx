@@ -30,6 +30,7 @@ import { INGRIDIENT_LIST_SLICE } from "../../service/ingridientListSlice";
 import NotFound from "../../pages/NotFound";
 import Profile from "../../pages/Profile";
 import { RootState } from "../../types/type";
+import OrderFeed from "../../pages/OrderFeed";
 
 function App() {
   const dispatch = useDispatch();
@@ -108,6 +109,7 @@ function App() {
           />
           <Route path="/profile/orders/:number" />
           <Route path="/ingredients/:id" element={<IngridinetPage />} />
+          <Route path="/order_feed" element={<OrderFeed />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       )}

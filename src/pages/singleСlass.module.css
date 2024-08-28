@@ -75,3 +75,10 @@ flex-direction: column;
     display: flex;
     justify-content: center;
 }
+.content__order-detalis{
+    overflow-y: scroll;
+    overflow-x: hidden;
+    width: 600px;
+    height: 765px;
+    scrollbar-width: thin;
+}

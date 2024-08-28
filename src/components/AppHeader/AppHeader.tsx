@@ -50,15 +50,34 @@ const AppHeader = () => {
                 )}
               </NavLink>
             </div>
+        
             <div
               className={classNames(
                 styles["app-header__btn-container__btn"],
                 "pl-5 pr-5 pb-5 pt-5"
               )}
             >
-              <ListIcon type="secondary" />{" "}
-              <span className="ml-2 text_color_inactive">Лента заказов</span>
+                  <NavLink to={`/order_feed`}  className={({ isActive }) =>
+                  isActive ? styles.activeLink : styles.link
+                }>
+
+                   {({ isActive }) => (
+                  <div className={styles["app-header__btn-container-menu"]}>
+                    {isActive ? (
+             
+                      <ListIcon type="primary" />
+                    ) : (
+                      <ListIcon type="secondary" />
+                    )}
+
+                   <span className="text text_type_main-default">Лента заказов</span>
+                  </div>
+                )}
+           
+      
+              </NavLink>
             </div>
+
           </div>
           <div className={styles["app-header__logo"]}>
             <NavLink to={`/`}>
