@@ -32,6 +32,7 @@ import Profile from "../../pages/Profile";
 import { RootState } from "../../types/type";
 import OrderFeed from "../../pages/OrderFeed";
 
+
 function App() {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -107,9 +108,8 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="/profile/orders/:number" />
           <Route path="/ingredients/:id" element={<IngridinetPage />} />
-          <Route path="/order_feed" element={<OrderFeed />} />
+          <Route path="/feed" element={<OrderFeed />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       )}
@@ -123,7 +123,24 @@ function App() {
               </Modal>
             }
           />
+          <Route
+            path="/feed/:id"
+            element={
+              <Modal onClose={close} >
+                <OrderFeed />{" "}
+              </Modal>
+            }
+          />
+  <Route path="/profile/orders/:number"element={
+                <ProtectedRoute authorized>
+              <Modal onClose={close} >
+                <Profile />{" "}
+              </Modal>
+                </ProtectedRoute>
+            } />
+          
         </Routes>
+        
       )}
     </>
   );

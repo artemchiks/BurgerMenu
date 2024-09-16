@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const ORDER_DETALIS_SLICE = "orderDetalis";
+
+
 export const orderDetalisSlice = createSlice({
   name: ORDER_DETALIS_SLICE,
   initialState: { order: null },

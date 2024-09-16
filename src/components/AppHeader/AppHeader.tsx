@@ -57,7 +57,7 @@ const AppHeader = () => {
                 "pl-5 pr-5 pb-5 pt-5"
               )}
             >
-                  <NavLink to={`/order_feed`}  className={({ isActive }) =>
+                  <NavLink to={`/feed`}  className={({ isActive }) =>
                   isActive ? styles.activeLink : styles.link
                 }>
 

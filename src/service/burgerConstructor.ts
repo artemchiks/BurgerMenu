@@ -1,40 +1,50 @@
-import { createSlice, nanoid } from "@reduxjs/toolkit";
+import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
+
+interface Ingredient {
+  _id: string;
+  key?: string;
+}
+
+interface BurgerConstructorState {
+  bun: Ingredient | null;
+  ingridients: Ingredient[];
+}
+
+const initialState: BurgerConstructorState = {
+  bun: null,
+  ingridients: [],
+};
 
 export const BURGER_CONSTRUCTOR_SLICE = "burgerConstructor";
 export const burgerConstructorSlice = createSlice({
   name: BURGER_CONSTRUCTOR_SLICE,
-  initialState: { bun: null, ingridients: [] },
+  initialState,
   reducers: {
     addIngredient: {
-      reducer(state, action) {
+      reducer(state, action: PayloadAction<Ingredient>) {
         state.ingridients.push({ ...action.payload });
       },
-      prepare(ingridient) {
+      prepare(ingridient: Ingredient) {
         return {
           payload: { ...ingridient, key: nanoid() },
         };
       },
     },
-    setBun(state, action) {
-      return { ...state, bun: action.payload };
+    setBun(state, action: PayloadAction<Ingredient>) {
+      state.bun = action.payload;
     },
-    moveIngridient(state, action) {
+    moveIngridient(state, action: PayloadAction<{ fromIndex: number; toIndex: number }>) {
       const { fromIndex, toIndex } = action.payload;
       const newIngridients = [...state.ingridients];
       const [movedIngredient] = newIngridients.splice(fromIndex, 1);
       newIngridients.splice(toIndex, 0, movedIngredient);
-      return { ...state, ingridients: newIngridients };
+      state.ingridients = newIngridients;
     },
-    removeIngridient(state, action) {
+    removeIngridient(state, action: PayloadAction<string>) {
       const arrCopy = [...state.ingridients];
-      const indexItem = arrCopy.findIndex((item) => {
-        return item._id === action.payload;
-      });
+      const indexItem = arrCopy.findIndex((item) => item._id === action.payload);
       arrCopy.splice(indexItem, 1);
-      return {
-        ...state,
-        ingridients: arrCopy,
-      };
+      state.ingridients = arrCopy;
     },
     resetConstructor(state) {
       state.bun = null;

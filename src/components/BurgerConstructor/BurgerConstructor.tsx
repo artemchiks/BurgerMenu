@@ -25,7 +25,7 @@ import {
 } from "../../service/ingridientDetalis";
 import Modal from "../DialogModal/Modal";
 import OrderDetails from "../DialogModal/OrderDetails";
-import { RootState } from "../../types/type";
+import { Ingredient, RootState } from "../../types/type";
 const BurgerConstructor = () => {
   const [modalActive, setModalActive] = useState(false);
   const dispatch = useDispatch();
@@ -45,7 +45,7 @@ const BurgerConstructor = () => {
 
   const [, dropRef] = useDrop({
     accept: "burger",
-    drop(item: { type: string }) {
+    drop(item:Ingredient) {
       if (item.type === "bun") {
         dispatch(setBun(item));
       } else {

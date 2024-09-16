@@ -38,7 +38,7 @@ export const createOrderApi = () => {
 
       if (app) {
         dispatch(setArrayInrgidients(app.order.number));
-        dispatch(resetConstructor(""));
+        dispatch(resetConstructor());
         return app;
       }
     } catch (e) {
