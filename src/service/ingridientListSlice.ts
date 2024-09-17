@@ -1,11 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export const INGRIDIENT_LIST_SLICE = "ingridientList";
 export const ingridientListSlice = createSlice({
   name: INGRIDIENT_LIST_SLICE,
   initialState: [],
   reducers: {
-    setIngridients(state, action) {
+    setIngridients(state, action: PayloadAction<[]>) {
       return action.payload;
     },
   },

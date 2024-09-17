@@ -7,7 +7,7 @@ import {
   resetConstructor,
 } from "../burgerConstructor";
 import { setArrayInrgidients } from "../orderDetalis";
-import { AppDispatch, CreateOrderResponse, RootState } from "../../types/type";
+import { AppDispatch, RootState } from "../../types/type";
 
 export const createOrderApi = () => {
   return async (

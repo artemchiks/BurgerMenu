@@ -13,6 +13,9 @@ import {
 } from "./ingridientDetalis";
 import { ORDER_DETALIS_SLICE, orderDetalisReducer } from "./orderDetalis";
 import { USER_SLICE, userReducer } from "./userSlice";
+import { socketMiddleware } from "./middleware/socket-middleware";
+import { wsAction } from "../types/wsActions";
+import { ORDERS_SLICE, ordersReducer } from "./profileOrders";
 
 export const store = configureStore({
   reducer: {
@@ -21,5 +24,16 @@ export const store = configureStore({
     [INGRIDIENT_DETALIS_SLICE]: ingridientDetalisReducer,
     [ORDER_DETALIS_SLICE]: orderDetalisReducer,
     [USER_SLICE]: userReducer,
+    [ORDERS_SLICE]: ordersReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(
+      socketMiddleware(
+        "wss://norma.nomoreparties.space/orders/all",
+        wsAction
+      ),
+    ),
 });
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

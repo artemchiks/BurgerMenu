@@ -1,65 +1,73 @@
-import { Middleware } from "redux";
+import { Middleware, MiddlewareAPI } from "redux";
+import { AppDispatch, RootState } from "../store";
+import { getCurrentTimestamp } from "../../utils/datetime";
+import { TWSActions, wsAction } from "../../types/wsActions";
 
-export const socketMiddleware = (
-  wsUrl: string,
-  wsActions: { [key: string]: string }
-): Middleware => {
-  return (store) => {
+type UpdatedRootState = RootState & {
+  user: {
+    token: string;
+  };
+};
+
+export const socketMiddleware = 
+  (wsUrl: string, wsActions: typeof wsAction): Middleware => {
+
+  return ((store: MiddlewareAPI<AppDispatch, UpdatedRootState>) => {
     let socket: WebSocket | null = null;
 
-    return (next) => (action: any) => {
-      const { dispatch, getState } = store;
-      const { token } = getState().userSlice;
-      const { type, payload } = action;
-      const {
-        wsInit,
-        wsInitWithCustomUrl,
-        wsSendMessage,
-        wsClose,
-        onOpen,
-        onClose,
-        onError,
-        onMessage,
-      } = wsActions;
+    return next => (action: TWSActions) => {
+      const { dispatch } = store;
+      const { type } = action;
+      const { wsInit, wsSendMessage, onOpen, onClose, onError, onMessage } = wsActions;
 
       if (type === wsInit) {
-        socket = new WebSocket(wsUrl);
-      }
-      if (type === wsInitWithCustomUrl) {
-        socket = new WebSocket(payload);
+        if (socket !== null && socket.readyState !== WebSocket.CLOSED) {
+          // socket.close();
+        }
+
+        const token = localStorage.getItem("accessToken");
+        socket = new WebSocket(`${wsUrl}?token=${token}`);
       }
 
       if (socket) {
-        socket.onopen = () => {
+        socket.onopen = event => {
           dispatch({ type: onOpen });
         };
 
-        socket.onerror = () => {
-          dispatch({ type: onError });
+        socket.onerror = event => {
+          dispatch({ type: onError, payload: { message: 'WebSocket error occurred' } });
         };
 
-        socket.onmessage = (event) => {
+        socket.onmessage = event => {
           const { data } = event;
-          const parsedData = JSON.parse(data);
-          const { success, ...restParsedData } = parsedData;
+          try {
+            const parsedData = JSON.parse(data);
+            const { success, ...restParsedData } = parsedData;
 
-          dispatch({ type: onMessage, payload: restParsedData });
+            dispatch({
+              type: wsActions.onMessage,  // Используйте корректный тип
+              payload: restParsedData  // Убедитесь, что данные соответствуют ожидаемым
+            });
+          } catch (error) {
+            console.error('Error parsing WebSocket message', error);
+          }
         };
 
-        socket.onclose = () => {
-          dispatch({ type: onClose });
+        socket.onclose = event => {
+          dispatch({
+            type: onClose,
+            payload: { code: event.code, reason: event.reason, wasClean: event.wasClean },
+          });
         };
 
-        if (type === wsSendMessage) {
-          const message = { ...payload, token: token };
+        if (type === wsSendMessage && socket.readyState === WebSocket.OPEN) {
+          const payload = (action as { payload: any }).payload;
+          const message = { ...payload, token: localStorage.getItem("accessToken") };
           socket.send(JSON.stringify(message));
-        }
-        if (type === wsClose) {
-          socket.close();
         }
       }
 
-      next(action);
+      return next(action);
     };
-  };
+  }) as Middleware;
 };
