@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ConstrucoirAvtorixationForm from "./ConstrucoirAvtorixationForm/ConstrucoirAvtorixationForm";
 import InputPlaceholder from "./ConstrucoirAvtorixationForm/InputPlaceholder";
 import {
@@ -10,8 +10,20 @@ import styles from "./singleСlass.module.css";
 import classNames from "classnames";
 import { NavLink, useNavigate } from "react-router-dom";
 import OrderFeedCart from "../components/OrderFeedConstructor/OrderFeedCart";
+import { useAppDispatch } from "../hooks/hooksDispath";
+import { useSelector } from "react-redux";
+import { RootState } from "../service/store";
+import { ORDERS_SLICE } from "../service/profileOrders";
 const ProfileOrders = () => {
   const navigate = useNavigate();
+
+  const dispatch = useAppDispatch();
+  const orders = useSelector((state: RootState) => state[ORDERS_SLICE].orders);
+
+  useEffect(() => {
+    dispatch({ type: "WS_CONNECTION_START_ORDERS" });
+    return () => {};
+  }, []);
 
   return (
     <div>
@@ -48,7 +60,9 @@ const ProfileOrders = () => {
           </p>
         </div>
         <div>
-      <OrderFeedCart/>
+        {orders?.map((order) => (
+            <OrderFeedCart key={order._id} order={order} />
+          ))}
       
       </div>
       </div>

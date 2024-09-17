@@ -1,25 +1,30 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import styles from './orderFeedConstructor.module.css'
 import { classNames } from 'primereact/utils'
-const OrderFeedCompleteInfo = () => {
+import { Order } from '../../service/actions/ordersFeedActions';
+
+type Props = {
+  orders: Order[];
+};
+
+const OrderFeedCompleteInfo = ({ orders }: Props) => {
+
+  const completedOrders = useMemo(() => orders.filter(order => order.status === "done").map(order => order.number).slice(0, 20), [orders]);
+  const processingOrders = useMemo(() => orders.filter(order => order.status !== "done").map(order => order.number).slice(0, 20), [orders]);
+
   return (
     <div className={styles['order__compleate']}>
       <div className={styles['order__compleate-work']}>
 <div className={styles['order__compleate-execute']}>
 <p className="text text_type_main-medium">Готовы:</p>
 <div className={classNames(styles['order__compleate-execute-text'],"text text_type_digits-default")}>
-    <p>034533</p>
-    <p>034533</p>
-    <p>034533</p>
-    <p>034533</p>
-    <p>034533</p>
+  {completedOrders.map(orderNumber => (<span key={orderNumber}>{orderNumber}</span>))}
 </div>
 </div>
-<div>
+<div className={styles['order__compleate-execute']}>
 <p className="text text_type_main-medium">В работе:</p>
-<div className="text text_type_digits-default">
-<p>034533</p>
-<p>034533</p>
+<div className={classNames(styles['order__compleate-execute-text'],"text text_type_digits-default")}>
+  {processingOrders.map(orderNumber => (<span key={orderNumber}>{orderNumber}</span>))}
 </div>
 </div>
       </div>

@@ -11,7 +11,6 @@ import { ORDERS_SLICE } from "../../service/profileOrders";
 const OrderFeedConstructor = () => {
   const dispatch = useAppDispatch();
   const orders = useSelector((state: RootState) => state[ORDERS_SLICE].orders);
-  console.log(orders);
 
   useEffect(() => {
     dispatch({ type: "WS_CONNECTION_START" });
@@ -28,7 +27,7 @@ const OrderFeedConstructor = () => {
           ))}
         </div>
         <div>
-          <OrderFeedCompleteInfo />
+          <OrderFeedCompleteInfo orders={orders}/>
         </div>
       </div>
     </div>

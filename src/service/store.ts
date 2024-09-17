@@ -29,7 +29,7 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
       socketMiddleware(
-        "wss://norma.nomoreparties.space/orders/all",
+        "wss://norma.nomoreparties.space/orders",
         wsAction
       ),
     ),

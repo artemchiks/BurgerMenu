@@ -22,12 +22,18 @@ export const createOrderApi = () => {
         return null;
       }
 
+      const accessToken = localStorage.getItem("accessToken");
+      if (!accessToken) {
+        return null;
+      }
+
       const idIngredients = data.ingridients.map((item) => item._id);
 
       const response = await fetch(ORDERS_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: accessToken,
         },
         body: JSON.stringify({
           ingredients: [data.bun._id, ...idIngredients, data.bun._id],

@@ -1,9 +1,13 @@
-import { WS_CONNECTION_CLOSED, WS_CONNECTION_ERROR, WS_CONNECTION_START, WS_CONNECTION_SUCCESS, WS_GET_MESSAGE, WS_SEND_MESSAGE } from "./actionsTypes";
+import { WS_CONNECTION_CLOSED, WS_CONNECTION_START_ORDERS,  WS_CONNECTION_ERROR, WS_CONNECTION_START, WS_CONNECTION_SUCCESS, WS_GET_MESSAGE, WS_SEND_MESSAGE } from "./actionsTypes";
 import { IMessage } from "./modelData";
 
   
   export interface IWSConnectionStart {
     readonly type: typeof WS_CONNECTION_START;
+  }
+
+  export interface IWSConnectionStartOrders {
+    readonly type: typeof WS_CONNECTION_START_ORDERS;
   }
   
   export interface IWSConnectionSuccess {
@@ -37,10 +41,12 @@ import { IMessage } from "./modelData";
     | IWSConnectionError
     | IWSConnectionClosed
     | IWSGetMessage
-    | IWSSendMessage;
+    | IWSSendMessage
+    | IWSConnectionStartOrders;
   
   export const wsAction = {
     wsInit: WS_CONNECTION_START,
+    wsInitOrders: WS_CONNECTION_START_ORDERS,
     wsSendMessage: WS_SEND_MESSAGE,
     onOpen: WS_CONNECTION_SUCCESS,
     onClose: WS_CONNECTION_CLOSED,

@@ -18,15 +18,27 @@ export const socketMiddleware =
     return next => (action: TWSActions) => {
       const { dispatch } = store;
       const { type } = action;
-      const { wsInit, wsSendMessage, onOpen, onClose, onError, onMessage } = wsActions;
+      const { wsInit, wsInitOrders, wsSendMessage, onOpen, onClose, onError, onMessage } = wsActions;
 
       if (type === wsInit) {
         if (socket !== null && socket.readyState !== WebSocket.CLOSED) {
-          // socket.close();
+          socket.close();
+        }
+
+        socket = new WebSocket(`${wsUrl}/all`);
+      }
+
+      if (type === wsInitOrders) {
+        if (socket !== null && socket.readyState !== WebSocket.CLOSED) {
+          socket.close();
         }
 
         const token = localStorage.getItem("accessToken");
-        socket = new WebSocket(`${wsUrl}?token=${token}`);
+        let realAccessToken: string = token || '';
+        if (realAccessToken.startsWith("Bearer")) {
+          realAccessToken = realAccessToken.slice(7);
+        }
+        socket = new WebSocket(`${wsUrl}?token=${realAccessToken}`);
       }
 
       if (socket) {

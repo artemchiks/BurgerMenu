@@ -24,7 +24,7 @@ import IngridinetPage from "../../pages/IngridinetPage";
 import IngredientDetails from "../DialogModal/IngredientDetails";
 import Modal from "../DialogModal/Modal";
 import { INGRIDIENT_DETALIS_SLICE } from "../../service/ingridientDetalis";
-import { isAuth, USER_SLICE } from "../../service/userSlice";
+import {  USER_SLICE } from "../../service/userSlice";
 import { ProgressSpinner } from "primereact/progressspinner";
 import { INGRIDIENT_LIST_SLICE } from "../../service/ingridientListSlice";
 import NotFound from "../../pages/NotFound";
