@@ -12,6 +12,8 @@ export interface Order {
   number: number;
   createdAt: string;
   updatedAt: string;
+  total?:number;
+  totalToday?:number;
 }
 
 export interface Response {

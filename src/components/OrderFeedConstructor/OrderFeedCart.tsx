@@ -9,24 +9,39 @@ import { INGRIDIENT_LIST_SLICE } from "../../service/ingridientListSlice";
 import moment from "moment";
 import { getDateDiff } from "../../utils/datetime";
 
-const OrderFeedCart = ({ order }: any) => {
- const ingridients = useSelector((state:RootState) => state[INGRIDIENT_LIST_SLICE]);
+const OrderFeedCart = ({ order, status }: any) => {
+  const ingridients = useSelector(
+    (state: RootState) => state[INGRIDIENT_LIST_SLICE]
+  );
 
-  const tooltipOverflow = (order.ingredients.length - 6) > 0 ? order.ingredients.length - 6  : 0;
+  const tooltipOverflow =
+    order.ingredients.length - 6 > 0 ? order.ingredients.length - 6 : 0;
 
-  const imgs = useMemo(() => (order.ingredients as string[]).slice(0, 6).map(ingridientId => ingridients.find(ing => ing._id === ingridientId)?.image), [order.ingridients]);
+  const imgs = useMemo(
+    () =>
+      (order.ingredients as string[])
+        .slice(0, 6)
+        .map(
+          (ingridientId) =>
+            ingridients.find((ing) => ing._id === ingridientId)?.image
+        ),
+    [order.ingridients]
+  );
 
-  const price = useMemo(() => (order.ingredients as string[]).reduce((acc, ingridientId) => {
-    acc += ingridients.find(ing => ing._id === ingridientId)?.price || 0;
-    return acc;
-  }, 0), [order.ingredients]);
+  const price = useMemo(
+    () =>
+      (order.ingredients as string[]).reduce((acc, ingridientId) => {
+        acc += ingridients.find((ing) => ing._id === ingridientId)?.price || 0;
+        return acc;
+      }, 0),
+    [order.ingredients]
+  );
 
   const orderCreatedTime = useMemo(() => {
     const daysDiff = getDateDiff(order.createdAt);
     const time = moment(order.createdAt).format("HH:mm");
 
     return `${daysDiff}, ${time}`;
-    //return [daysDiff, time].join(', ');
   }, [order.createdAt]);
 
   return (
@@ -44,11 +59,35 @@ const OrderFeedCart = ({ order }: any) => {
         </div>
         <div className={styles["order__carts-name"]}>
           <p className="text text_type_main-medium">{order.name}</p>
+          {status === "created" && (
+            <p className={`text text_type_main-default`}>Создан</p>
+          )}
+          {status === "pending" && (
+            <p className={` text text_type_main-default`}>Готовится</p>
+          )}
+          {status === "done" && (
+            <p
+              className={`${styles["order__compleate-execute-text-compleate"]} text text_type_main-default`}
+            >
+              Выполнен
+            </p>
+          )}
         </div>
-        <div>
-          <div className={styles["order__carts-content-img"]}>
-            {imgs.map((img, key) => (<img key={key} height="64px" width="64px" src={img} />))}
-          </div>
+        <div className={styles["order__carts-content"]}>
+          <ul className={styles.ingredientsContainer}>
+            {imgs.map((img, key) => (
+              <li className={styles.item} key={key}>
+                <img className={styles.image} src={img} alt="ingredient" />
+              </li>
+            ))}
+            {tooltipOverflow > 0 && (
+              <div
+                className={`${styles.moreIngredients} text text_type_digits-default`}
+              >
+                <span>+{tooltipOverflow}</span>
+              </div>
+            )}
+          </ul>
           <div className={styles["order__carts-content-price"]}>
             <p className="text text_type_main-medium">{price}</p>
             <CurrencyIcon type="primary" />

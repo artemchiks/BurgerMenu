@@ -33,6 +33,9 @@ export type RootState = {
     ingridients: (Ingredient & { key: string })[];
   };
   ingridientDetalis: {};
+  ordersSlice: { 
+    orders:[];
+  };
 };
 export interface CreateOrderResponse {
   order: {

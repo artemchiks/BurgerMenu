@@ -7,6 +7,7 @@ import { useAppDispatch } from "../../hooks/hooksDispath";
 import { useSelector } from "react-redux";
 import { RootState } from "../../service/store";
 import { ORDERS_SLICE } from "../../service/profileOrders";
+import DraggableOrdes from "./DraggableOrdes";
 
 const OrderFeedConstructor = () => {
   const dispatch = useAppDispatch();
@@ -21,13 +22,17 @@ const OrderFeedConstructor = () => {
     <div className={styles["order"]}>
       <h1 className="text text_type_main-large">Лента заказов</h1>
       <div className={styles["content__order"]}>
-        <div className={styles["content__order-detalis"]}>
+        <div>
           {orders.map((order) => (
-            <OrderFeedCart key={order._id} order={order} />
+            <DraggableOrdes key={order._id} items={order}>
+              <div key={order._id}>
+                <OrderFeedCart order={order} />
+              </div>
+            </DraggableOrdes>
           ))}
         </div>
         <div>
-          <OrderFeedCompleteInfo orders={orders}/>
+          <OrderFeedCompleteInfo orders={orders} />
         </div>
       </div>
     </div>

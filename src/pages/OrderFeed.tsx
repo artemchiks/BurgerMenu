@@ -1,12 +1,12 @@
-import React from 'react'
-import OrderFeedConstructor from '../components/OrderFeedConstructor/OrderFeedConstructor'
+import React from "react";
+import OrderFeedConstructor from "../components/OrderFeedConstructor/OrderFeedConstructor";
 
 const OrderFeed = () => {
   return (
     <div>
-      <OrderFeedConstructor/>
+      <OrderFeedConstructor />
     </div>
-  )
-}
+  );
+};
 
-export default OrderFeed
+export default OrderFeed;

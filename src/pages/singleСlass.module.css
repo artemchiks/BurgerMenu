@@ -22,12 +22,13 @@ flex-direction: column;
         justify-content: center;
         max-width: 1600px;
         margin-top: 120px;
-    align-items: center;
+ 
     }
     .container__profile-menu{
         list-style: none;
 
     }
+
     .container__profile-menu-chapter{
         width: 320px;
         height: 48px;
@@ -36,6 +37,7 @@ flex-direction: column;
     }
     
     .container__profile-menu-li{
+
         padding-bottom: 10px;
         cursor: pointer;
     }
@@ -81,4 +83,8 @@ flex-direction: column;
     width: 600px;
     height: 765px;
     scrollbar-width: thin;
+}
+.content__order-width{
+    margin-right: -180px;
+    width: 700px;
 }

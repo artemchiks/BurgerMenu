@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { INGRIDIENT_LIST_SLICE } from "../../service/ingridientListSlice";
 import { RootState } from "../../types/type";
 const IngredientDetails = () => {
-  const item = useSelector((state:RootState) => state[INGRIDIENT_LIST_SLICE]);
+  const item = useSelector((state: RootState) => state[INGRIDIENT_LIST_SLICE]);
   const { id } = useParams<{ id: string }>();
   const info = item.find((ingredient) => ingredient._id === id);
 

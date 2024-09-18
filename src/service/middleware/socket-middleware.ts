@@ -1,6 +1,5 @@
 import { Middleware, MiddlewareAPI } from "redux";
 import { AppDispatch, RootState } from "../store";
-import { getCurrentTimestamp } from "../../utils/datetime";
 import { TWSActions, wsAction } from "../../types/wsActions";
 
 type UpdatedRootState = RootState & {
@@ -21,16 +20,16 @@ export const socketMiddleware =
       const { wsInit, wsInitOrders, wsSendMessage, onOpen, onClose, onError, onMessage } = wsActions;
 
       if (type === wsInit) {
-        if (socket !== null && socket.readyState !== WebSocket.CLOSED) {
-          socket.close();
+        if (socket !== null && (socket.readyState === WebSocket.OPEN || socket.readyState === WebSocket.CONNECTING)) {
+          // socket.close();
         }
 
         socket = new WebSocket(`${wsUrl}/all`);
       }
 
       if (type === wsInitOrders) {
-        if (socket !== null && socket.readyState !== WebSocket.CLOSED) {
-          socket.close();
+        if (socket !== null && (socket.readyState === WebSocket.OPEN || socket.readyState === WebSocket.CONNECTING)) {
+          // socket.close();
         }
 
         const token = localStorage.getItem("accessToken");
@@ -57,8 +56,8 @@ export const socketMiddleware =
             const { success, ...restParsedData } = parsedData;
 
             dispatch({
-              type: wsActions.onMessage,  // Используйте корректный тип
-              payload: restParsedData  // Убедитесь, что данные соответствуют ожидаемым
+              type: wsActions.onMessage, 
+              payload: restParsedData  
             });
           } catch (error) {
             console.error('Error parsing WebSocket message', error);
