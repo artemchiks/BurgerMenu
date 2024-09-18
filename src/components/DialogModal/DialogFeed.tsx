@@ -6,11 +6,14 @@ import { RootState } from "../../types/type";
 import { ORDERS_SLICE } from "../../service/profileOrders";
 import { INGRIDIENT_LIST_SLICE } from "../../service/ingridientListSlice";
 import { useMemo } from "react";
+import { getDateDiff } from "../../utils/datetime";
+import moment from "moment";
 type Order = {
   number: string;
   name: string;
   status: string;
   ingredients: [];
+  createdAt: Date;
 };
 const DialogFeed = () => {
   const orders = useSelector(
@@ -19,6 +22,15 @@ const DialogFeed = () => {
   const { id } = useParams<{ id: string }>();
 
   const info = orders.find((order) => order.number.toString() === id);
+  const orderCreatedTime = useMemo(() => {
+    if (!info) return "";
+
+    const daysDiff = getDateDiff(info.createdAt);
+    const time = moment(info.createdAt).format("HH:mm");
+
+    return `${daysDiff}, ${time}`;
+  }, [info?.createdAt]);
+
   const ingridients = useSelector(
     (state: RootState) => state[INGRIDIENT_LIST_SLICE]
   );
@@ -58,6 +70,7 @@ const DialogFeed = () => {
               ))}
             </ul>
           </div>
+          <div>{orderCreatedTime}</div>
         </div>
       )}
     </div>
