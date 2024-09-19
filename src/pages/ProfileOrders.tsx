@@ -8,17 +8,16 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./singleСlass.module.css";
 import classNames from "classnames";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import OrderFeedCart from "../components/OrderFeedConstructor/OrderFeedCart";
 import { useAppDispatch } from "../hooks/hooksDispath";
 import { useSelector } from "react-redux";
 import { RootState } from "../service/store";
 import { ORDERS_SLICE } from "../service/profileOrders";
-import DraggableOrdes from "../components/OrderFeedConstructor/DraggableOrdes";
-import DraggbleProfile from "../components/OrderFeedConstructor/DraggbleProfile";
+
 const ProfileOrders = () => {
   const navigate = useNavigate();
-
+  const location = useLocation();
   const dispatch = useAppDispatch();
   const orders = useSelector((state: RootState) => state[ORDERS_SLICE].orders);
 
@@ -62,13 +61,18 @@ const ProfileOrders = () => {
       </div>
       <div className={styles["content__order-width"]}>
         {orders?.map((order) => (
-          <DraggbleProfile key={order._id} items={order}>
+          <Link
+            key={order._id}
+            to={`/profile/orders/${order.number}`}
+            state={{ background: location }}
+            className={styles["content__order-link"]}
+          >
             <OrderFeedCart
               key={order._id}
               order={order}
               status={order.status}
             />
-          </DraggbleProfile>
+          </Link>
         ))}
       </div>
     </div>

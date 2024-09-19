@@ -39,8 +39,10 @@ import Order from "../../pages/Order";
 function App() {
   const dispatch = useDispatch();
   const location = useLocation();
+  const pathArray = location.pathname.split("/").filter(Boolean);
+  const lastElement = pathArray[pathArray.length - 1];
 
-  console.log(location.pathname.split("/"));
+  console.log(lastElement);
   const background = location.state && location.state?.background;
 
   const isAuths = useSelector((state: RootState) => state[USER_SLICE]);
@@ -139,7 +141,7 @@ function App() {
             path="/profile/orders/:id"
             element={
               <ProtectedRoute authorized>
-                <Modal onClose={close}>
+                <Modal onClose={close} title={`#${lastElement}`}>
                   <DialogFeed />
                 </Modal>
               </ProtectedRoute>
@@ -152,7 +154,7 @@ function App() {
           <Route
             path="/feed/:id"
             element={
-              <Modal onClose={close}>
+              <Modal onClose={close} title={`#${lastElement}`}>
                 <DialogFeed />{" "}
               </Modal>
             }
