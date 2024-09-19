@@ -9,11 +9,12 @@ interface Draggable {
   children: ReactNode;
 }
 
-const DraggableOrdes = ({ items, children }: Draggable) => {
+const DraggbleProfile = ({ items, children }: Draggable) => {
   const location = useLocation();
+
   return (
     <Link
-      to={`/feed/${items.number}`}
+      to={`/profile/orders/${items.number}`}
       state={{ background: location }}
       className={styles["container__drag-item"]}
     >
@@ -22,4 +23,4 @@ const DraggableOrdes = ({ items, children }: Draggable) => {
   );
 };
 
-export default DraggableOrdes;
+export default DraggbleProfile;

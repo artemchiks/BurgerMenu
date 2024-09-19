@@ -7,31 +7,29 @@ import { USER_SLICE } from "../../service/userSlice";
 import { RootState } from "../../types/type";
 
 interface ProtectedRouteProps {
-  authorized: boolean; 
-  children: ReactNode; 
+  authorized: boolean;
+  children: ReactNode;
 }
 
-const ProtectedRoute = ({  children, authorized = true }:ProtectedRouteProps) => {
-  const user = useSelector((state:RootState) => state[USER_SLICE]);
-
+const ProtectedRoute = ({
+  children,
+  authorized = true,
+}: ProtectedRouteProps) => {
+  const user = useSelector((state: RootState) => state[USER_SLICE]);
   const isLoggedIn = !!user;
-
   const location = useLocation();
 
-  const from = location.state?.from.pathname || "/";
+  const from = location.state?.from?.pathname || "/";
 
-  if (authorized) {
-    if (!isLoggedIn) {
-      return <Navigate to="/login" replace state={{ from: location }} />;
-    }
-  } else {
-    if (isLoggedIn) {
-      return <Navigate to={from} />;
-    }
-
+  if (authorized && !isLoggedIn) {
+    return <Navigate to="/login" replace state={{ from: location }} />;
   }
 
-  return <>{children}</>
+  if (!authorized && isLoggedIn) {
+    return <Navigate to={from} />;
+  }
+
+  return <>{children}</>;
 };
 
 export default ProtectedRoute;

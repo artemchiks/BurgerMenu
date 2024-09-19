@@ -14,6 +14,8 @@ import { useAppDispatch } from "../hooks/hooksDispath";
 import { useSelector } from "react-redux";
 import { RootState } from "../service/store";
 import { ORDERS_SLICE } from "../service/profileOrders";
+import DraggableOrdes from "../components/OrderFeedConstructor/DraggableOrdes";
+import DraggbleProfile from "../components/OrderFeedConstructor/DraggbleProfile";
 const ProfileOrders = () => {
   const navigate = useNavigate();
 
@@ -60,7 +62,13 @@ const ProfileOrders = () => {
       </div>
       <div className={styles["content__order-width"]}>
         {orders?.map((order) => (
-          <OrderFeedCart key={order._id} order={order} status={order.status} />
+          <DraggbleProfile key={order._id} items={order}>
+            <OrderFeedCart
+              key={order._id}
+              order={order}
+              status={order.status}
+            />
+          </DraggbleProfile>
         ))}
       </div>
     </div>

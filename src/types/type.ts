@@ -50,4 +50,13 @@ export interface UserInfo {
   email: string;
   password: string;
 }
+
+export type Orders = {
+  _id: string;
+  number: string;
+  name: string;
+  status: string;
+  ingredients: [];
+  createdAt: Date;
+};
 export type AppDispatch = typeof store.dispatch;

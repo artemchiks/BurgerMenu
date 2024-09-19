@@ -11,10 +11,8 @@ import { USER_SLICE } from "../../service/userSlice";
 import { useSelector } from "react-redux";
 import { RootState } from "../../types/type";
 
-
-
 const AppHeader = () => {
-  const user = useSelector((state:RootState) => state[USER_SLICE]);
+  const user = useSelector((state: RootState) => state[USER_SLICE]);
   return (
     <header className={styles["conteiner__header"]}>
       <nav>
@@ -50,34 +48,34 @@ const AppHeader = () => {
                 )}
               </NavLink>
             </div>
-        
+
             <div
               className={classNames(
                 styles["app-header__btn-container__btn"],
                 "pl-5 pr-5 pb-5 pt-5"
               )}
             >
-                  <NavLink to={`/feed`}  className={({ isActive }) =>
+              <NavLink
+                to={`/feed`}
+                className={({ isActive }) =>
                   isActive ? styles.activeLink : styles.link
-                }>
-
-                   {({ isActive }) => (
+                }
+              >
+                {({ isActive }) => (
                   <div className={styles["app-header__btn-container-menu"]}>
                     {isActive ? (
-             
                       <ListIcon type="primary" />
                     ) : (
                       <ListIcon type="secondary" />
                     )}
 
-                   <span className="text text_type_main-default">Лента заказов</span>
+                    <span className="text text_type_main-default">
+                      Лента заказов
+                    </span>
                   </div>
                 )}
-           
-      
               </NavLink>
             </div>
-
           </div>
           <div className={styles["app-header__logo"]}>
             <NavLink to={`/`}>

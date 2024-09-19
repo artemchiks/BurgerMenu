@@ -9,6 +9,7 @@ import {
   Route,
   useLocation,
   useNavigate,
+  useParams,
 } from "react-router-dom";
 import { fetchIngridients } from "../../service/actions/ingridientActions";
 import Login from "../../pages/Login";
@@ -29,14 +30,17 @@ import { ProgressSpinner } from "primereact/progressspinner";
 import { INGRIDIENT_LIST_SLICE } from "../../service/ingridientListSlice";
 import NotFound from "../../pages/NotFound";
 import Profile from "../../pages/Profile";
-import { RootState } from "../../types/type";
+import { Orders, RootState } from "../../types/type";
 import OrderFeed from "../../pages/OrderFeed";
 import DialogFeed from "../DialogModal/DialogFeed";
 import { ORDERS_SLICE } from "../../service/profileOrders";
+import Order from "../../pages/Order";
 
 function App() {
   const dispatch = useDispatch();
   const location = useLocation();
+
+  console.log(location.pathname.split("/"));
   const background = location.state && location.state?.background;
 
   const isAuths = useSelector((state: RootState) => state[USER_SLICE]);
@@ -54,9 +58,6 @@ function App() {
     dispatch(fetchUserData() as any);
     dispatch(fetchIngridients() as any);
   }, [dispatch]);
-
-  const orders = useSelector(
-    (state: RootState) => state[ORDERS_SLICE].orders );
   return (
     <>
       <AppHeader />
@@ -115,6 +116,7 @@ function App() {
           />
           <Route path="/ingredients/:id" element={<IngridinetPage />} />
           <Route path="/feed" element={<OrderFeed />} />
+          <Route path="/feed/:id" element={<Order />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       )}
@@ -134,11 +136,11 @@ function App() {
         <Routes>
           {" "}
           <Route
-            path="/profile/orders/:number"
+            path="/profile/orders/:id"
             element={
               <ProtectedRoute authorized>
                 <Modal onClose={close}>
-                  <Profile />{" "}
+                  <DialogFeed />
                 </Modal>
               </ProtectedRoute>
             }
@@ -150,7 +152,7 @@ function App() {
           <Route
             path="/feed/:id"
             element={
-              <Modal onClose={close} >
+              <Modal onClose={close}>
                 <DialogFeed />{" "}
               </Modal>
             }
