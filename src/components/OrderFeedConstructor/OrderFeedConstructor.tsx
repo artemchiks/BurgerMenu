@@ -15,7 +15,7 @@ const OrderFeedConstructor = () => {
   const orders = useAppSelector((state) => state[ORDERS_SLICE].orders);
   const location = useLocation();
   useEffect(() => {
-    dispatch({ type: WS_CONNECTION_START });
+    dispatch({ type: WS_CONNECTION_START, payload: "/all" });
     return () => {
       dispatch({ type: WS_CONNECTION_CLOSED });
     };

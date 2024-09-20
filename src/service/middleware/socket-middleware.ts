@@ -8,32 +8,49 @@ type UpdatedRootState = RootState & {
   };
 };
 
-export const socketMiddleware = 
-  (wsUrl: string, wsActions: typeof wsAction): Middleware => {
-
+export const socketMiddleware = (
+  wsUrl: string,
+  wsActions: typeof wsAction
+): Middleware => {
   return ((store: MiddlewareAPI<AppDispatch, UpdatedRootState>) => {
     let socket: WebSocket | null = null;
 
-    return next => (action: TWSActions) => {
+    return (next) => (action: TWSActions) => {
       const { dispatch } = store;
-      const { type } = action;
-      const { wsInit, wsInitOrders, wsSendMessage, onOpen, onClose, onError, onMessage } = wsActions;
+      const { type, payload } = action;
+      const {
+        wsInit,
+        wsInitOrders,
+        wsSendMessage,
+        onOpen,
+        onClose,
+        onError,
+        onMessage,
+      } = wsActions;
 
       if (type === wsInit) {
-        if (socket !== null && (socket.readyState === WebSocket.OPEN || socket.readyState === WebSocket.CONNECTING)) {
+        if (
+          socket !== null &&
+          (socket.readyState === WebSocket.OPEN ||
+            socket.readyState === WebSocket.CONNECTING)
+        ) {
           // socket.close();
         }
 
-        socket = new WebSocket(`${wsUrl}/all`);
+        socket = new WebSocket(`${wsUrl}${payload}`);
       }
 
       if (type === wsInitOrders) {
-        if (socket !== null && (socket.readyState === WebSocket.OPEN || socket.readyState === WebSocket.CONNECTING)) {
+        if (
+          socket !== null &&
+          (socket.readyState === WebSocket.OPEN ||
+            socket.readyState === WebSocket.CONNECTING)
+        ) {
           // socket.close();
         }
 
         const token = localStorage.getItem("accessToken");
-        let realAccessToken: string = token || '';
+        let realAccessToken: string = token || "";
         if (realAccessToken.startsWith("Bearer")) {
           realAccessToken = realAccessToken.slice(7);
         }
@@ -41,39 +58,49 @@ export const socketMiddleware =
       }
 
       if (socket) {
-        socket.onopen = event => {
+        socket.onopen = (event) => {
           dispatch({ type: onOpen });
         };
 
-        socket.onerror = event => {
-          dispatch({ type: onError, payload: { message: 'WebSocket error occurred' } });
+        socket.onerror = (event) => {
+          dispatch({
+            type: onError,
+            payload: { message: "WebSocket error occurred" },
+          });
         };
 
-        socket.onmessage = event => {
+        socket.onmessage = (event) => {
           const { data } = event;
           try {
             const parsedData = JSON.parse(data);
             const { success, ...restParsedData } = parsedData;
 
             dispatch({
-              type: wsActions.onMessage, 
-              payload: restParsedData  
+              type: wsActions.onMessage,
+              payload: restParsedData,
             });
           } catch (error) {
-            console.error('Error parsing WebSocket message', error);
+            console.error("Error parsing WebSocket message", error);
           }
         };
 
-        socket.onclose = event => {
+        socket.onclose = (event) => {
           dispatch({
             type: onClose,
-            payload: { code: event.code, reason: event.reason, wasClean: event.wasClean },
+            payload: {
+              code: event.code,
+              reason: event.reason,
+              wasClean: event.wasClean,
+            },
           });
         };
 
         if (type === wsSendMessage && socket.readyState === WebSocket.OPEN) {
           const payload = (action as { payload: any }).payload;
-          const message = { ...payload, token: localStorage.getItem("accessToken") };
+          const message = {
+            ...payload,
+            token: localStorage.getItem("accessToken"),
+          };
           socket.send(JSON.stringify(message));
         }
       }
