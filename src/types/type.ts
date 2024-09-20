@@ -5,13 +5,19 @@ export type Ingredient = {
   _id: string;
   image?: string;
   name?: string;
-  price: number;
+  price?: number;
   type?: string;
   image_mobile?: string;
   calories?: number;
   proteins?: number;
   fat?: number;
   carbohydrates?: number;
+  bun?: {
+    _id: string;
+    image_mobile: string;
+    price: number;
+    name: string;
+  };
 };
 
 export type RootState = {
@@ -25,9 +31,9 @@ export type RootState = {
   };
   burgerConstructor: {
     bun: {
-      _id: string;
-      price: number;
-      image_mobile: string;
+      _id?: string;
+      price?: number;
+      image_mobile?: string;
       name?: string;
     };
     ingridients: (Ingredient & { key: string })[];

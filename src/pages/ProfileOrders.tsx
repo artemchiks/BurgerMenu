@@ -5,6 +5,10 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import OrderFeedCart from "../components/OrderFeedConstructor/OrderFeedCart";
 import { useAppDispatch, useAppSelector } from "../hooks/hooksDispath";
 import { ORDERS_SLICE } from "../service/profileOrders";
+import {
+  WS_CONNECTION_CLOSED,
+  WS_CONNECTION_START_ORDERS,
+} from "../types/actionsTypes";
 
 const ProfileOrders = () => {
   const location = useLocation();
@@ -12,9 +16,9 @@ const ProfileOrders = () => {
   const orders = useAppSelector((state) => state[ORDERS_SLICE].orders);
   console.log(orders);
   useEffect(() => {
-    dispatch({ type: "WS_CONNECTION_START_ORDERS" });
+    dispatch({ type: WS_CONNECTION_START_ORDERS });
     return () => {
-      dispatch({ type: "WS_CONNECTION_CLOSED" });
+      dispatch({ type: WS_CONNECTION_CLOSED });
     };
   }, [dispatch]);
 

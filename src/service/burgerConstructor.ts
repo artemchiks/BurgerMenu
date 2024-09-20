@@ -1,10 +1,7 @@
 import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
+import { Ingredient } from "../types/type";
 
-interface Ingredient {
-  _id: string;
-  key?: string;
-  price?:number;
-}
+
 
 interface BurgerConstructorState {
   bun: Ingredient | null;

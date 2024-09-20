@@ -1,14 +1,12 @@
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import ConstrucoirAvtorixationForm from "./ConstrucoirAvtorixationForm/ConstrucoirAvtorixationForm";
 import styles from "./singleСlass.module.css";
-import classNames from "classnames";
 import InputPlaceholder from "./ConstrucoirAvtorixationForm/InputPlaceholder";
 import {
   Button,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { resetPassApi } from "../service/actions/resetPasswordActions";
 import { useAppDispatch } from "../hooks/hooksDispath";
 const ResetPassword = () => {

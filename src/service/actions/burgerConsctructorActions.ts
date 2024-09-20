@@ -1,5 +1,7 @@
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ORDERS_URL } from "../../utils/api";
 import { checkResponse } from "../../utils/checkResponse";
+import { useSelector } from "react-redux";
 import {
   BURGER_CONSTRUCTOR_SLICE,
   resetConstructor,
@@ -47,7 +49,6 @@ export const createOrderApi = () => {
       }
     } catch (e) {
       console.error(e);
-      
     }
 
     return null;

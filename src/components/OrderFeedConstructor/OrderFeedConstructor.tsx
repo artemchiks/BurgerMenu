@@ -5,15 +5,19 @@ import OrderFeedCompleteInfo from "./OrderFeedCompleteInfo";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooksDispath";
 import { ORDERS_SLICE } from "../../service/profileOrders";
 import { Link, useLocation } from "react-router-dom";
+import {
+  WS_CONNECTION_CLOSED,
+  WS_CONNECTION_START,
+} from "../../types/actionsTypes";
 
 const OrderFeedConstructor = () => {
   const dispatch = useAppDispatch();
   const orders = useAppSelector((state) => state[ORDERS_SLICE].orders);
   const location = useLocation();
   useEffect(() => {
-    dispatch({ type: "WS_CONNECTION_START" });
+    dispatch({ type: WS_CONNECTION_START });
     return () => {
-      dispatch({ type: "WS_CONNECTION_CLOSED" });
+      dispatch({ type: WS_CONNECTION_CLOSED });
     };
   }, [dispatch]);
   return (

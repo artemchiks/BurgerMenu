@@ -4,10 +4,12 @@ import { IMessage } from "./modelData";
   
   export interface IWSConnectionStart {
     readonly type: typeof WS_CONNECTION_START;
+    readonly payload: string; 
   }
 
   export interface IWSConnectionStartOrders {
     readonly type: typeof WS_CONNECTION_START_ORDERS;
+    readonly payload: string; 
   }
   
   export interface IWSConnectionSuccess {

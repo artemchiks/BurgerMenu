@@ -1,18 +1,15 @@
-import React, { ChangeEvent, FormEvent, useRef, useState } from "react";
+import React, { ChangeEvent, FormEvent, useState } from "react";
 import ConstrucoirAvtorixationForm from "./ConstrucoirAvtorixationForm/ConstrucoirAvtorixationForm";
 import classNames from "classnames";
 import {
   Button,
   EmailInput,
-  Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./singleСlass.module.css";
 import { useNavigate } from "react-router-dom";
 import InputPlaceholder from "./ConstrucoirAvtorixationForm/InputPlaceholder";
-import { useCookies } from "react-cookie";
 import { registerApi } from "../service/actions/registerActions";
-import { useDispatch } from "react-redux";
 import { useAppDispatch } from "../hooks/hooksDispath";
 const Register = () => {
   const [email, setEmail] = useState<string>("");

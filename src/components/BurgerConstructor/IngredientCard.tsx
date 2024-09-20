@@ -46,7 +46,7 @@ const IngredientCard = ({ item, index }: Ingridient) => {
       </div>
       <ConstructorElement
         text={item.name ?? ""}
-        price={item.price}
+        price={item.price ?? 0}
         thumbnail={item.image_mobile ?? ""}
         extraClass={styles["color__div-item"]}
         handleClose={() => dispatch(removeIngridient(item._id))}

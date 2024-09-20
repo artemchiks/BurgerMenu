@@ -1,14 +1,11 @@
 import styles from "./dialogmodal.module.css";
 import classNames from "classnames";
 import image from "../../images/done.svg";
-import { useSelector } from "react-redux";
 import { ORDER_DETALIS_SLICE } from "../../service/orderDetalis";
-import { RootState } from "../../types/type";
+import { useAppSelector } from "../../hooks/hooksDispath";
 
 const OrderDetails = () => {
-  const order = useSelector(
-    (state: RootState) => state[ORDER_DETALIS_SLICE].order
-  );
+  const order = useAppSelector((state) => state[ORDER_DETALIS_SLICE].order);
 
   return (
     <div>
@@ -20,7 +17,7 @@ const OrderDetails = () => {
               "text text_type_digits-large"
             )}
           >
-            {order}
+            {`${order}`}
           </p>
         </div>
         <p

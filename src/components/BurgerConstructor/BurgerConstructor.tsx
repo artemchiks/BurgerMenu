@@ -5,7 +5,6 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burgerconstructor.module.css";
 import { useMemo, useState } from "react";
-import { useSelector } from "react-redux";
 import styless from "./stub.module.css";
 import {
   addIngredient,
@@ -28,16 +27,15 @@ const BurgerConstructor = () => {
   const [modalActive, setModalActive] = useState(false);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const data = useSelector(
-    (state: RootState) => state[BURGER_CONSTRUCTOR_SLICE]
-  );
+  const data = useAppSelector((state) => state[BURGER_CONSTRUCTOR_SLICE]);
 
   const user = useAppSelector((state) => state[USER_SLICE]);
   const [loading, setLoading] = useState(false);
   const price = useMemo(() => {
-    const bunPrice = data.bun ? data.bun.price * 2 : 0;
+    const bunPrice = data.bun?.price ? data.bun.price * 2 : 0;
     return (
-      data.ingridients.reduce((acc, item) => acc + item.price, 0) + bunPrice
+      data.ingridients.reduce((acc, item) => acc + (item.price ?? 0), 0) +
+      bunPrice
     );
   }, [data]);
 
@@ -86,14 +84,14 @@ const BurgerConstructor = () => {
             extraClass={styles["color__div-item"]}
             isLocked={true}
             text={`${data.bun.name} (верх)`}
-            price={data.bun.price}
-            thumbnail={data.bun.image_mobile}
+            price={data.bun.price ?? 0}
+            thumbnail={data.bun.image_mobile ?? ""}
           />
         )}
         {data.ingridients && data.ingridients.length > 0 ? (
           <div className={styles["constructor__content"]}>
             {data.ingridients.map((item, index) => (
-              <IngredientCard key={item.key} item={item} index={index} />
+              <IngredientCard key={item._id} item={item} index={index} />
             ))}
           </div>
         ) : (
@@ -111,8 +109,8 @@ const BurgerConstructor = () => {
             extraClass={styles["color__div-item"]}
             isLocked={true}
             text={`${data.bun.name} (низ)`}
-            price={data.bun.price}
-            thumbnail={data.bun.image_mobile}
+            price={data.bun.price ?? 0}
+            thumbnail={data.bun.image_mobile ?? ""}
           />
         )}
       </div>

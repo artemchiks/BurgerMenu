@@ -41,7 +41,9 @@ const Login = () => {
       return;
     }
 
-    const [isSuccess, loginError] = await dispatch(loginApi(email, password));
+    const [isSuccess, loginError] = await dispatch(
+      loginApi(email, password) as any
+    );
     if (isSuccess) {
       resetForm();
       navigate("/");

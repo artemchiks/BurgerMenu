@@ -1,7 +1,6 @@
 import React, { FC } from "react";
 import Modal from "./Modal";
 import IngredientDetails from "./IngredientDetails";
-import { useDispatch } from "react-redux";
 import { clearIngridient } from "../../service/ingridientDetalis";
 import { useAppDispatch } from "../../hooks/hooksDispath";
 

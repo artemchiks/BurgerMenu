@@ -3,7 +3,7 @@ import { LOGOUT_API } from "../../utils/api";
 import { logout } from "../userSlice";
 import { AppDispatch } from "../../types/type";
 
-export const logoutApi = () => async (dispatch:AppDispatch): Promise<boolean | undefined |void>  => {
+export const logoutApi = () => async (dispatch:any): Promise<boolean | undefined |void>  => {
   try {
     const refreshToken = localStorage.getItem("refreshToken");
     if (!refreshToken) {
