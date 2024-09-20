@@ -1,10 +1,8 @@
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { ReactNode } from "react";
 
 import { Navigate, useLocation } from "react-router-dom";
-
-import { useSelector } from "react-redux";
 import { USER_SLICE } from "../../service/userSlice";
-import { RootState } from "../../types/type";
+import { useAppSelector } from "../../hooks/hooksDispath";
 
 interface ProtectedRouteProps {
   authorized: boolean;
@@ -15,7 +13,7 @@ const ProtectedRoute = ({
   children,
   authorized = true,
 }: ProtectedRouteProps) => {
-  const user = useSelector((state: RootState) => state[USER_SLICE]);
+  const user = useAppSelector((state) => state[USER_SLICE]);
   const isLoggedIn = !!user;
   const location = useLocation();
 

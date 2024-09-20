@@ -2,25 +2,23 @@ import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import React, { FC } from "react";
+import { FC } from "react";
 import { useDrag, useDrop } from "react-dnd";
-import { useDispatch } from "react-redux";
 import styles from "./burgerconstructor.module.css";
-
 import {
   moveIngridient,
   removeIngridient,
 } from "../../service/burgerConstructor";
 import { Ingredient } from "../../types/type";
-
+import { useAppDispatch } from "../../hooks/hooksDispath";
 
 interface Ingridient {
-  index:number;
-  item:Ingredient;
+  index: number;
+  item: Ingredient;
 }
 
-const IngredientCard:FC<Ingridient> = ({ item, index }) => {
-  const dispatch = useDispatch();
+const IngredientCard = ({ item, index }: Ingridient) => {
+  const dispatch = useAppDispatch();
 
   const [, ref] = useDrag({
     type: "ingredient",
@@ -29,7 +27,7 @@ const IngredientCard:FC<Ingridient> = ({ item, index }) => {
 
   const [, drop] = useDrop({
     accept: "ingredient",
-    hover(hoveredItem:any) {
+    hover(hoveredItem: Ingridient) {
       if (hoveredItem.index !== index) {
         dispatch(
           moveIngridient({ fromIndex: hoveredItem.index, toIndex: index })

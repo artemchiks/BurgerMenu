@@ -4,18 +4,15 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useMemo } from "react";
 import styles from "./IngredietnsList.module.css";
-
-import { useSelector } from "react-redux";
 import { BURGER_CONSTRUCTOR_SLICE } from "../../../service/burgerConstructor";
 import { Ingredient, RootState } from "../../../types/type";
+import { useAppSelector } from "../../../hooks/hooksDispath";
 
 interface ItemCardProps {
   item: Ingredient;
 }
 export const ItemCard = ({ item }: ItemCardProps) => {
-  const list = useSelector(
-    (state: RootState) => state[BURGER_CONSTRUCTOR_SLICE]
-  );
+  const list = useAppSelector((state) => state[BURGER_CONSTRUCTOR_SLICE]);
 
   const count = useMemo(() => {
     if (!item) {

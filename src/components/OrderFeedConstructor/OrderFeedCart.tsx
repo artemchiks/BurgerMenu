@@ -1,17 +1,14 @@
 import React, { useMemo } from "react";
 import styles from "./orderFeedConstructor.module.css";
-import { classNames } from "primereact/utils";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector } from "react-redux";
-import { RootState } from "../../service/store";
-import { ORDERS_SLICE } from "../../service/profileOrders";
 import { INGRIDIENT_LIST_SLICE } from "../../service/ingridientListSlice";
 import moment from "moment";
 import { getDateDiff } from "../../utils/datetime";
+import { useAppSelector } from "../../hooks/hooksDispath";
 
 const OrderFeedCart = ({ order, status }: any) => {
-  const ingridients = useSelector(
-    (state: RootState) => state[INGRIDIENT_LIST_SLICE]
+  const ingridients = useAppSelector(
+    (state) => state[INGRIDIENT_LIST_SLICE]
   );
 
   const tooltipOverflow =

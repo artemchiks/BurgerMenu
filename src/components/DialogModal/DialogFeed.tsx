@@ -1,27 +1,23 @@
-import { useSelector } from "react-redux";
 import styles from "./dialogmodal.module.css";
 import { useParams } from "react-router-dom";
-import { Ingredient, Orders, RootState } from "../../types/type";
+import { Ingredient, RootState } from "../../types/type";
 import { ORDERS_SLICE } from "../../service/profileOrders";
 import { INGRIDIENT_LIST_SLICE } from "../../service/ingridientListSlice";
 import { useMemo } from "react";
 import { getDateDiff } from "../../utils/datetime";
 import moment from "moment";
 import { classNames } from "primereact/utils";
-import Modal from "./Modal";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useAppSelector } from "../../hooks/hooksDispath";
 
-type DialogFeedProps = {
-  onClose?: () => void;
-};
-const DialogFeed = ({ onClose }: DialogFeedProps) => {
+const DialogFeed = () => {
   const { id } = useParams<{ id: string }>();
 
-  const orders = useSelector(
-    (state: RootState) => state[ORDERS_SLICE].orders as Orders[]
+  const orders = useAppSelector(
+    (state) => state[ORDERS_SLICE].orders
   );
 
-  const info = orders.find((order: Orders) => order.number.toString() === id);
+  const info = orders.find((order) => order.number.toString() === id);
   const orderCreatedTime = useMemo(() => {
     if (!info) return "";
 
@@ -31,12 +27,12 @@ const DialogFeed = ({ onClose }: DialogFeedProps) => {
     return `${daysDiff}, ${time}`;
   }, [info?.createdAt]);
 
-  const ingridients = useSelector(
-    (state: RootState) => state[INGRIDIENT_LIST_SLICE]
+  const ingridients = useAppSelector(
+    (state) => state[INGRIDIENT_LIST_SLICE]
   );
   const ingredientsData: Ingredient[] = useMemo(() => {
     return (
-      info?.ingredients.map((ingridientId: any) => {
+      info?.ingredients.map((ingridientId: string) => {
         const ingridient = ingridients.find((ing) => ing._id === ingridientId);
         return {
           _id: ingridient?._id || "",
@@ -61,7 +57,6 @@ const DialogFeed = ({ onClose }: DialogFeedProps) => {
     info?.ingredients.forEach((id: string) => {
       counts[id] = (counts[id] || 0) + 1;
     });
-    console.log(counts);
     return counts;
   }, [info?.ingredients]);
 

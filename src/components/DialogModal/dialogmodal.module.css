@@ -107,6 +107,7 @@ overflow: hidden;
 margin-top: 28px;
 max-height: 400px;
 overflow-y: scroll;
+scrollbar-width: thin;
 position: relative;
 }
 
@@ -146,6 +147,7 @@ position: relative;
   justify-content: space-between;
   gap: 10px;
   align-items: center;
+  margin-top: 10px;
 }
 .content__feed-compound-ul-price{
   display: flex;
@@ -158,6 +160,7 @@ position: relative;
   justify-content: space-between;
   align-items: center;
   text-align: center;
+  padding-right: 10px;
 }
 .content__feed-name{
   max-width: 600px;

@@ -4,7 +4,6 @@ import InputPlaceholder from "./ConstrucoirAvtorixationForm/InputPlaceholder";
 import { useNavigate } from "react-router-dom";
 import styles from "./singleСlass.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch } from "react-redux";
 import { forgotPassApi } from "../service/actions/forgotPassActions";
 
 const ForgotPassword = () => {

@@ -8,11 +8,10 @@ import styles from "./appHeader.module.css";
 import classNames from "classnames";
 import { NavLink } from "react-router-dom";
 import { USER_SLICE } from "../../service/userSlice";
-import { useSelector } from "react-redux";
-import { RootState } from "../../types/type";
+import { useAppSelector } from "../../hooks/hooksDispath";
 
 const AppHeader = () => {
-  const user = useSelector((state: RootState) => state[USER_SLICE]);
+  const user = useAppSelector((state) => state[USER_SLICE]);
   return (
     <header className={styles["conteiner__header"]}>
       <nav>

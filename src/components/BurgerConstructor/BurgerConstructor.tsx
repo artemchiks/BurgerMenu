@@ -5,7 +5,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burgerconstructor.module.css";
 import { useMemo, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import styless from "./stub.module.css";
 import {
   addIngredient,
@@ -19,22 +19,20 @@ import { createOrderApi } from "../../service/actions/burgerConsctructorActions"
 import { USER_SLICE } from "../../service/userSlice";
 import { useNavigate } from "react-router-dom";
 import ModalLoader from "../DialogModal/ModalLoader";
-import {
-  clearIngridient,
-  INGRIDIENT_DETALIS_SLICE,
-} from "../../service/ingridientDetalis";
+import { clearIngridient } from "../../service/ingridientDetalis";
 import Modal from "../DialogModal/Modal";
 import OrderDetails from "../DialogModal/OrderDetails";
 import { Ingredient, RootState } from "../../types/type";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooksDispath";
 const BurgerConstructor = () => {
   const [modalActive, setModalActive] = useState(false);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const data = useSelector(
     (state: RootState) => state[BURGER_CONSTRUCTOR_SLICE]
   );
 
-  const user = useSelector((state: RootState) => state[USER_SLICE]);
+  const user = useAppSelector((state) => state[USER_SLICE]);
   const [loading, setLoading] = useState(false);
   const price = useMemo(() => {
     const bunPrice = data.bun ? data.bun.price * 2 : 0;
@@ -45,7 +43,7 @@ const BurgerConstructor = () => {
 
   const [, dropRef] = useDrop({
     accept: "burger",
-    drop(item:Ingredient) {
+    drop(item: Ingredient) {
       if (item.type === "bun") {
         dispatch(setBun(item));
       } else {
@@ -70,7 +68,7 @@ const BurgerConstructor = () => {
       setTimeout(() => {
         setLoading(false);
         setModalActive(true);
-      }, 15000);
+      });
     } else {
       setLoading(false);
     }

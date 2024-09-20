@@ -1,20 +1,20 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./IngredietnsList.module.css";
 import { Category } from "./Category";
-import { useDispatch, useSelector } from "react-redux";
 import { setIngridient } from "../../../service/ingridientDetalis";
-import { Ingredient, RootState } from "../../../types/type";
+import { Ingredient } from "../../../types/type";
+import { useAppDispatch, useAppSelector } from "../../../hooks/hooksDispath";
 
 interface IngredientsListProps {
   setCurrent: (current: string) => void;
 }
 const IngredietnsList = ({ setCurrent }: IngredientsListProps) => {
-  const list = useSelector((state: RootState) => state.ingridientList);
+  const list = useAppSelector((state) => state.ingridientList);
   const [active, setActive] = useState<boolean>(false);
   const itemList = (items: string): Ingredient[] =>
     list.filter((item) => item.type === items);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const bunList = itemList("bun");
   const sauceList = itemList("sauce");
   const mainList = itemList("main");

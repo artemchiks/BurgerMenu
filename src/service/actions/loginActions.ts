@@ -3,7 +3,7 @@ import { checkResponse } from "../../utils/checkResponse";
 import { AppDispatch } from "../../types/type";
 import { setUser } from "../userSlice";
 
-export const loginApi = (email:string, pass:string) => async (dispatch:AppDispatch) => {
+export const loginApi = (email: string, pass: string) => async (dispatch: AppDispatch): Promise<[boolean, string | null]> => {
   try {
     const response = await fetch(LOGIN_API, {
       method: "POST",
@@ -28,5 +28,6 @@ export const loginApi = (email:string, pass:string) => async (dispatch:AppDispat
     }
   } catch (e) {
     console.error("Произошла ошибка", e);
+    return [false, "Произошла ошибка"];
   }
 };

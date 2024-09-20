@@ -4,7 +4,7 @@ import { AppDispatch } from "../../types/type";
 import {} from "../burgerConstructor";
 import { setUser } from "../userSlice";
 
-export const registerApi = (email:string, password:string, name:string) => async (dispatch:AppDispatch) => {
+export const registerApi = (email:string, password:string, name:string) => async (dispatch:AppDispatch):Promise<[boolean, string | null]> => {
   try {
     const response = await fetch(REGISTER_API, {
       method: "POST",
@@ -28,5 +28,6 @@ export const registerApi = (email:string, password:string, name:string) => async
     }
   } catch (e) {
     console.log("Произошла ошибка", e);
+    return [false, "Произошла ошибка"];
   }
 };

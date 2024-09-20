@@ -51,12 +51,15 @@ export interface UserInfo {
   password: string;
 }
 
-export type Orders = {
+export interface Order {
+  ingredients: string[];
   _id: string;
-  number: string;
-  name: string;
   status: string;
-  ingredients: [];
+  number: number;
   createdAt: Date;
-};
+  updatedAt: Date;
+  total?:number;
+  totalToday?:number;
+  name?:string;
+}
 export type AppDispatch = typeof store.dispatch;

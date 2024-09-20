@@ -1,20 +1,9 @@
-import { AppDispatch } from "../../types/type";
+import { AppDispatch, Order } from "../../types/type";
 import { ORDERS_URL } from "../../utils/api";
-
 import { checkResponse } from "../../utils/checkResponse";
 import { setOrders } from "../profileOrders";
 
 
-export interface Order {
-  ingredients: string[];
-  _id: string;
-  status: string;
-  number: number;
-  createdAt: string;
-  updatedAt: string;
-  total?:number;
-  totalToday?:number;
-}
 
 export interface Response {
   success?: boolean;
@@ -26,10 +15,10 @@ export interface Response {
   };
 }
 
-export const ordersFeedApi = () => {
+export const ordersFeedApi = (orderId?: number) => {
   return async (dispatch: AppDispatch): Promise<Response> => {
     try {
-      const response = await fetch(`${ORDERS_URL}/5432`, {
+      const response = await fetch(`${ORDERS_URL}${orderId ? `/${orderId}` : ''}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

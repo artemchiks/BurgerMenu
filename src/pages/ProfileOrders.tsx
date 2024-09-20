@@ -1,30 +1,22 @@
 import React, { useEffect } from "react";
-import ConstrucoirAvtorixationForm from "./ConstrucoirAvtorixationForm/ConstrucoirAvtorixationForm";
-import InputPlaceholder from "./ConstrucoirAvtorixationForm/InputPlaceholder";
-import {
-  EditIcon,
-  EmailInput,
-  PasswordInput,
-} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./singleСlass.module.css";
 import classNames from "classnames";
-import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import OrderFeedCart from "../components/OrderFeedConstructor/OrderFeedCart";
-import { useAppDispatch } from "../hooks/hooksDispath";
-import { useSelector } from "react-redux";
-import { RootState } from "../service/store";
+import { useAppDispatch, useAppSelector } from "../hooks/hooksDispath";
 import { ORDERS_SLICE } from "../service/profileOrders";
 
 const ProfileOrders = () => {
-  const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useAppDispatch();
-  const orders = useSelector((state: RootState) => state[ORDERS_SLICE].orders);
-
+  const orders = useAppSelector((state) => state[ORDERS_SLICE].orders);
+  console.log(orders);
   useEffect(() => {
     dispatch({ type: "WS_CONNECTION_START_ORDERS" });
-    return () => {};
-  }, []);
+    return () => {
+      dispatch({ type: "WS_CONNECTION_CLOSED" });
+    };
+  }, [dispatch]);
 
   return (
     <div className={styles["container__profile"]}>

@@ -3,6 +3,7 @@ import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
 interface Ingredient {
   _id: string;
   key?: string;
+  price?:number;
 }
 
 interface BurgerConstructorState {

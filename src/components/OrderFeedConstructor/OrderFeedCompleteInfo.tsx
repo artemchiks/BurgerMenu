@@ -1,20 +1,17 @@
 import React, { useMemo } from "react";
 import styles from "./orderFeedConstructor.module.css";
 import { classNames } from "primereact/utils";
-import { Order } from "../../service/actions/ordersFeedActions";
-import { useSelector } from "react-redux";
-import { RootState } from "../../service/store";
 import { ORDERS_SLICE } from "../../service/profileOrders";
+import { useAppSelector } from "../../hooks/hooksDispath";
+import { Order } from "../../types/type";
 
 type Props = {
   orders: Order[];
 };
 
 const OrderFeedCompleteInfo = ({ orders }: Props) => {
-  const total = useSelector((state: RootState) => state[ORDERS_SLICE].total);
-  const totalTodat = useSelector(
-    (state: RootState) => state[ORDERS_SLICE].totalToday
-  );
+  const total = useAppSelector((state) => state[ORDERS_SLICE].total);
+  const totalTodat = useAppSelector((state) => state[ORDERS_SLICE].totalToday);
   const completedOrders = useMemo(
     () =>
       orders

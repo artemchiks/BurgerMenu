@@ -10,11 +10,12 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { resetPassApi } from "../service/actions/resetPasswordActions";
+import { useAppDispatch } from "../hooks/hooksDispath";
 const ResetPassword = () => {
   const [newPassword, setNewPassword] = useState<string>("");
   const [token, setToken] = useState<string>("");
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const handleNewPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     setNewPassword(e.target.value);
   };
@@ -25,7 +26,7 @@ const ResetPassword = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const sucsess = await dispatch(resetPassApi(newPassword, token)as any);
+    const sucsess = await dispatch(resetPassApi(newPassword, token));
     if (sucsess) {
       navigate("/login");
     }
