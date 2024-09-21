@@ -39,8 +39,8 @@ export type RootState = {
     ingridients: (Ingredient & { key: string })[];
   };
   ingridientDetalis: {};
-  ordersSlice: { 
-    orders:[];
+  ordersSlice: {
+    orders: [];
   };
 };
 export interface CreateOrderResponse {
@@ -64,8 +64,8 @@ export interface Order {
   number: number;
   createdAt: Date;
   updatedAt: Date;
-  total?:number;
-  totalToday?:number;
-  name?:string;
+  total?: number;
+  totalToday?: number;
+  name?: string;
 }
 export type AppDispatch = typeof store.dispatch;

@@ -1,8 +1,6 @@
 import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
 import { Ingredient } from "../types/type";
 
-
-
 interface BurgerConstructorState {
   bun: Ingredient | null;
   ingridients: Ingredient[];
@@ -24,14 +22,17 @@ export const burgerConstructorSlice = createSlice({
       },
       prepare(ingridient: Ingredient) {
         return {
-          payload: { ...ingridient, key: nanoid() },
+          payload: { ...ingridient, _id: nanoid() },
         };
       },
     },
     setBun(state, action: PayloadAction<Ingredient>) {
       state.bun = action.payload;
     },
-    moveIngridient(state, action: PayloadAction<{ fromIndex: number; toIndex: number }>) {
+    moveIngridient(
+      state,
+      action: PayloadAction<{ fromIndex: number; toIndex: number }>
+    ) {
       const { fromIndex, toIndex } = action.payload;
       const newIngridients = [...state.ingridients];
       const [movedIngredient] = newIngridients.splice(fromIndex, 1);
@@ -40,7 +41,9 @@ export const burgerConstructorSlice = createSlice({
     },
     removeIngridient(state, action: PayloadAction<string>) {
       const arrCopy = [...state.ingridients];
-      const indexItem = arrCopy.findIndex((item) => item._id === action.payload);
+      const indexItem = arrCopy.findIndex(
+        (item) => item._id === action.payload
+      );
       arrCopy.splice(indexItem, 1);
       state.ingridients = arrCopy;
     },
