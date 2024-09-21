@@ -91,7 +91,7 @@ const BurgerConstructor = () => {
         {data.ingridients && data.ingridients.length > 0 ? (
           <div className={styles["constructor__content"]}>
             {data.ingridients.map((item, index) => (
-              <IngredientCard key={item._id} item={item} index={index} />
+              <IngredientCard key={item.key} item={item} index={index} />
             ))}
           </div>
         ) : (

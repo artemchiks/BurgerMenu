@@ -22,7 +22,7 @@ export const burgerConstructorSlice = createSlice({
       },
       prepare(ingridient: Ingredient) {
         return {
-          payload: { ...ingridient, _id: nanoid() },
+          payload: { ...ingridient, key: nanoid() },
         };
       },
     },

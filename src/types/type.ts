@@ -3,6 +3,7 @@ import { store } from "../service/store";
 
 export type Ingredient = {
   _id: string;
+  key?: string;
   image?: string;
   name?: string;
   price?: number;
