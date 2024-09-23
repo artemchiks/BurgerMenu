@@ -16,9 +16,9 @@ root.render(
   <React.StrictMode>
     <DndProvider backend={HTML5Backend}>
       <Provider store={store}>
-      <BrowserRouter >
-        <App />
-        </BrowserRouter >
+        <HashRouter>
+          <App />
+        </HashRouter>
       </Provider>
     </DndProvider>
   </React.StrictMode>
