@@ -1,11 +1,11 @@
 import React, { FC } from "react";
 import Modal from "./Modal";
 import IngredientDetails from "./IngredientDetails";
-import { useDispatch } from "react-redux";
 import { clearIngridient } from "../../service/ingridientDetalis";
+import { useAppDispatch } from "../../hooks/hooksDispath";
 
 const IngridientsDialogBox= () => {
-  const dyspatch = useDispatch();
+  const dyspatch = useAppDispatch();
   const handleClose = () => {
     dyspatch(clearIngridient());
   };

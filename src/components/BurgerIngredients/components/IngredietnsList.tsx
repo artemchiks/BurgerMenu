@@ -1,27 +1,26 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./IngredietnsList.module.css";
 import { Category } from "./Category";
-
-import IngridientsDialogBox from "../../DialogModal/IngridientsDialogBox";
-import { useDispatch, useSelector } from "react-redux";
 import { setIngridient } from "../../../service/ingridientDetalis";
-import {  Ingredient, RootState } from "../../../types/type";
+import { Ingredient } from "../../../types/type";
+import { useAppDispatch, useAppSelector } from "../../../hooks/hooksDispath";
 
 interface IngredientsListProps {
   setCurrent: (current: string) => void;
 }
-const IngredietnsList = ({ setCurrent }:IngredientsListProps) => {
-  const list = useSelector((state:RootState) => state.ingridientList);
+const IngredietnsList = ({ setCurrent }: IngredientsListProps) => {
+  const list = useAppSelector((state) => state.ingridientList);
   const [active, setActive] = useState<boolean>(false);
-  const itemList = (items: string): Ingredient[] => list.filter(item => item.type === items);
+  const itemList = (items: string): Ingredient[] =>
+    list.filter((item) => item.type === items);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const bunList = itemList("bun");
   const sauceList = itemList("sauce");
   const mainList = itemList("main");
-  const bunRef = useRef<HTMLDivElement| null>(null);
+  const bunRef = useRef<HTMLDivElement | null>(null);
   const sauceRef = useRef<HTMLDivElement | null>(null);
-  const mainRef = useRef<HTMLDivElement | null> (null);
+  const mainRef = useRef<HTMLDivElement | null>(null);
 
   const handleScroll = () => {
     if (bunRef.current && sauceRef.current && mainRef.current) {
@@ -30,13 +29,13 @@ const IngredietnsList = ({ setCurrent }:IngredientsListProps) => {
       const mainPosition = mainRef.current.getBoundingClientRect().top;
 
       if (bunPosition < window.innerHeight && bunPosition >= 0) {
-          setCurrent("one");
+        setCurrent("one");
       } else if (saucePosition < window.innerHeight && saucePosition >= 0) {
-          setCurrent("two");
+        setCurrent("two");
       } else if (mainPosition < window.innerHeight && mainPosition >= 0) {
-          setCurrent("three");
+        setCurrent("three");
       }
-  }
+    }
   };
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -45,7 +44,7 @@ const IngredietnsList = ({ setCurrent }:IngredientsListProps) => {
     };
   }, []);
 
-  const handleSelectItem = (item:Ingredient) => {
+  const handleSelectItem = (item: Ingredient) => {
     dispatch(setIngridient(item));
     setActive(true);
   };

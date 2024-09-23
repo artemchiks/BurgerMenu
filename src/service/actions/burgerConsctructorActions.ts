@@ -1,13 +1,11 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ORDERS_URL } from "../../utils/api";
 import { checkResponse } from "../../utils/checkResponse";
-import { useSelector } from "react-redux";
 import {
   BURGER_CONSTRUCTOR_SLICE,
   resetConstructor,
 } from "../burgerConstructor";
 import { setArrayInrgidients } from "../orderDetalis";
-import { AppDispatch, CreateOrderResponse, RootState } from "../../types/type";
+import { AppDispatch, RootState } from "../../types/type";
 
 export const createOrderApi = () => {
   return async (
@@ -22,12 +20,18 @@ export const createOrderApi = () => {
         return null;
       }
 
+      const accessToken = localStorage.getItem("accessToken");
+      if (!accessToken) {
+        return null;
+      }
+
       const idIngredients = data.ingridients.map((item) => item._id);
 
       const response = await fetch(ORDERS_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: accessToken,
         },
         body: JSON.stringify({
           ingredients: [data.bun._id, ...idIngredients, data.bun._id],
@@ -38,7 +42,7 @@ export const createOrderApi = () => {
 
       if (app) {
         dispatch(setArrayInrgidients(app.order.number));
-        dispatch(resetConstructor(""));
+        dispatch(resetConstructor());
         return app;
       }
     } catch (e) {

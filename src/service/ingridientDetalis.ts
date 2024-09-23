@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+
 export const INGRIDIENT_DETALIS_SLICE = "ingridientDetalis";
 export const ingridientDetalisSlice = createSlice({
   name: INGRIDIENT_DETALIS_SLICE,

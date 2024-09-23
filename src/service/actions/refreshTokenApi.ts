@@ -27,7 +27,7 @@ export const refreshTokenApi = () => async (dispatch:AppDispatch): Promise<boole
     } else {
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
-      dispatch(logout(null));
+      dispatch(logout());
 
       console.error("Ошибка обновления токена:", data.message);
       return false;
@@ -36,7 +36,7 @@ export const refreshTokenApi = () => async (dispatch:AppDispatch): Promise<boole
     console.error("Произошла ошибка при обновлении токена:", error);
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
-    dispatch(logout(null));
+    dispatch(logout());
     return false;
   }
 };

@@ -3,15 +3,22 @@ import { store } from "../service/store";
 
 export type Ingredient = {
   _id: string;
+  key?: string;
   image?: string;
   name?: string;
-  price: number;
+  price?: number;
   type?: string;
   image_mobile?: string;
   calories?: number;
   proteins?: number;
   fat?: number;
   carbohydrates?: number;
+  bun?: {
+    _id: string;
+    image_mobile: string;
+    price: number;
+    name: string;
+  };
 };
 
 export type RootState = {
@@ -25,14 +32,17 @@ export type RootState = {
   };
   burgerConstructor: {
     bun: {
-      _id: string;
-      price: number;
-      image_mobile: string;
+      _id?: string;
+      price?: number;
+      image_mobile?: string;
       name?: string;
     };
     ingridients: (Ingredient & { key: string })[];
   };
   ingridientDetalis: {};
+  ordersSlice: {
+    orders: [];
+  };
 };
 export interface CreateOrderResponse {
   order: {
@@ -46,5 +56,17 @@ export interface UserInfo {
   name: string;
   email: string;
   password: string;
+}
+
+export interface Order {
+  ingredients: string[];
+  _id: string;
+  status: string;
+  number: number;
+  createdAt: Date;
+  updatedAt: Date;
+  total?: number;
+  totalToday?: number;
+  name?: string;
 }
 export type AppDispatch = typeof store.dispatch;

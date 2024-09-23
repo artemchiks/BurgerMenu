@@ -8,11 +8,11 @@ import styles from "./singleСlass.module.css";
 import classNames from "classnames";
 import { useNavigate } from "react-router-dom";
 import ConstrucoirAvtorixationForm from "./ConstrucoirAvtorixationForm/ConstrucoirAvtorixationForm";
-import { useDispatch } from "react-redux";
 import { loginApi } from "../service/actions/loginActions";
 import { useFormAndValidation } from "../hooks/useFormAndValidation";
+import { useAppDispatch } from "../hooks/hooksDispath";
 const Login = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { values, handleChange, errors, isValid, resetForm } =
     useFormAndValidation();
