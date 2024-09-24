@@ -37,7 +37,9 @@ function App() {
   const background = location.state && location.state?.background;
 
   const isAuths = useAppSelector((state) => state[USER_SLICE]);
-
+  console.log(
+    document.querySelectorAll("[class*='IngredietnsList_item__card__quGF1']")
+  );
   const navigate = useNavigate();
 
   function close() {
