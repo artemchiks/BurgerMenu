@@ -5,7 +5,6 @@ import ModalOverlay from "./ModalOverlay";
 import { createPortal } from "react-dom";
 import { FC, ReactNode, useCallback } from "react";
 
-
 const modalRoot = document.querySelector("#modal-root");
 
 interface ModalProps {
@@ -14,7 +13,7 @@ interface ModalProps {
   onClose?: () => void;
 }
 
-const Modal: FC<ModalProps> =  ({ title, children, onClose }) => {
+const Modal: FC<ModalProps> = ({ title, children, onClose }) => {
   const handleClose = useCallback(() => {
     if (onClose) {
       onClose();
@@ -44,7 +43,7 @@ const Modal: FC<ModalProps> =  ({ title, children, onClose }) => {
           >
             {title}
           </p>
-          <div className={styles["btn__close"]}>
+          <div data-testid="close_modal_icon" className={styles["btn__close"]}>
             <CloseIcon type="primary" onClick={handleClose} />
           </div>
         </div>
@@ -54,6 +53,5 @@ const Modal: FC<ModalProps> =  ({ title, children, onClose }) => {
     modalRoot as HTMLElement
   );
 };
-
 
 export default Modal;
