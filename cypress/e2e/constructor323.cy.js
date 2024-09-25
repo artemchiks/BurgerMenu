@@ -9,7 +9,7 @@ describe("Constructor page works correctly", () => {
     cy.intercept("POST", `${BASE_URL}/auth/token`).as("refreshToken");
 
     cy.visit("/login");
-    cy.get("[class=appHeader_link__0iMUd]").contains("Личный кабинет").click();
+    cy.get("[class^=appHeader_link__q8m04]").contains("Личный кабинет").click();
     cy.get("input[type=email]", { timeout: 10000 }).type(
       "artem01234567@mail.ru"
     );
@@ -48,7 +48,7 @@ describe("Constructor page works correctly", () => {
     cy.get("@constructor").trigger("drop");
 
     cy.get("@submit").click().wait("@postOrder");
-    cy.get("[class^=dialogmodal_btn__close__7nwfp]").click();
+    cy.get("[class*=dialogmodal_btn__close__nYtG7]").click();
   });
 });
 
