@@ -9,6 +9,7 @@ describe("Constructor page works correctly", () => {
     cy.intercept("POST", `${BASE_URL}/auth/token`).as("refreshToken");
 
     cy.visit("/login");
+    cy.get("[class=appHeader_link__0iMUd]").contains("Личный кабинет").click();
     cy.get("input[type=email]", { timeout: 10000 }).type(
       "artem01234567@mail.ru"
     );
@@ -20,7 +21,6 @@ describe("Constructor page works correctly", () => {
   });
 
   it("should open ingredients popup", () => {
-    cy.wait("@getIngredients");
     cy.get("[class*=IngredietnsList_item__card__]").first().click();
     cy.get("[class*=dialogmodal_btn__close__]").click();
   });
@@ -48,7 +48,7 @@ describe("Constructor page works correctly", () => {
     cy.get("@constructor").trigger("drop");
 
     cy.get("@submit").click().wait("@postOrder");
-    cy.get("[class^=modal_closeButton]").click();
+    cy.get("[class^=dialogmodal_btn__close__7nwfp]").click();
   });
 });
 
