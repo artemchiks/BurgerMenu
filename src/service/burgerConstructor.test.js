@@ -32,9 +32,9 @@ const middle = {
   carbohydrates: 420,
   calories: 3377,
   price: 4142,
-  image: "https://code.s3.yandex.net/react/code/cheese.png",
-  image_mobile: "https://code.s3.yandex.net/react/code/cheese-mobile.png",
-  image_large: "https://code.s3.yandex.net/react/code/cheese-large.png",
+  image: "http://code.s3.yandex.net/react/code/cheese.png",
+  image_mobile: "http://code.s3.yandex.net/react/code/cheese-mobile.png",
+  image_large: "http://code.s3.yandex.net/react/code/cheese-large.png",
   __v: 0,
 };
 
@@ -48,9 +48,9 @@ const middleList = [
     carbohydrates: 85,
     calories: 643,
     price: 988,
-    image: "https://code.s3.yandex.net/react/code/bun-01.png",
-    image_mobile: "https://code.s3.yandex.net/react/code/bun-01-mobile.png",
-    image_large: "https://code.s3.yandex.net/react/code/bun-01-large.png",
+    image: "http://code.s3.yandex.net/react/code/bun-01.png",
+    image_mobile: "http://code.s3.yandex.net/react/code/bun-01-mobile.png",
+    image_large: "http://code.s3.yandex.net/react/code/bun-01-large.png",
     __v: 0,
   },
   {
@@ -62,9 +62,9 @@ const middleList = [
     carbohydrates: 420,
     calories: 3377,
     price: 4142,
-    image: "https://code.s3.yandex.net/react/code/cheese.png",
-    image_mobile: "https://code.s3.yandex.net/react/code/cheese-mobile.png",
-    image_large: "https://code.s3.yandex.net/react/code/cheese-large.png",
+    image: "http://code.s3.yandex.net/react/code/cheese.png",
+    image_mobile: "http://code.s3.yandex.net/react/code/cheese-mobile.png",
+    image_large: "http://code.s3.yandex.net/react/code/cheese-large.png",
     __v: 0,
   },
 ];

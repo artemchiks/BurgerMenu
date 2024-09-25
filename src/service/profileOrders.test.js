@@ -22,14 +22,14 @@ const initialState = {
   orders: [],
   total: 0,
   totalToday: 0,
-  success: false, // Добавляем success в начальное состояние
+  success: false, 
 };
 
 const stateWithOrders = {
   orders: ordersInfo.orders,
   total: ordersInfo.total,
   totalToday: ordersInfo.totalToday,
-  success: true, // Добавляем success в ожидаемое состояние
+  success: true, 
 };
 
 describe("Тестирование редьюсера информации о заказах", () => {
