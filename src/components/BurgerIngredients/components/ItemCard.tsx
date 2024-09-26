@@ -9,7 +9,7 @@ import { Ingredient, RootState } from "../../../types/type";
 import { useAppSelector } from "../../../hooks/hooksDispath";
 
 interface ItemCardProps {
-  item: Ingredient;
+  item?: Ingredient;
 }
 export const ItemCard = ({ item }: ItemCardProps) => {
   const list = useAppSelector((state) => state[BURGER_CONSTRUCTOR_SLICE]);
@@ -29,8 +29,8 @@ export const ItemCard = ({ item }: ItemCardProps) => {
     }, 0);
   }, []);
   return (
-    <div key={item._id} className={styles["item__card"]}>
-      <img src={item.image} alt={item.name} />
+    <div key={item?._id} className={styles["item__card"]}>
+      <img src={item?.image} alt={item?.name} />
       {!count ? (
         count === 0
       ) : (
@@ -38,10 +38,10 @@ export const ItemCard = ({ item }: ItemCardProps) => {
       )}
       <div className={styles["item__card-text"]}>
         {" "}
-        {item.price}
+        {item?.price}
         <CurrencyIcon type="primary" />
       </div>
-      <p className="text text_type_main-small">{item.name}</p>
+      <p className="text text_type_main-small">{item?.name}</p>
     </div>
   );
 };

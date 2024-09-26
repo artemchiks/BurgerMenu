@@ -14,7 +14,6 @@ const ProfileOrders = () => {
   const location = useLocation();
   const dispatch = useAppDispatch();
   const orders = useAppSelector((state) => state[ORDERS_SLICE].orders);
-  console.log(orders);
   useEffect(() => {
     dispatch({ type: WS_CONNECTION_START_ORDERS, payload: "/orders" });
     return () => {

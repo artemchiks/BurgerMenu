@@ -1,4 +1,4 @@
-export const BASE_URL: string = "https://norma.nomoreparties.space/api";
+export const BASE_URL: string = "http://norma.nomoreparties.space/api";
 export const ORDERS_URL: string = `${BASE_URL}/orders`;
 export const INGRIDIENTS_URL: string = `${BASE_URL}/ingredients`;
 

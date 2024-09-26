@@ -2,6 +2,10 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+### Посмотреть проект можно по ссылке
+
+https://artemchiks.github.io/BurgerMenu/
+
 ## Available Scripts
 
 In the project directory, you can run:

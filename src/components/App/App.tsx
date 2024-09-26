@@ -116,7 +116,7 @@ function App() {
           <Route path="/ingredients/:id" element={<IngridinetPage />} />
           <Route path="/feed" element={<OrderFeed />} />
           <Route path="/feed/:id" element={<Order />} />
-          <Route path="*" element={<NotFound />} />
+          <Route path="/*" element={<NotFound />} />
         </Routes>
       )}
       {background && (

@@ -28,6 +28,7 @@ const initialState: OrdersState = {
         state.orders = action.payload.orders;
         state.total = action.payload.total;
         state.totalToday = action.payload.totalToday;
+        state.success = action.payload.success; 
       },
     },
     extraReducers: (builder) => {
@@ -35,6 +36,7 @@ const initialState: OrdersState = {
         state.orders = action.payload.orders;
         state.total = action.payload.total;
         state.totalToday = action.payload.totalToday;
+        state.success = action.payload.success;
       });
     }
   });

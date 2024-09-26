@@ -89,7 +89,10 @@ const AppHeader = () => {
               }
             >
               {({ isActive }) => (
-                <div className={styles["app-header__btn-container-menu"]}>
+                <div
+                  data-testid="link_to"
+                  className={styles["app-header__btn-container-menu"]}
+                >
                   {isActive ? (
                     <ProfileIcon type="primary" />
                   ) : (
